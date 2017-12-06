@@ -21,6 +21,7 @@ mybatis:
     default-executor-type: reuse
     lazy-loading-enabled: true
     default-statement-timeout: 25000
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
 logging:
   config: classpath:log4j2.xml
 ---
