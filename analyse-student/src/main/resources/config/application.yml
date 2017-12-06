@@ -21,7 +21,8 @@ mybatis:
     default-executor-type: reuse
     lazy-loading-enabled: true
     default-statement-timeout: 25000
-
+logging:
+  config: classpath:log4j2.xml
 ---
 spring:
     profiles: dev
