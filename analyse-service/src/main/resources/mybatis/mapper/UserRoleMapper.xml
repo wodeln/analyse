@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bolean.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.bolean.entity.User">
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="head_img" jdbcType="VARCHAR" property="headImg" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="sex" jdbcType="BIT" property="sex" />
-    <result column="status" jdbcType="BIT" property="status" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+<mapper namespace="com.bolean.dao.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.bolean.entity.UserRole">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_id" jdbcType="INTEGER" property="createId" />
@@ -77,16 +72,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, head_img, password, real_name, sex, status, user_name, user_tel, create_time, 
-    update_time, create_id, create_name, update_id, update_name, memo
+    id, role_id, user_id, create_time, update_time, create_id, create_name, update_id, 
+    update_name, memo
   </sql>
-  <select id="selectByExample" parameterType="com.bolean.entity.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.bolean.entity.UserRoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_user
+    from tb_user_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -105,57 +100,40 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_user
-    where user_id = #{userId,jdbcType=INTEGER}
+    from tb_user_role
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_user
-    where user_id = #{userId,jdbcType=INTEGER}
+    delete from tb_user_role
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.bolean.entity.UserExample">
-    delete from tb_user
+  <delete id="deleteByExample" parameterType="com.bolean.entity.UserRoleExample">
+    delete from tb_user_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bolean.entity.User">
-    insert into tb_user (user_id, head_img, password, 
-      real_name, sex, status, user_name, 
-      user_tel, create_time, update_time, 
-      create_id, create_name, update_id, 
-      update_name, memo)
-    values (#{userId,jdbcType=INTEGER}, #{headImg,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{status,jdbcType=BIT}, #{userName,jdbcType=VARCHAR}, 
-      #{userTel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, #{updateId,jdbcType=INTEGER}, 
-      #{updateName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.bolean.entity.UserRole">
+    insert into tb_user_role (id, role_id, user_id, 
+      create_time, update_time, create_id, 
+      create_name, update_id, update_name, 
+      memo)
+    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=INTEGER}, 
+      #{createName,jdbcType=VARCHAR}, #{updateId,jdbcType=INTEGER}, #{updateName,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bolean.entity.User">
-    insert into tb_user
+  <insert id="insertSelective" parameterType="com.bolean.entity.UserRole">
+    insert into tb_user_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
       <if test="userId != null">
         user_id,
-      </if>
-      <if test="headImg != null">
-        head_img,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="realName != null">
-        real_name,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="userTel != null">
-        user_tel,
       </if>
       <if test="createTime != null">
         create_time,
@@ -180,29 +158,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="headImg != null">
-        #{headImg,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=BIT},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=BIT},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userTel != null">
-        #{userTel,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -227,38 +190,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.bolean.entity.UserExample" resultType="java.lang.Long">
-    select count(*) from tb_user
+  <select id="countByExample" parameterType="com.bolean.entity.UserRoleExample" resultType="java.lang.Long">
+    select count(*) from tb_user_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tb_user
+    update tb_user_role
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
-      <if test="record.headImg != null">
-        head_img = #{record.headImg,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.realName != null">
-        real_name = #{record.realName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.sex != null">
-        sex = #{record.sex,jdbcType=BIT},
-      </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=BIT},
-      </if>
-      <if test="record.userName != null">
-        user_name = #{record.userName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userTel != null">
-        user_tel = #{record.userTel,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -287,15 +235,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tb_user
-    set user_id = #{record.userId,jdbcType=INTEGER},
-      head_img = #{record.headImg,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      real_name = #{record.realName,jdbcType=VARCHAR},
-      sex = #{record.sex,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      user_tel = #{record.userTel,jdbcType=VARCHAR},
+    update tb_user_role
+    set id = #{record.id,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       create_id = #{record.createId,jdbcType=INTEGER},
@@ -307,29 +250,14 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bolean.entity.User">
-    update tb_user
+  <update id="updateByPrimaryKeySelective" parameterType="com.bolean.entity.UserRole">
+    update tb_user_role
     <set>
-      <if test="headImg != null">
-        head_img = #{headImg,jdbcType=VARCHAR},
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        real_name = #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=BIT},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=BIT},
-      </if>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userTel != null">
-        user_tel = #{userTel,jdbcType=VARCHAR},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -353,17 +281,12 @@
         memo = #{memo,jdbcType=VARCHAR},
       </if>
     </set>
-    where user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bolean.entity.User">
-    update tb_user
-    set head_img = #{headImg,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      real_name = #{realName,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=BIT},
-      status = #{status,jdbcType=BIT},
-      user_name = #{userName,jdbcType=VARCHAR},
-      user_tel = #{userTel,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.bolean.entity.UserRole">
+    update tb_user_role
+    set role_id = #{roleId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       create_id = #{createId,jdbcType=INTEGER},
@@ -371,6 +294,6 @@
       update_id = #{updateId,jdbcType=INTEGER},
       update_name = #{updateName,jdbcType=VARCHAR},
       memo = #{memo,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

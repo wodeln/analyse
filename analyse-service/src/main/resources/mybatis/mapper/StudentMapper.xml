@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bolean.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.bolean.entity.User">
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
+<mapper namespace="com.bolean.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.bolean.entity.Student">
+    <id column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
     <result column="head_img" jdbcType="VARCHAR" property="headImg" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="sex" jdbcType="BIT" property="sex" />
     <result column="status" jdbcType="BIT" property="status" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="student_age" jdbcType="INTEGER" property="studentAge" />
+    <result column="student_card_num" jdbcType="VARCHAR" property="studentCardNum" />
+    <result column="student_code" jdbcType="VARCHAR" property="studentCode" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="student_sex" jdbcType="BIT" property="studentSex" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_id" jdbcType="INTEGER" property="createId" />
@@ -17,6 +18,8 @@
     <result column="update_id" jdbcType="INTEGER" property="updateId" />
     <result column="update_name" jdbcType="VARCHAR" property="updateName" />
     <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="isIn" jdbcType="BIT" property="isin" />
+    <result column="is_in" jdbcType="INTEGER" property="isIn" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,16 +80,17 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, head_img, password, real_name, sex, status, user_name, user_tel, create_time, 
-    update_time, create_id, create_name, update_id, update_name, memo
+    student_id, class_id, head_img, status, student_age, student_card_num, student_code, 
+    student_name, student_sex, create_time, update_time, create_id, create_name, update_id, 
+    update_name, memo, isIn, is_in
   </sql>
-  <select id="selectByExample" parameterType="com.bolean.entity.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.bolean.entity.StudentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_user
+    from tb_student
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -105,57 +109,62 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_user
-    where user_id = #{userId,jdbcType=INTEGER}
+    from tb_student
+    where student_id = #{studentId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_user
-    where user_id = #{userId,jdbcType=INTEGER}
+    delete from tb_student
+    where student_id = #{studentId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.bolean.entity.UserExample">
-    delete from tb_user
+  <delete id="deleteByExample" parameterType="com.bolean.entity.StudentExample">
+    delete from tb_student
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bolean.entity.User">
-    insert into tb_user (user_id, head_img, password, 
-      real_name, sex, status, user_name, 
-      user_tel, create_time, update_time, 
-      create_id, create_name, update_id, 
-      update_name, memo)
-    values (#{userId,jdbcType=INTEGER}, #{headImg,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{status,jdbcType=BIT}, #{userName,jdbcType=VARCHAR}, 
-      #{userTel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, #{updateId,jdbcType=INTEGER}, 
-      #{updateName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.bolean.entity.Student">
+    insert into tb_student (student_id, class_id, head_img, 
+      status, student_age, student_card_num, 
+      student_code, student_name, student_sex, 
+      create_time, update_time, create_id, 
+      create_name, update_id, update_name, 
+      memo, isIn, is_in)
+    values (#{studentId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, #{headImg,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{studentAge,jdbcType=INTEGER}, #{studentCardNum,jdbcType=VARCHAR}, 
+      #{studentCode,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{studentSex,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=INTEGER}, 
+      #{createName,jdbcType=VARCHAR}, #{updateId,jdbcType=INTEGER}, #{updateName,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{isin,jdbcType=BIT}, #{isIn,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.bolean.entity.User">
-    insert into tb_user
+  <insert id="insertSelective" parameterType="com.bolean.entity.Student">
+    insert into tb_student
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="classId != null">
+        class_id,
       </if>
       <if test="headImg != null">
         head_img,
       </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="realName != null">
-        real_name,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
       <if test="status != null">
         status,
       </if>
-      <if test="userName != null">
-        user_name,
+      <if test="studentAge != null">
+        student_age,
       </if>
-      <if test="userTel != null">
-        user_tel,
+      <if test="studentCardNum != null">
+        student_card_num,
+      </if>
+      <if test="studentCode != null">
+        student_code,
+      </if>
+      <if test="studentName != null">
+        student_name,
+      </if>
+      <if test="studentSex != null">
+        student_sex,
       </if>
       <if test="createTime != null">
         create_time,
@@ -178,31 +187,40 @@
       <if test="memo != null">
         memo,
       </if>
+      <if test="isin != null">
+        isIn,
+      </if>
+      <if test="isIn != null">
+        is_in,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
       </if>
       <if test="headImg != null">
         #{headImg,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=BIT},
-      </if>
       <if test="status != null">
         #{status,jdbcType=BIT},
       </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
+      <if test="studentAge != null">
+        #{studentAge,jdbcType=INTEGER},
       </if>
-      <if test="userTel != null">
-        #{userTel,jdbcType=VARCHAR},
+      <if test="studentCardNum != null">
+        #{studentCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCode != null">
+        #{studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSex != null">
+        #{studentSex,jdbcType=BIT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -225,40 +243,49 @@
       <if test="memo != null">
         #{memo,jdbcType=VARCHAR},
       </if>
+      <if test="isin != null">
+        #{isin,jdbcType=BIT},
+      </if>
+      <if test="isIn != null">
+        #{isIn,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.bolean.entity.UserExample" resultType="java.lang.Long">
-    select count(*) from tb_user
+  <select id="countByExample" parameterType="com.bolean.entity.StudentExample" resultType="java.lang.Long">
+    select count(*) from tb_student
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tb_user
+    update tb_student
     <set>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+      <if test="record.studentId != null">
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classId != null">
+        class_id = #{record.classId,jdbcType=INTEGER},
       </if>
       <if test="record.headImg != null">
         head_img = #{record.headImg,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.realName != null">
-        real_name = #{record.realName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.sex != null">
-        sex = #{record.sex,jdbcType=BIT},
-      </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=BIT},
       </if>
-      <if test="record.userName != null">
-        user_name = #{record.userName,jdbcType=VARCHAR},
+      <if test="record.studentAge != null">
+        student_age = #{record.studentAge,jdbcType=INTEGER},
       </if>
-      <if test="record.userTel != null">
-        user_tel = #{record.userTel,jdbcType=VARCHAR},
+      <if test="record.studentCardNum != null">
+        student_card_num = #{record.studentCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentCode != null">
+        student_code = #{record.studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentName != null">
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentSex != null">
+        student_sex = #{record.studentSex,jdbcType=BIT},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -281,55 +308,67 @@
       <if test="record.memo != null">
         memo = #{record.memo,jdbcType=VARCHAR},
       </if>
+      <if test="record.isin != null">
+        isIn = #{record.isin,jdbcType=BIT},
+      </if>
+      <if test="record.isIn != null">
+        is_in = #{record.isIn,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tb_user
-    set user_id = #{record.userId,jdbcType=INTEGER},
+    update tb_student
+    set student_id = #{record.studentId,jdbcType=INTEGER},
+      class_id = #{record.classId,jdbcType=INTEGER},
       head_img = #{record.headImg,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      real_name = #{record.realName,jdbcType=VARCHAR},
-      sex = #{record.sex,jdbcType=BIT},
       status = #{record.status,jdbcType=BIT},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      user_tel = #{record.userTel,jdbcType=VARCHAR},
+      student_age = #{record.studentAge,jdbcType=INTEGER},
+      student_card_num = #{record.studentCardNum,jdbcType=VARCHAR},
+      student_code = #{record.studentCode,jdbcType=VARCHAR},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      student_sex = #{record.studentSex,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       create_id = #{record.createId,jdbcType=INTEGER},
       create_name = #{record.createName,jdbcType=VARCHAR},
       update_id = #{record.updateId,jdbcType=INTEGER},
       update_name = #{record.updateName,jdbcType=VARCHAR},
-      memo = #{record.memo,jdbcType=VARCHAR}
+      memo = #{record.memo,jdbcType=VARCHAR},
+      isIn = #{record.isin,jdbcType=BIT},
+      is_in = #{record.isIn,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bolean.entity.User">
-    update tb_user
+  <update id="updateByPrimaryKeySelective" parameterType="com.bolean.entity.Student">
+    update tb_student
     <set>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
       <if test="headImg != null">
         head_img = #{headImg,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        real_name = #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=BIT},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=BIT},
       </if>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
+      <if test="studentAge != null">
+        student_age = #{studentAge,jdbcType=INTEGER},
       </if>
-      <if test="userTel != null">
-        user_tel = #{userTel,jdbcType=VARCHAR},
+      <if test="studentCardNum != null">
+        student_card_num = #{studentCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCode != null">
+        student_code = #{studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null">
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSex != null">
+        student_sex = #{studentSex,jdbcType=BIT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -352,25 +391,34 @@
       <if test="memo != null">
         memo = #{memo,jdbcType=VARCHAR},
       </if>
+      <if test="isin != null">
+        isIn = #{isin,jdbcType=BIT},
+      </if>
+      <if test="isIn != null">
+        is_in = #{isIn,jdbcType=INTEGER},
+      </if>
     </set>
-    where user_id = #{userId,jdbcType=INTEGER}
+    where student_id = #{studentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bolean.entity.User">
-    update tb_user
-    set head_img = #{headImg,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      real_name = #{realName,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=BIT},
+  <update id="updateByPrimaryKey" parameterType="com.bolean.entity.Student">
+    update tb_student
+    set class_id = #{classId,jdbcType=INTEGER},
+      head_img = #{headImg,jdbcType=VARCHAR},
       status = #{status,jdbcType=BIT},
-      user_name = #{userName,jdbcType=VARCHAR},
-      user_tel = #{userTel,jdbcType=VARCHAR},
+      student_age = #{studentAge,jdbcType=INTEGER},
+      student_card_num = #{studentCardNum,jdbcType=VARCHAR},
+      student_code = #{studentCode,jdbcType=VARCHAR},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      student_sex = #{studentSex,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       create_id = #{createId,jdbcType=INTEGER},
       create_name = #{createName,jdbcType=VARCHAR},
       update_id = #{updateId,jdbcType=INTEGER},
       update_name = #{updateName,jdbcType=VARCHAR},
-      memo = #{memo,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
+      memo = #{memo,jdbcType=VARCHAR},
+      isIn = #{isin,jdbcType=BIT},
+      is_in = #{isIn,jdbcType=INTEGER}
+    where student_id = #{studentId,jdbcType=INTEGER}
   </update>
 </mapper>
