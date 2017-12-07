@@ -2,11 +2,12 @@ package com.bolean.dao;
 
 import com.bolean.entity.User;
 import com.bolean.entity.UserExample;
+import mybatis.basemapper.BaseMapper;
 
 import java.util.List;
 
-public interface UserMapper {
-    long countByExample(UserExample example);
+public interface UserMapper extends BaseMapper<User> {
+    /*long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
 
@@ -22,5 +23,5 @@ public interface UserMapper {
 
     int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(User record);*/
 }

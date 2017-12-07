@@ -16,8 +16,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUser() {
-        return userMapper.getAll();
+//        return userMapper.getAll();
 //        return null;
+//        userMapper.selectCount()
+        return null;
     }
 
     /*@Autowired

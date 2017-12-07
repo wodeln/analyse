@@ -24,6 +24,10 @@ mybatis:
     log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
 logging:
   config: classpath:log4j2.xml
+mapper:
+  mappers: mybatis.basemapper.BaseMapper
+  not-empty: false
+  identity: MYSQL
 ---
 spring:
     profiles: dev
