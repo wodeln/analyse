@@ -1,11 +1,13 @@
 package com.bolean.entity;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 
  */
+@Table(name = "tb_user")
 public class User implements Serializable {
     private Integer userId;
 

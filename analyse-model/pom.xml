@@ -12,5 +12,11 @@
     <groupId>com.parent</groupId>
     <artifactId>analyse-model</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.common</groupId>
+            <artifactId>analyse-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
