@@ -3,15 +3,18 @@ spring:
     active: dev
   session:
     store-type: none
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML5
-    encoding: UTF-8
-    cache: false
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    suffix: .html
+#    mode: HTML5
+#    encoding: UTF-8
+#    cache: false
 #  jpa:
 #    show-sql: true
 #    database: mysql
+beetlsql:
+    enabled: false
+
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.bolean.entity

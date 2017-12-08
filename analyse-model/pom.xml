@@ -12,10 +12,4 @@
     <groupId>com.parent</groupId>
     <artifactId>analyse-model</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId></groupId>
-            <artifactId></artifactId>
-        </dependency>
-    </dependencies>
 </project>
