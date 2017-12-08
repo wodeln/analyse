@@ -2,6 +2,7 @@ package com.bolean.controller;
 
 
 import com.bolean.entity.User;
+import com.bolean.entity.UserExample;
 import com.bolean.service.UserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -42,14 +43,24 @@ public class IndexController {
     @RequestMapping("getAllUser")
     public void getAllUser(){
         PageHelper.startPage(1, 5);
-        List<User> users=userService.getAllUser();
+        /*List<User> users=userService.getAllUser();
 //        PageInfo
-        System.out.println("-----------"+users);
+        System.out.println("-----------"+users);*/
     }
 
     @RequestMapping("beetl.html")
     public String beetlTest(Model model){
         model.addAttribute("name","hello,world");
         return "/beetl.html";
+    }
+
+    @RequestMapping("example.html")
+    public String selectByExample(){
+        UserExample example=new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andRealNameLike("zhaoyan");
+        User user = new User();
+        userService.select(user);
+        return "";
     }
 }

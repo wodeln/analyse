@@ -1,0 +1,72 @@
+package com.bolean.service;
+
+import com.bolean.entity.User;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
+import java.util.Map;
+
+public interface BaseService<T> {
+
+    /**
+     * 获取所有对象列表
+     * @return List<T> 对象列表
+     */
+    List<T> selectAll();
+
+    /**
+     * 根据传入对象属性获取相应对象列表
+     * @param t 对象
+     * @return List<T> 对象列表
+     */
+    List<T> select(T t);
+
+    /**
+     * 根据主键获取对象信息
+     * @param id 主键ID
+     * @return T 对象信息
+     */
+    T selectByPrimaryKey(long id);
+
+    /**
+     * 根据传入对象属性获取对象信息
+     * @param t 对象
+     * @return T 对象信息
+     */
+    T selectOne(T t);
+
+    /**
+     * 新增对象信息
+     * @param t 对象信息
+     * @return int
+     */
+    int insert(T t);
+
+    /**
+     * 批量新增对象信息
+     * @param ts 对象List
+     * @return int
+     */
+    int insertList(List<T> ts);
+
+    /**
+     * 根据主键更新对象信息
+     * @param t 对象
+     * @return int
+     */
+    int updateByPrimaryKey(T t);
+
+    /**
+     * 根据传入对象属性获取相应数量
+     * @param t 对象
+     * @return int
+     */
+    int selectCount(T t);
+
+    /**
+     * 根据example 获取对象列表
+     * @param example
+     * @return List<T>对象列表
+     */
+    List<T> selectByExample(Example example);
+}

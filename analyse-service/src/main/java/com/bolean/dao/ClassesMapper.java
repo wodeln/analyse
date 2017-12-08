@@ -3,25 +3,14 @@ package com.bolean.dao;
 
 import com.bolean.entity.Classes;
 import com.bolean.entity.ClassesExample;
+import mybatis.basemapper.BaseMapper;
+import org.springframework.jdbc.support.nativejdbc.OracleJdbc4NativeJdbcExtractor;
 
 import java.util.List;
+import java.util.Map;
 
-public interface ClassesMapper {
-    long countByExample(ClassesExample example);
+public interface ClassesMapper extends BaseMapper<Classes> {
+    List<Classes> selectByMap(Map<String,Object> map);
 
-    int deleteByExample(ClassesExample example);
-
-    int deleteByPrimaryKey(Integer classId);
-
-    int insert(Classes record);
-
-    int insertSelective(Classes record);
-
-    List<Classes> selectByExample(ClassesExample example);
-
-    Classes selectByPrimaryKey(Integer classId);
-
-    int updateByPrimaryKeySelective(Classes record);
-
-    int updateByPrimaryKey(Classes record);
+    List<Classes> selectByClasses(Classes classes);
 }

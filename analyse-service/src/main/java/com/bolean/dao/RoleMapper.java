@@ -1,26 +1,13 @@
 package com.bolean.dao;
 
 import com.bolean.entity.Role;
-import com.bolean.entity.RoleExample;
+import mybatis.basemapper.BaseMapper;
 
 import java.util.List;
+import java.util.Map;
 
-public interface RoleMapper {
-    long countByExample(RoleExample example);
+public interface RoleMapper extends BaseMapper<Role> {
+    List<Role> selectByMap(Map<String,Object> map);
 
-    int deleteByExample(RoleExample example);
-
-    int deleteByPrimaryKey(Integer roleId);
-
-    int insert(Role record);
-
-    int insertSelective(Role record);
-
-    List<Role> selectByExample(RoleExample example);
-
-    Role selectByPrimaryKey(Integer roleId);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
+    List<Role> selectByRole(Role role);
 }

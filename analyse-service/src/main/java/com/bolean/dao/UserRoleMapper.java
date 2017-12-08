@@ -2,25 +2,13 @@ package com.bolean.dao;
 
 import com.bolean.entity.UserRole;
 import com.bolean.entity.UserRoleExample;
+import mybatis.basemapper.BaseMapper;
 
 import java.util.List;
+import java.util.Map;
 
-public interface UserRoleMapper {
-    long countByExample(UserRoleExample example);
+public interface UserRoleMapper extends BaseMapper<UserRole>{
+    List<UserRole> selectByMap(Map<String,Object> map);
 
-    int deleteByExample(UserRoleExample example);
-
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(UserRole record);
-
-    int insertSelective(UserRole record);
-
-    List<UserRole> selectByExample(UserRoleExample example);
-
-    UserRole selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(UserRole record);
-
-    int updateByPrimaryKey(UserRole record);
+    List<UserRole> selectInfoByUserRole(UserRole userRole);
 }

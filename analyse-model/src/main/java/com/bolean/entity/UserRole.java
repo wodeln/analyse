@@ -54,6 +54,47 @@ public class UserRole implements Serializable {
      */
     private String memo;
 
+
+    //User信息
+    /**
+     * 头像
+     */
+    private String headImg;
+
+    /**
+     * 真实姓名
+     */
+    private String realName;
+
+    /**
+     * 性别 1:男 2:女
+     */
+    private Boolean sex;
+
+    /**
+     * 状态 0:删除 1:锁定 2:正常
+     */
+    private Boolean status;
+
+    /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
+     * 联系电话
+     */
+    private String userTel;
+
+    //role信息
+
+    private String keyName;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -134,6 +175,70 @@ public class UserRole implements Serializable {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public Boolean getSex() {
+        return sex;
+    }
+
+    public void setSex(Boolean sex) {
+        this.sex = sex;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserTel() {
+        return userTel;
+    }
+
+    public void setUserTel(String userTel) {
+        this.userTel = userTel;
+    }
+
+    public String getKeyName() {
+        return keyName;
+    }
+
+    public void setKeyName(String keyName) {
+        this.keyName = keyName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
