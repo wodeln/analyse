@@ -6,6 +6,8 @@ import com.bolean.service.UserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +32,13 @@ public class IndexController {
         return "hello  world";
     }
 
-
+    /**
+     * 获取用户列表
+     * @param
+     * @return
+     */
+    @ApiOperation(value="获取用户列表", notes="分页获取用户列表")
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", paramType = "path")
     @RequestMapping("getAllUser")
     public void getAllUser(){
         PageHelper.startPage(1, 5);
