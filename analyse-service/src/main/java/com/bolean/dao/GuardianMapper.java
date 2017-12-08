@@ -3,7 +3,6 @@ package com.bolean.dao;
 
 import com.bolean.entity.Guardian;
 import com.bolean.entity.GuardianExample;
-import org.jboss.logging.Param;
 
 import java.util.List;
 
