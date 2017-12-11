@@ -1,8 +1,10 @@
 package com.bolean.controller;
 
 
+import com.bolean.entity.Student;
 import com.bolean.entity.User;
 import com.bolean.entity.UserExample;
+import com.bolean.service.StudentService;
 import com.bolean.service.UserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -27,6 +29,9 @@ public class IndexController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping("index")
     public  String index(){
@@ -61,6 +66,9 @@ public class IndexController {
         criteria.andRealNameLike("zhaoyan");
         User user = new User();
         userService.select(user);
+        Student student = new Student();
+        student.setClassId(1);
+//        studentService
         return "";
     }
 }

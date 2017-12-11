@@ -60,12 +60,12 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public List<UserRole> selectByMap(Map<String, Object> map) {
-        return userRoleMapper.selectByMap(map);
+    public List<UserRole> selectByInfo(Map<String, Object> map) {
+        return userRoleMapper.selectByInfo(map);
     }
 
     @Override
-    public List<UserRole> selectInfoByUserRole(UserRole userRole) {
-        return userRoleMapper.selectInfoByUserRole(userRole);
+    public List<UserRole> selectByInfo(UserRole userRole) {
+        return userRoleMapper.selectByInfo(userRole);
     }
 }

@@ -2,26 +2,10 @@ package com.bolean.dao;
 
 
 import com.bolean.entity.Student;
-import com.bolean.entity.StudentExample;
+import mybatis.basemapper.BaseMapper;
 
 import java.util.List;
+import java.util.Map;
 
-public interface StudentMapper {
-    long countByExample(StudentExample example);
-
-    int deleteByExample(StudentExample example);
-
-    int deleteByPrimaryKey(Integer studentId);
-
-    int insert(Student record);
-
-    int insertSelective(Student record);
-
-    List<Student> selectByExample(StudentExample example);
-
-    Student selectByPrimaryKey(Integer studentId);
-
-    int updateByPrimaryKeySelective(Student record);
-
-    int updateByPrimaryKey(Student record);
+public interface StudentMapper extends BaseMapper<Student>{
 }

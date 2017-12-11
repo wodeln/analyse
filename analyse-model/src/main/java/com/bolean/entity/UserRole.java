@@ -69,12 +69,12 @@ public class UserRole implements Serializable {
     /**
      * 性别 1:男 2:女
      */
-    private Boolean sex;
+    private int sex;
 
     /**
      * 状态 0:删除 1:锁定 2:正常
      */
-    private Boolean status;
+    private int status;
 
     /**
      * 用户名
@@ -193,19 +193,19 @@ public class UserRole implements Serializable {
         this.realName = realName;
     }
 
-    public Boolean getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
-    public Boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

@@ -61,7 +61,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectByMap(Map<String, Object> map) {
-        return userMapper.selectByMap(map);
+    public List<User> selectByInfo(Map<String, Object> map) {
+        return userMapper.selectByInfo(map);
+    }
+
+    @Override
+    public List<User> selectByInfo(User user) {
+        return userMapper.selectByInfo(user);
     }
 }

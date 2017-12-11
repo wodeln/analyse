@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Service
 public interface UserService extends BaseService<User>{
-    List<User> selectByMap(Map<String, Object> map);
+    List<User> selectByInfo(Map<String,Object> map);
 
-    List<User> selectByUser(User user);
+    List<User> selectByInfo(User user);
 }

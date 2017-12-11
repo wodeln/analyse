@@ -59,7 +59,12 @@ public class ClassesServiceImpl implements ClassesService {
     }
 
     @Override
-    public List<Classes> selectByMap(Map<String, Object> map) {
-        return classesMapper.selectByMap(map);
+    public List<Classes> selectByInfo(Map<String, Object> map) {
+        return classesMapper.selectByInfo(map);
+    }
+
+    @Override
+    public List<Classes> selectByInfo(Classes classes) {
+        return classesMapper.selectByInfo(classes);
     }
 }

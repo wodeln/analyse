@@ -16,7 +16,7 @@ public class Student implements Serializable {
     /**
      * 状态 0:删除 1:锁定 2:正常
      */
-    private Boolean status;
+    private int status;
 
     /**
      * 学生年龄
@@ -41,7 +41,7 @@ public class Student implements Serializable {
     /**
      * 性别 1:男 2:女
      */
-    private Boolean studentSex;
+    private int studentSex;
 
     /**
      * 添加时间
@@ -72,6 +72,11 @@ public class Student implements Serializable {
      * 更新人姓名
      */
     private String updateName;
+
+    /**
+     * 班级名称
+     */
+    private String className;
 
     /**
      * 备注
@@ -111,11 +116,11 @@ public class Student implements Serializable {
         this.headImg = headImg;
     }
 
-    public Boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -151,11 +156,11 @@ public class Student implements Serializable {
         this.studentName = studentName;
     }
 
-    public Boolean getStudentSex() {
+    public int getStudentSex() {
         return studentSex;
     }
 
-    public void setStudentSex(Boolean studentSex) {
+    public void setStudentSex(int studentSex) {
         this.studentSex = studentSex;
     }
 
@@ -231,61 +236,12 @@ public class Student implements Serializable {
         this.isIn = isIn;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        Student other = (Student) that;
-        return (this.getStudentId() == null ? other.getStudentId() == null : this.getStudentId().equals(other.getStudentId()))
-            && (this.getClassId() == null ? other.getClassId() == null : this.getClassId().equals(other.getClassId()))
-            && (this.getHeadImg() == null ? other.getHeadImg() == null : this.getHeadImg().equals(other.getHeadImg()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getStudentAge() == null ? other.getStudentAge() == null : this.getStudentAge().equals(other.getStudentAge()))
-            && (this.getStudentCardNum() == null ? other.getStudentCardNum() == null : this.getStudentCardNum().equals(other.getStudentCardNum()))
-            && (this.getStudentCode() == null ? other.getStudentCode() == null : this.getStudentCode().equals(other.getStudentCode()))
-            && (this.getStudentName() == null ? other.getStudentName() == null : this.getStudentName().equals(other.getStudentName()))
-            && (this.getStudentSex() == null ? other.getStudentSex() == null : this.getStudentSex().equals(other.getStudentSex()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getCreateId() == null ? other.getCreateId() == null : this.getCreateId().equals(other.getCreateId()))
-            && (this.getCreateName() == null ? other.getCreateName() == null : this.getCreateName().equals(other.getCreateName()))
-            && (this.getUpdateId() == null ? other.getUpdateId() == null : this.getUpdateId().equals(other.getUpdateId()))
-            && (this.getUpdateName() == null ? other.getUpdateName() == null : this.getUpdateName().equals(other.getUpdateName()))
-            && (this.getMemo() == null ? other.getMemo() == null : this.getMemo().equals(other.getMemo()))
-            && (this.getIsin() == null ? other.getIsin() == null : this.getIsin().equals(other.getIsin()))
-            && (this.getIsIn() == null ? other.getIsIn() == null : this.getIsIn().equals(other.getIsIn()));
+    public String getClassName() {
+        return className;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getStudentId() == null) ? 0 : getStudentId().hashCode());
-        result = prime * result + ((getClassId() == null) ? 0 : getClassId().hashCode());
-        result = prime * result + ((getHeadImg() == null) ? 0 : getHeadImg().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getStudentAge() == null) ? 0 : getStudentAge().hashCode());
-        result = prime * result + ((getStudentCardNum() == null) ? 0 : getStudentCardNum().hashCode());
-        result = prime * result + ((getStudentCode() == null) ? 0 : getStudentCode().hashCode());
-        result = prime * result + ((getStudentName() == null) ? 0 : getStudentName().hashCode());
-        result = prime * result + ((getStudentSex() == null) ? 0 : getStudentSex().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getCreateId() == null) ? 0 : getCreateId().hashCode());
-        result = prime * result + ((getCreateName() == null) ? 0 : getCreateName().hashCode());
-        result = prime * result + ((getUpdateId() == null) ? 0 : getUpdateId().hashCode());
-        result = prime * result + ((getUpdateName() == null) ? 0 : getUpdateName().hashCode());
-        result = prime * result + ((getMemo() == null) ? 0 : getMemo().hashCode());
-        result = prime * result + ((getIsin() == null) ? 0 : getIsin().hashCode());
-        result = prime * result + ((getIsIn() == null) ? 0 : getIsIn().hashCode());
-        return result;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     @Override

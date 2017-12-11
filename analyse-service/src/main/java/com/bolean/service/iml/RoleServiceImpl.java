@@ -59,7 +59,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> selectByMap(Map<String, Object> map) {
-        return roleMapper.selectByMap(map);
+    public List<Role> selectByInfo(Map<String, Object> map) {
+        return roleMapper.selectByInfo(map);
+    }
+
+    @Override
+    public List<Role> selectByInfo(Role role) {
+        return roleMapper.selectByInfo(role);
     }
 }

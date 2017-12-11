@@ -8,7 +8,4 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserRoleMapper extends BaseMapper<UserRole>{
-    List<UserRole> selectByMap(Map<String,Object> map);
-
-    List<UserRole> selectInfoByUserRole(UserRole userRole);
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ClassesService extends BaseService<Classes> {
-    List<Classes> selectByMap(Map<String, Object> map);
+    List<Classes> selectByInfo(Map<String, Object> map);
 
-    List<Classes> selectByClasses(Classes classes);
+    List<Classes> selectByInfo(Classes classes);
 }

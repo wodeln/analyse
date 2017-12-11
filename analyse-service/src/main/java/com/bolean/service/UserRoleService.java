@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserRoleService extends BaseService<UserRole> {
-    public List<UserRole> selectByMap(Map<String, Object> map);
+    List<UserRole> selectByInfo(Map<String, Object> map);
 
-    List<UserRole> selectInfoByUserRole(UserRole userRole);
+    List<UserRole> selectByInfo(UserRole userRole);
 }

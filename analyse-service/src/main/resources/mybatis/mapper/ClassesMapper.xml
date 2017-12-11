@@ -39,7 +39,7 @@
     <include refid="where"/>
   </select>
 
-  <select id="selectByClasses" resultMap="BaseResultMap" parameterType="com.bolean.entity.Classes">
+  <select id="selectByInfo" resultMap="BaseResultMap" parameterType="java.lang.Object">
     select
     <include refid="Base_Column_List"/>
     from tb_class

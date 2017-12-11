@@ -53,7 +53,7 @@
     <include refid="where"/>
   </select>
 
-  <select id="selectInfoByUserRole" resultMap="UserRoleMap" parameterType="com.bolean.entity.UserRole">
+  <select id="selectByInfo" resultMap="UserRoleMap" parameterType="java.lang.Object">
     select
     <include refid="User_Role_Column_List"/>
     from tb_user_role AS ur

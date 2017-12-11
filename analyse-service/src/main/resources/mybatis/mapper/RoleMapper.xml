@@ -42,10 +42,10 @@
     <include refid="where"/>
   </select>
 
-  <select id="selectByRole" resultMap="BaseResultMap" parameterType="com.bolean.entity.Role">
+  <select id="selectByInfo" resultMap="BaseResultMap" parameterType="java.lang.Object">
     select
-    <include refid="Base_Column_List"/>
+      <include refid="Base_Column_List"/>
     from tb_role
-    <include refid="where"/>
+      <include refid="where"/>
   </select>
 </mapper>

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface RoleService extends BaseService<Role> {
-    List<Role> selectByMap(Map<String, Object> map);
+    List<Role> selectByInfo(Map<String, Object> map);
 
-    List<Role> selectByRole(Role role);
+    List<Role> selectByInfo(Role role);
 }

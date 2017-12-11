@@ -8,7 +8,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserMapper extends BaseMapper<User> {
-    List<User> selectByMap(Map<String,Object> map);
-
-    List<User> selectByRole(User user);
+    List<User> selectByInfo(Object o);
 }

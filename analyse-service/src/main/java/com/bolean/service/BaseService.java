@@ -69,4 +69,9 @@ public interface BaseService<T> {
      * @return List<T>对象列表
      */
     List<T> selectByExample(Example example);
+/*
+
+    List<T> selectByInfo(T t);
+
+    List<T> selectByInfo(Map<String,Object> map);*/
 }
