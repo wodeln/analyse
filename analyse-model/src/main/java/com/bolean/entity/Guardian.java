@@ -1,13 +1,15 @@
 package com.bolean.entity;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 
  */
+@Table(name="tb_guardian")
 public class Guardian implements Serializable {
-    private Integer id;
+    private Integer guardianId;
 
     /**
      * 监护人姓名
@@ -62,11 +64,11 @@ public class Guardian implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
-        return id;
+        return guardianId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.guardianId = id;
     }
 
     public String getGuardianName() {
@@ -198,7 +200,7 @@ public class Guardian implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
+        sb.append(", guardianId=").append(guardianId);
         sb.append(", guardianName=").append(guardianName);
         sb.append(", guardianTel=").append(guardianTel);
         sb.append(", studentId=").append(studentId);
