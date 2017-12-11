@@ -18,6 +18,35 @@ public class RoleFolder implements Serializable {
      */
     private Integer roleId;
 
+    /**
+     * 权限(菜单)名称
+     */
+    private String folderName;
+
+    private String keyName;
+
+    /**
+     * 父ID
+     */
+    private Integer parentId;
+
+    /**
+     * 排序
+     */
+    private Integer sort;
+
+    /**
+     * 地址
+     */
+    private String url;
+
+    private String roleKeyName;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -36,12 +65,68 @@ public class RoleFolder implements Serializable {
         this.folderId = folderId;
     }
 
+    public String getFolderName() {
+        return folderName;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
+
+    public String getKeyName() {
+        return keyName;
+    }
+
+    public void setKeyName(String keyName) {
+        this.keyName = keyName;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Integer getRoleId() {
         return roleId;
     }
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public String getRoleKeyName() {
+        return roleKeyName;
+    }
+
+    public void setRoleKeyName(String roleKeyName) {
+        this.roleKeyName = roleKeyName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
