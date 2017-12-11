@@ -1,7 +1,5 @@
 package com.bolean.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,15 +8,12 @@ import java.util.Date;
  * @author 
  */
 @Table(name = "tb_user")
-@Entity
 public class User implements Serializable {
-    @Column(name = "user_id")
     private Integer userId;
 
     /**
      * 头像
      */
-    @Column(name = "head_img")
     private String headImg;
 
     /**
