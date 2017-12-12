@@ -49,7 +49,7 @@
         </where>
     </sql>
 
-    <select id="selectByInfo" resultMap="RoleFolderMap" parameterType="java.lang.Object">
+    <select id="selectByInfo" resultMap="CourseTeacherMap" parameterType="java.lang.Object">
         select
         <include refid="Base_Column_List"><property name="alias" value="ct"/></include>,
         <include refid="Course_Column_List"><property name="alias" value="c"/></include>,
