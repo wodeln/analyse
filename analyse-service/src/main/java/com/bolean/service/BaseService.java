@@ -1,10 +1,7 @@
 package com.bolean.service;
 
-import com.bolean.entity.User;
 import tk.mybatis.mapper.entity.Example;
-
 import java.util.List;
-import java.util.Map;
 
 public interface BaseService<T> {
 

@@ -1,7 +1,6 @@
 package com.bolean.service;
 
 import com.bolean.entity.Course;
-import mybatis.basemapper.BaseMapper;
 
 import java.util.List;
 import java.util.Map;

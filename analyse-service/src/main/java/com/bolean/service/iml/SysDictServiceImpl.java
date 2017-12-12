@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
-import java.util.Map;
 
 public class SysDictServiceImpl implements SysDictService {
     @Autowired
