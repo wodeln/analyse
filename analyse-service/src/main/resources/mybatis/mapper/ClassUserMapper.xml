@@ -45,7 +45,7 @@
         select
         <include refid="Base_Column_List"><property name="alias" value="cu"/></include>,
         <include refid="Class_Column_List"><property name="alias" value="c"/></include>,
-        <include refid="User_Colum_List"><property name="alias" value="u"/></include>
+        <include refid="User_Column_List"><property name="alias" value="u"/></include>
         FROM tb_course_teacher cu
         LEFT JOIN tb_class c ON ct.class_id=c.class_id
         LEFT JOIN tb_user u ON ct.user_id=u.user_id

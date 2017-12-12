@@ -34,7 +34,7 @@
         course_name, status
     </sql>
 
-    <sql id="User_Colum_List">
+    <sql id="User_Column_List">
         head_img, real_name, sex, status, user_name, user_tel
     </sql>
 
@@ -53,7 +53,7 @@
         select
         <include refid="Base_Column_List"><property name="alias" value="ct"/></include>,
         <include refid="Course_Column_List"><property name="alias" value="c"/></include>,
-        <include refid="User_Colum_List"><property name="alias" value="u"/></include>
+        <include refid="User_Column_List"><property name="alias" value="u"/></include>
         FROM tb_course_teacher ct
         LEFT JOIN tb_course c ON ct.course_id=c.course_id
         LEFT JOIN tb_user u ON ct.user_id=u.user_id
