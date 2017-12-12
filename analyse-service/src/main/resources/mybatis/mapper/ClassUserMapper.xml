@@ -1,189 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bolean.dao.ClassUserMapper">
-  <resultMap id="BaseResultMap" type="com.bolean.entity.ClassUser">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="class_id" jdbcType="INTEGER" property="classId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    id, class_id, user_id
-  </sql>
-  <select id="selectByExample" parameterType="com.bolean.entity.ClassUserExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tb_class_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limit != null">
-      <if test="offset != null">
-        limit ${offset}, ${limit}
-      </if>
-      <if test="offset == null">
-        limit ${limit}
-      </if>
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_class_user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_class_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.bolean.entity.ClassUserExample">
-    delete from tb_class_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.bolean.entity.ClassUser">
-    insert into tb_class_user (id, class_id, user_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.bolean.entity.ClassUser">
-    insert into tb_class_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="classId != null">
-        class_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="classId != null">
-        #{classId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.bolean.entity.ClassUserExample" resultType="java.lang.Long">
-    select count(*) from tb_class_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update tb_class_user
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.classId != null">
-        class_id = #{record.classId,jdbcType=INTEGER},
-      </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update tb_class_user
-    set id = #{record.id,jdbcType=INTEGER},
-      class_id = #{record.classId,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bolean.entity.ClassUser">
-    update tb_class_user
-    <set>
-      <if test="classId != null">
-        class_id = #{classId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.bolean.entity.ClassUser">
-    update tb_class_user
-    set class_id = #{classId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.bolean.entity.ClassUser">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="class_id" jdbcType="INTEGER" property="classId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+    </resultMap>
+
+    <resultMap id="ClassUserMap" type="com.bolean.entity.ClassUser" extends="BaseResultMap">
+        <result column="class_name" jdbcType="VARCHAR" property="className" />
+        <result column="class_pid" jdbcType="INTEGER" property="classPid" />
+        <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="sex" jdbcType="BIT" property="sex" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, class_id, user_id
+    </sql>
+
+    <sql id="Class_Column_List">
+        class_name, class_pid
+    </sql>
+
+    <sql id="User_Column_List">
+        head_img, real_name, sex, status, user_name, user_tel
+    </sql>
+
+    <sql id="where">
+        <where>
+            <if test="classId !=null and classId != ''">
+                AND cu.class_id = #{classId,jdbcType=BIGINT}
+            </if>
+            <if test="userId !=null and userId != ''">
+                AND cu.user_id = #{userId,jdbcType=BIGINT}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByInfo" resultMap="ClassUserMap" parameterType="java.lang.Object">
+        select
+        <include refid="Base_Column_List"><property name="alias" value="cu"/></include>,
+        <include refid="Class_Column_List"><property name="alias" value="c"/></include>,
+        <include refid="User_Colum_List"><property name="alias" value="u"/></include>
+        FROM tb_course_teacher cu
+        LEFT JOIN tb_class c ON ct.class_id=c.class_id
+        LEFT JOIN tb_user u ON ct.user_id=u.user_id
+        <include refid="where"/>
+    </select>
 </mapper>

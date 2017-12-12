@@ -18,6 +18,46 @@ public class ClassUser implements Serializable {
      */
     private Integer userId;
 
+    /**
+     * 班级名称
+     */
+    private String className;
+
+    /**
+     * 父ID
+     */
+    private Integer classPid;
+
+    /**
+     * 头像
+     */
+    private String headImg;
+
+    /**
+     * 真实姓名
+     */
+    private String realName;
+
+    /**
+     * 性别 1:男 2:女
+     */
+    private int sex;
+
+    /**
+     * 状态 0:删除 1:锁定 2:正常
+     */
+    private int status;
+
+    /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
+     * 联系电话
+     */
+    private String userTel;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -42,6 +82,70 @@ public class ClassUser implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public Integer getClassPid() {
+        return classPid;
+    }
+
+    public void setClassPid(Integer classPid) {
+        this.classPid = classPid;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserTel() {
+        return userTel;
+    }
+
+    public void setUserTel(String userTel) {
+        this.userTel = userTel;
     }
 
     @Override
