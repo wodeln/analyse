@@ -1,11 +1,13 @@
 package com.bolean.entity;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 
  */
+@Table(name="tb_course_teacher")
 public class CourseTeacher implements Serializable {
     private Integer id;
 
@@ -18,6 +20,46 @@ public class CourseTeacher implements Serializable {
      * 教师(用户)ID
      */
     private Integer userId;
+
+    /**
+     * 课程名称
+     */
+    private String courseName;
+
+    /**
+     * 状态 0:删除 1:锁定 2:正常
+     */
+    private int courseStatus;
+
+    /**
+     * 头像
+     */
+    private String headImg;
+
+    /**
+     * 真实姓名
+     */
+    private String realName;
+
+    /**
+     * 性别 1:男 2:女
+     */
+    private int sex;
+
+    /**
+     * 状态 0:删除 1:锁定 2:正常
+     */
+    private int userStatus;
+
+    /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
+     * 联系电话
+     */
+    private String userTel;
 
     /**
      * 添加时间
@@ -134,6 +176,70 @@ public class CourseTeacher implements Serializable {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public int getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(int courseStatus) {
+        this.courseStatus = courseStatus;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public int getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserTel() {
+        return userTel;
+    }
+
+    public void setUserTel(String userTel) {
+        this.userTel = userTel;
     }
 
     @Override
