@@ -1,22 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bolean.dao.CourseTeacherMapper">
-  <resultMap id="BaseResultMap" type="com.bolean.entity.CourseTeacher">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="course_id" jdbcType="INTEGER" property="courseId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="create_id" jdbcType="INTEGER" property="createId" />
-    <result column="create_name" jdbcType="VARCHAR" property="createName" />
-    <result column="update_id" jdbcType="INTEGER" property="updateId" />
-    <result column="update_name" jdbcType="VARCHAR" property="updateName" />
-    <result column="memo" jdbcType="VARCHAR" property="memo" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.bolean.entity.CourseTeacher">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="course_id" jdbcType="INTEGER" property="courseId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="create_id" jdbcType="INTEGER" property="createId" />
+        <result column="create_name" jdbcType="VARCHAR" property="createName" />
+        <result column="update_id" jdbcType="INTEGER" property="updateId" />
+        <result column="update_name" jdbcType="VARCHAR" property="updateName" />
+        <result column="memo" jdbcType="VARCHAR" property="memo" />
+    </resultMap>
 
-  <sql id="Base_Column_List">
-    id, course_id, user_id, create_time, update_time, create_id, create_name, update_id, 
-    update_name, memo
-  </sql>
+    <resultMap id="CourseTeacherMap" type="com.bolean.entity.CourseTeacher" extends="BaseResultMap">
+        <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+        <result column="course_status" jdbcType="BIT" property="courseStatus" />
+        <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="sex" jdbcType="BIT" property="sex" />
+        <result column="user_status" jdbcType="BIT" property="userStatus" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    </resultMap>
 
+    <sql id="Base_Column_List">
+        id, course_id, user_id, create_time, update_time, create_id, create_name, update_id,
+        update_name, memo
+    </sql>
+
+    <sql id="Course_Column_List">
+        course_name, status
+    </sql>
+
+    <sql id="User_Colum_List">
+        head_img, real_name, sex, status, user_name, user_tel
+    </sql>
+
+    <sql id="where">
+        <where>
+            <if test="courseId !=null and courseId != ''">
+                AND ct.course_id = #{courseId,jdbcType=BIGINT}
+            </if>
+            <if test="userId !=null and userId != ''">
+                AND ct.user_id = #{userId,jdbcType=BIGINT}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByInfo" resultMap="RoleFolderMap" parameterType="java.lang.Object">
+        select
+        <include refid="Base_Column_List"><property name="alias" value="ct"/></include>,
+        <include refid="Course_Column_List"><property name="alias" value="c"/></include>,
+        <include refid="User_Colum_List"><property name="alias" value="u"/></include>
+        FROM tb_course_teacher ct
+        LEFT JOIN tb_course c ON ct.course_id=c.course_id
+        LEFT JOIN tb_user u ON ct.user_id=u.user_id
+        <include refid="where"/>
+    </select>
 </mapper>

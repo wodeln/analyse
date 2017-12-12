@@ -17,7 +17,7 @@ public class Course implements Serializable {
     /**
      * 状态 0:删除 1:锁定 2:正常
      */
-    private Boolean status;
+    private int status;
 
     /**
      * 添加时间
@@ -72,11 +72,11 @@ public class Course implements Serializable {
         this.courseName = courseName;
     }
 
-    public Boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -150,7 +150,7 @@ public class Course implements Serializable {
         Course other = (Course) that;
         return (this.getCourseId() == null ? other.getCourseId() == null : this.getCourseId().equals(other.getCourseId()))
             && (this.getCourseName() == null ? other.getCourseName() == null : this.getCourseName().equals(other.getCourseName()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getStatus() == 0 ? other.getStatus() == 0 : this.getStatus()==other.getStatus())
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getCreateId() == null ? other.getCreateId() == null : this.getCreateId().equals(other.getCreateId()))
@@ -160,22 +160,6 @@ public class Course implements Serializable {
             && (this.getMemo() == null ? other.getMemo() == null : this.getMemo().equals(other.getMemo()));
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getCourseId() == null) ? 0 : getCourseId().hashCode());
-        result = prime * result + ((getCourseName() == null) ? 0 : getCourseName().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getCreateId() == null) ? 0 : getCreateId().hashCode());
-        result = prime * result + ((getCreateName() == null) ? 0 : getCreateName().hashCode());
-        result = prime * result + ((getUpdateId() == null) ? 0 : getUpdateId().hashCode());
-        result = prime * result + ((getUpdateName() == null) ? 0 : getUpdateName().hashCode());
-        result = prime * result + ((getMemo() == null) ? 0 : getMemo().hashCode());
-        return result;
-    }
 
     @Override
     public String toString() {
