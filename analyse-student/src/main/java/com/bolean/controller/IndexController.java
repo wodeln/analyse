@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by dell on 2017/11/21.
  */
 @Controller
-@RequestMapping("index")
 public class IndexController extends BaseController {
 
     @Autowired
@@ -23,10 +22,9 @@ public class IndexController extends BaseController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping("index.html")
+    @RequestMapping("/")
     public  String index(Model model){
-        model.addAttribute("test","this is a test");
-        System.out.println(itemsPerPage);
+        model.addAttribute("name","this is a test");
         return "/index.html";
     }
 
