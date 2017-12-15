@@ -17,9 +17,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class AnalyseStudentApplication {
     private static final Logger log = LogManager.getLogger(AnalyseStudentApplication.class);
     private static final Log log1 = LogFactory.getLog(AnalyseStudentApplication.class);
-	public static void main(String[] args) {
 
-		SpringApplication.run(AnalyseStudentApplication.class, args);
+    public static void main(String[] args) {
+
+        SpringApplication.run(AnalyseStudentApplication.class, args);
 
         log.trace("这是 org.apache.logging.log4j LogManager trace log");
         log.warn("这是 org.apache.logging.log4j LogManager warn log");
@@ -30,5 +31,34 @@ public class AnalyseStudentApplication {
         log1.warn("这是 org.apache.commons.logging LogFactory warn log");
         log1.debug("这是 org.apache.commons.logging LogFactory debug log");
         log1.error("这是 org.apache.commons.logging LogFactory error log");
-	}
+    }
+
+   /* @Value("templates") String templatesPath;//模板跟目录 ，比如 "templates"
+    @Bean(name = "beetlConfig")
+    public BeetlGroupUtilConfiguration getBeetlGroupUtilConfiguration() {
+        BeetlGroupUtilConfiguration beetlGroupUtilConfiguration = new BeetlGroupUtilConfiguration();
+        //获取Spring Boot 的ClassLoader
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        if(loader==null){
+            loader = AnalyseStudentApplication.class.getClassLoader();
+        }
+//        beetlGroupUtilConfiguration.setConfigProperties(extProperties);//额外的配置，可以覆盖默认配置，一般不需要
+        ClasspathResourceLoader cploder = new ClasspathResourceLoader(loader,
+                templatesPath);
+        beetlGroupUtilConfiguration.setResourceLoader(cploder);
+        beetlGroupUtilConfiguration.init();
+        //如果使用了优化编译器，涉及到字节码操作，需要添加ClassLoader
+        beetlGroupUtilConfiguration.getGroupTemplate().setClassLoader(loader);
+        return beetlGroupUtilConfiguration;
+
+    }
+
+    @Bean(name = "beetlViewResolver")
+    public BeetlSpringViewResolver getBeetlSpringViewResolver(@Qualifier("beetlConfig") BeetlGroupUtilConfiguration beetlGroupUtilConfiguration) {
+        BeetlSpringViewResolver beetlSpringViewResolver = new BeetlSpringViewResolver();
+        beetlSpringViewResolver.setContentType("text/html;charset=UTF-8");
+        beetlSpringViewResolver.setOrder(0);
+        beetlSpringViewResolver.setConfig(beetlGroupUtilConfiguration);
+        return beetlSpringViewResolver;
+    }*/
 }

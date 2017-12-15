@@ -31,6 +31,7 @@ mapper:
   mappers: mybatis.basemapper.BaseMapper
   not-empty: false
   identity: MYSQL
+itemsPerPage: 20 #每页显示记录数量
 ---
 spring:
     profiles: dev
