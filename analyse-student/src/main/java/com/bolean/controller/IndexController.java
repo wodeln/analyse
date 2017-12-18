@@ -24,7 +24,7 @@ public class IndexController extends BaseController {
 
     @RequestMapping("/")
     public  String index(Model model){
-        model.addAttribute("name","this is a test");
+        model.addAttribute("name","奉贤区塘外小学");
         return "/index.html";
     }
 
