@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface UserMapper extends BaseMapper<User> {
     List<User> selectByInfo(Object o);
+
+    User selectByUserName(String userName);
 }

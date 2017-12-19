@@ -3,6 +3,7 @@ package com.bolean.entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 
@@ -81,7 +82,17 @@ public class User implements Serializable {
      */
     private String memo;
 
+    private Role role;
+
     private static final long serialVersionUID = 1L;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public Integer getUserId() {
         return userId;

@@ -12,4 +12,6 @@ public interface UserService extends BaseService<User>{
     List<User> selectByInfo(Map<String,Object> map);
 
     List<User> selectByInfo(User user);
+
+    User selectByUserName(String userName);
 }

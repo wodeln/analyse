@@ -1,6 +1,7 @@
 package com.bolean.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author 
