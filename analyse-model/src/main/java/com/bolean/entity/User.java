@@ -30,12 +30,12 @@ public class User implements Serializable {
     /**
      * 性别 1:男 2:女
      */
-    private int sex;
+    private Integer sex;
 
     /**
      * 状态 0:删除 1:锁定 2:正常
      */
-    private int status;
+    private Integer status;
 
     /**
      * 用户名
@@ -82,17 +82,8 @@ public class User implements Serializable {
      */
     private String memo;
 
-    private Role role;
 
     private static final long serialVersionUID = 1L;
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public Integer getUserId() {
         return userId;
@@ -126,19 +117,19 @@ public class User implements Serializable {
         this.realName = realName;
     }
 
-    public int getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -213,5 +204,4 @@ public class User implements Serializable {
     public void setMemo(String memo) {
         this.memo = memo;
     }
-
 }

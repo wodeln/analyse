@@ -1,30 +1,35 @@
 package com.bolean.conf;
 
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import javax.servlet.Filter;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+/**
+ * Shiro 配置
+ *
+ Apache Shiro 核心通过 Filter 来实现，就好像SpringMvc 通过DispachServlet 来主控制一样。
+ 既然是使用 Filter 一般也就能猜到，是通过URL规则来进行过滤和权限校验，所以我们需要定义一系列关于URL的规则和访问权限。
+ *
+ * @author Angel bolean
+ * @version v.0.1
+ */
+@Configuration
 public class ShiroConfiguration {
-    /**
-     * LifecycleBeanPostProcessor，这是个DestructionAwareBeanPostProcessor的子类，
-     * 负责org.apache.shiro.util.Initializable类型bean的生命周期的，初始化和销毁。
-     * 主要是AuthorizingRealm类的子类，以及EhCacheManager类。
-     */
-    @Bean(name = "lifecycleBeanPostProcessor")
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
+    private static final Logger logger = LogManager.getLogger(ShiroConfiguration.class);
 
     /**
      * HashedCredentialsMatcher，这个类是为了对密码进行编码的，
@@ -33,72 +38,82 @@ public class ShiroConfiguration {
      */
     @Bean(name = "hashedCredentialsMatcher")
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        logger.info("+++++++++++++++++++++++++ShiroConfiguration.hashedCredentialsMatcher()+++++++++++++++++++++++++++++++++++++++");
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
         credentialsMatcher.setHashAlgorithmName("MD5");
-        credentialsMatcher.setHashIterations(2);
-        credentialsMatcher.setStoredCredentialsHexEncoded(true);
+        credentialsMatcher.setHashIterations(1);
         return credentialsMatcher;
     }
 
-    /**ShiroRealm，这是个自定义的认证类，继承自AuthorizingRealm，
-     * 负责用户的认证和权限的处理，可以参考JdbcRealm的实现。
+    /**
+     * ShiroFilterFactoryBean 处理拦截资源文件问题。
+     * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
+     * 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
+     *
+     Filter Chain定义说明
+     1、一个URL可以配置多个Filter，使用逗号分隔
+     2、当设置多个过滤器时，全部验证通过，才视为通过
+     3、部分过滤器可指定参数，如perms，roles
+     *
      */
-    @Bean(name = "shiroRealm")
-    @DependsOn("lifecycleBeanPostProcessor")
-    public ShiroRealm shiroRealm() {
-        ShiroRealm realm = new ShiroRealm();
-        return realm;
+    @Bean
+    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager){
+        logger.info("+++++++++++++++++++++++++ShiroConfiguration.shirFilter()+++++++++++++++++++++++++++++++++++++++");
+        ShiroFilterFactoryBean shiroFilterFactoryBean  = new ShiroFilterFactoryBean();
+
+        // 必须设置 SecurityManager
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
+
+        //拦截器.
+        Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
+
+        //配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
+        filterChainDefinitionMap.put("/logout", "logout");
+
+        //防止登录成功之后下载favicon.ico
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/fonts/**", "anon");
+        filterChainDefinitionMap.put("/loginCheck.html", "anon");
+
+        //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
+        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+        filterChainDefinitionMap.put("/**", "authc");
+
+        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
+        shiroFilterFactoryBean.setLoginUrl("/login.html");
+        // 登录成功后要跳转的链接
+        shiroFilterFactoryBean.setSuccessUrl("/index.html");
+        //未授权界面;
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return shiroFilterFactoryBean;
     }
 
-    //    /**
-//     * EhCacheManager，缓存管理，用户登陆成功后，把用户信息和权限信息缓存起来，
-//     * 然后每次用户请求时，放入用户的session中，如果不设置这个bean，每个请求都会查询一次数据库。
-//     */
-//    @Bean(name = "ehCacheManager")
-//    @DependsOn("lifecycleBeanPostProcessor")
-//    public EhCacheManager ehCacheManager() {
-//        return new EhCacheManager();
-//    }
-
-    /**
-     * SecurityManager，权限管理，这个类组合了登陆，登出，权限，session的处理，是个比较重要的类。
-     //     */
-    @Bean(name = "securityManager")
-    public DefaultWebSecurityManager securityManager() {
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+    @Bean
+    public SecurityManager securityManager(){
+        logger.info("+++++++++++++++++++++++++ShiroConfiguration.securityManager()+++++++++++++++++++++++++++++++++++++++");
+        DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm());
-//        securityManager.setCacheManager(ehCacheManager());
         return securityManager;
     }
 
-    /**
-     * ShiroFilterFactoryBean，是个factorybean，为了生成ShiroFilter。
-     * 它主要保持了三项数据，securityManager，filters，filterChainDefinitionManager。
-     */
-    @Bean(name = "shiroFilter")
-    public ShiroFilterFactoryBean shiroFilterFactoryBean() {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        shiroFilterFactoryBean.setSecurityManager(securityManager());
+    @Bean(name = "lifecycleBeanPostProcessor")
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        logger.info("+++++++++++++++++++++++++ShiroConfiguration.lifecycleBeanPostProcessor()+++++++++++++++++++++++++++++++++++++++");
+        return new LifecycleBeanPostProcessor();
+    }
 
-        Map<String, Filter> filters = new LinkedHashMap<>();
-        LogoutFilter logoutFilter = new LogoutFilter();
-        logoutFilter.setRedirectUrl("/login");
-//        filters.put("logout",null);
-        shiroFilterFactoryBean.setFilters(filters);
-
-        Map<String, String> filterChainDefinitionManager = new LinkedHashMap<String, String>();
-        filterChainDefinitionManager.put("/logout", "logout");
-        filterChainDefinitionManager.put("/user/**", "authc,roles[ROLE_USER]");//用户为ROLE_USER 角色可以访问。由用户角色控制用户行为。
-        filterChainDefinitionManager.put("/events/**", "authc,roles[ROLE_ADMIN]");
-        //        filterChainDefinitionManager.put("/user/edit/**", "authc,perms[user:edit]");// 这里为了测试，固定写死的值，也可以从数据库或其他配置中读取，此处是用权限控制
-
-        filterChainDefinitionManager.put("/**", "anon");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionManager);
-
-
-        shiroFilterFactoryBean.setSuccessUrl("/");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-        return shiroFilterFactoryBean;
+    @Bean(name = "shiroRealm")
+    @DependsOn("lifecycleBeanPostProcessor")
+    public ShiroRealm shiroRealm() {
+        logger.info("+++++++++++++++++++++++++ShiroConfiguration.shiroRealm()+++++++++++++++++++++++++++++++++++++++");
+        ShiroRealm realm = new ShiroRealm();
+        realm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return realm;
     }
 
     /**
@@ -107,6 +122,7 @@ public class ShiroConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        logger.info("+++++++++++++++++++++++++ShiroConfiguration.defaultAdvisorAutoProxyCreator()+++++++++++++++++++++++++++++++++++++++");
         DefaultAdvisorAutoProxyCreator defaultAAP = new DefaultAdvisorAutoProxyCreator();
         defaultAAP.setProxyTargetClass(true);
         return defaultAAP;
@@ -118,6 +134,7 @@ public class ShiroConfiguration {
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+        logger.info("+++++++++++++++++++++++++ShiroConfiguration.authorizationAttributeSourceAdvisor()+++++++++++++++++++++++++++++++++++++++");
         AuthorizationAttributeSourceAdvisor aASA = new AuthorizationAttributeSourceAdvisor();
         aASA.setSecurityManager(securityManager());
         return aASA;

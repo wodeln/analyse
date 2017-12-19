@@ -1,9 +1,10 @@
 package com.bolean.conf;
 
-import com.bolean.AnalyseStudentApplication;
-import com.bolean.entity.*;
+import com.bolean.dao.RoleFolderMapper;
+import com.bolean.entity.RoleFolder;
+import com.bolean.entity.User;
+import com.bolean.entity.UserRole;
 import com.bolean.service.RoleFolderService;
-import com.bolean.service.RoleService;
 import com.bolean.service.UserRoleService;
 import com.bolean.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +19,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ShiroRealm extends AuthorizingRealm {
-    private static final Logger log = LogManager.getLogger(AnalyseStudentApplication.class);
+    private static final Logger log = LogManager.getLogger(ShiroRealm.class);
 
     @Autowired
     private UserService userService;
@@ -31,7 +32,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        log.info("doGetAuthorizationInfo+"+principalCollection.toString());
+        log.info("+++++++++++++++++++++++++++++++++++++doGetAuthorizationInfo+"+principalCollection.toString());
 
         User user = userService.selectByUserName((String) principalCollection.getPrimaryPrincipal());
         //把principals放session中 key=userId value=principals
@@ -43,26 +44,31 @@ public class ShiroRealm extends AuthorizingRealm {
         for(Role userRole:user.getRoles()){
             info.addRole(userRole.getRoleName());
         }*/
-        info.addRole(user.getRole().getRoleName());
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getUserId());
+        UserRole role = userRoleService.selectOne(userRole);
+        info.addRole(role.getRoleName());
 
         //赋予权限
-//        RoleFolder roleFolder = new RoleFolder();
-//        roleFolder.setRoleId(user.getRole().getRoleId());
-//        for (RoleFolder folder:roleFolderService.selectByInfo(roleFolder)){
-//            info.addStringPermission(folder.getFolderName());
-//        }
+        RoleFolder roleFolder = new RoleFolder();
+        roleFolder.setRoleId(role.getRoleId());
+        for (RoleFolder folder:roleFolderService.selectByInfo(roleFolder)){
+            info.addStringPermission(folder.getFolderName());
+        }
         return info;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        log.info("doGetAuthenticationInfo +"  + authenticationToken.toString());
+        log.info("--------------------------------doGetAuthenticationInfo +"  + authenticationToken.toString());
 
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String userName=token.getUsername();
         log.info(userName+token.getPassword());
 
-        User user = userService.selectByUserName(token.getUsername());
+        User u = new User();
+        u.setUserName(token.getUsername());
+        User user = userService.selectOne(u);
         if (user != null) {
 //            byte[] salt = Encodes.decodeHex(user.getSalt());
 //            ShiroUser shiroUser=new ShiroUser(user.getId(), user.getLoginName(), user.getName());

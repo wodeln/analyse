@@ -17,11 +17,11 @@
         <result column="update_id" jdbcType="INTEGER" property="updateId"/>
         <result column="update_name" jdbcType="VARCHAR" property="updateName"/>
         <result column="memo" jdbcType="VARCHAR" property="memo"/>
-        <association property="role" javaType="com.bolean.entity.Role">
+        <!--<association property="role" column="role" javaType="com.bolean.entity.Role">
             <result column="role_name" property="roleName"/>
             <result column="role_id" property="roleId"/>
             <result column="key_name" property="keyName"/>
-        </association>
+        </association>-->
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -65,12 +65,12 @@
         <include refid="where"/>
     </select>
 
-    <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"><property name="alias" value="u"/></include>,
         <include refid="User_Role_Column_List"><property name="alias" value="ur"/></include>
         from tb_user u
         LEFT JOIN tb_user_role ur ON u.user_id=ur.user_id
-        <include refid="where"/>
+        WHERE u.user_name = #{_parameter,jdbcType=VARCHAR}
     </select>
 </mapper>

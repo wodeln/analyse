@@ -4,11 +4,13 @@ import com.bolean.dao.RoleFolderMapper;
 import com.bolean.entity.RoleFolder;
 import com.bolean.service.RoleFolderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
 
+@Service("RoleFolderService")
 public class RoleFolderServiceImpl implements RoleFolderService {
     @Autowired
     private RoleFolderMapper roleFolderMapper;
