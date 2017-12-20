@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by dell on 2017/11/21.
  */
 @Controller
-public class IndexController extends BaseController {
+public class IndexController{
 
     @Autowired
     private UserService userService;

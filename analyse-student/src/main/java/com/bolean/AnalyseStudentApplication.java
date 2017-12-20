@@ -24,25 +24,25 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @MapperScan("com.bolean.dao")
 public class AnalyseStudentApplication {
-    private static final Logger log = LogManager.getLogger(AnalyseStudentApplication.class);
-    private static final Log log1 = LogFactory.getLog(AnalyseStudentApplication.class);
+    private static final Logger logger = LogManager.getLogger(AnalyseStudentApplication.class);
+    private static final Log log = LogFactory.getLog(AnalyseStudentApplication.class);
 
     public static void main(String[] args) {
 
         SpringApplication.run(AnalyseStudentApplication.class, args);
 
-        log.trace("这是 org.apache.logging.log4j LogManager trace log");
-        log.warn("这是 org.apache.logging.log4j LogManager warn log");
-        log.debug("这是 org.apache.logging.log4j LogManager debug log");
-        log.error("折是 org.apache.logging.log4j LogManager error log");
+        logger.trace("这是 org.apache.logging.log4j LogManager trace log");
+        logger.warn("这是 org.apache.logging.log4j LogManager warn log");
+        logger.debug("这是 org.apache.logging.log4j LogManager debug log");
+        logger.error("折是 org.apache.logging.log4j LogManager error log");
         System.out.println("-----------------------------------------------------------华丽丽的分割线----------------------------------------------------------------");
-        log1.trace("这是 org.apache.commons.logging LogFactory trace log");
-        log1.warn("这是 org.apache.commons.logging LogFactory warn log");
-        log1.debug("这是 org.apache.commons.logging LogFactory debug log");
-        log1.error("这是 org.apache.commons.logging LogFactory error log");
+        log.trace("这是 org.apache.commons.logging LogFactory trace log");
+        log.warn("这是 org.apache.commons.logging LogFactory warn log");
+        log.debug("这是 org.apache.commons.logging LogFactory debug log");
+        log.error("这是 org.apache.commons.logging LogFactory error log");
     }
 
-    @Value("templates") String templatesPath;
+    /*@Value("templates") String templatesPath;
     @Bean(name = "beetlConfig")
     public BeetlGroupUtilConfiguration getBeetlGroupUtilConfiguration() {
         BeetlGroupUtilConfiguration beetlGroupUtilConfiguration = new BeetlGroupUtilConfiguration();
@@ -69,5 +69,5 @@ public class AnalyseStudentApplication {
         beetlSpringViewResolver.setOrder(0);
         beetlSpringViewResolver.setConfig(beetlGroupUtilConfiguration);
         return beetlSpringViewResolver;
-    }
+    }*/
 }

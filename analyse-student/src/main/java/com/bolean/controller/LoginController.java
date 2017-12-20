@@ -7,12 +7,16 @@ import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.beetl.core.GroupTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
-public class LoginController {
+public class LoginController extends BaseController {
     private static final Logger logger = LogManager.getLogger(ShiroRealm.class);
 
     @RequestMapping("/loginCheck.html")
@@ -58,6 +62,12 @@ public class LoginController {
 
     @RequestMapping("/login.html")
     public String login(User user){
+      /*  GroupTemplate groupTemplate =  new  GroupTemplate();
+        Map<String,Object> shareVars = new HashMap<>();
+        shareVars.put("school_name","来测试一吓");
+        groupTemplate.setSharedVars(shareVars);*/
+      User sessionUser = super.getSessionUser();
+        logger.info(super.getSessionUser());
        return "/login.html";
     }
 }

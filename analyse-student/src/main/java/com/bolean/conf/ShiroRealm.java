@@ -1,6 +1,5 @@
 package com.bolean.conf;
 
-import com.bolean.dao.RoleFolderMapper;
 import com.bolean.entity.RoleFolder;
 import com.bolean.entity.User;
 import com.bolean.entity.UserRole;
@@ -19,7 +18,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ShiroRealm extends AuthorizingRealm {
-    private static final Logger log = LogManager.getLogger(ShiroRealm.class);
+    private static final Logger logger = LogManager.getLogger(ShiroRealm.class);
 
     @Autowired
     private UserService userService;
@@ -32,7 +31,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        log.info("+++++++++++++++++++++++++++++++++++++doGetAuthorizationInfo+"+principalCollection.toString());
+        logger.info("+++++++++++++++++++++++++++++++++++++doGetAuthorizationInfo+"+principalCollection.toString());
 
         User user = userService.selectByUserName((String) principalCollection.getPrimaryPrincipal());
         //把principals放session中 key=userId value=principals
@@ -60,11 +59,11 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        log.info("--------------------------------doGetAuthenticationInfo +"  + authenticationToken.toString());
+        logger.info("--------------------------------doGetAuthenticationInfo +"  + authenticationToken.toString());
 
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String userName=token.getUsername();
-        log.info(userName+token.getPassword());
+        logger.info(userName+token.getPassword());
 
         User u = new User();
         u.setUserName(token.getUsername());

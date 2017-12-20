@@ -14,6 +14,8 @@ public class SysDict implements Serializable {
 
     private String dictName;
 
+    private String dict_key;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -38,6 +40,14 @@ public class SysDict implements Serializable {
 
     public void setDictName(String dictName) {
         this.dictName = dictName;
+    }
+
+    public String getDict_key() {
+        return dict_key;
+    }
+
+    public void setDict_key(String dict_key) {
+        this.dict_key = dict_key;
     }
 
     @Override

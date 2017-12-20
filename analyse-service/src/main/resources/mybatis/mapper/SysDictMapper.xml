@@ -5,10 +5,16 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="dict_name" jdbcType="VARCHAR" property="dictName" />
+    <result column="dict_key" jdbcType="VARCHAR" property="dictKey" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, content, dict_name
+    id, content, dict_name, dict_key
   </sql>
 
+  <select id="selectByDictName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+      FROM tb_sys_dict
+      WHERE dict_name = #{_parameter,jdbcType=VARCHAR}
+  </select>
 </mapper>

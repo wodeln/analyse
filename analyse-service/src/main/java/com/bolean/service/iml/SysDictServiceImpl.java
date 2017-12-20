@@ -4,10 +4,11 @@ import com.bolean.dao.SysDictMapper;
 import com.bolean.entity.SysDict;
 import com.bolean.service.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
-
+@Service("SysDictService")
 public class SysDictServiceImpl implements SysDictService {
     @Autowired
     private SysDictMapper sysDictMapper;
@@ -55,5 +56,10 @@ public class SysDictServiceImpl implements SysDictService {
     @Override
     public List<SysDict> selectByExample(Example example) {
         return sysDictMapper.selectByExample(example);
+    }
+
+    @Override
+    public SysDict selectByDictName(String dictName) {
+        return sysDictMapper.selectByDictName(dictName);
     }
 }
