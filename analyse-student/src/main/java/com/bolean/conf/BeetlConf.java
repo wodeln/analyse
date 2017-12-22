@@ -15,7 +15,7 @@ import java.util.Map;
 public class BeetlConf {
 
     @Value("templates") String templatesPath;//模板跟目录 ，比如 "templates"
-    @Value("${items-per-page}") Integer itemsPerPage;
+    @Value("${page-size}") Integer itemsPerPage;
     @Value("${site-title}") String siteTitle;
     @Bean(name = "beetlConfig")
     public BeetlGroupUtilConfiguration getBeetlGroupUtilConfiguration() {
@@ -26,7 +26,7 @@ public class BeetlConf {
             loader = BeetlConf.class.getClassLoader();
         }
         Map<String,Object> shareVars = new HashMap<>();
-        shareVars.put("items_per_page",itemsPerPage);
+        shareVars.put("page_size",itemsPerPage);
         shareVars.put("site_title",siteTitle);
 //        beetlGroupUtilConfiguration.setConfigProperties(extProperties);//额外的配置，可以覆盖默认配置，一般不需要
         ClasspathResourceLoader cploder = new ClasspathResourceLoader(loader, templatesPath);

@@ -14,4 +14,6 @@ public interface UserService extends BaseService<User>{
     List<User> selectByInfo(User user);
 
     User selectByUserName(String userName);
+
+    int insertSelective(User user);
 }

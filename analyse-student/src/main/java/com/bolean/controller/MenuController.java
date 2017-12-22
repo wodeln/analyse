@@ -3,13 +3,13 @@ package com.bolean.controller;
 import com.bolean.entity.Folder;
 import com.bolean.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/menu")
 public class MenuController {
     @Autowired
@@ -17,22 +17,16 @@ public class MenuController {
 
     @RequestMapping("/index.html")
     public String index(){
-        return "zzzd";
-    }
-
-    @RequestMapping("/ajax_index.html")
-    public List<Folder> ajaxIndex(){
-        List<Folder> folders = folderService.selectAll();
-        return folders;
+        return "/menu/index.html";
     }
 
     @ResponseBody
-    @RequestMapping("/test.html")
-    public String test(){
-        Folder folder = new Folder();
-        folder.setFolderName("这是什么鬼");
-        folder.setKeyName("key_name");
-        return "123";
+    @RequestMapping("/ajax_index")
+    public String ajaxIndex(){
+        List<Folder> folders = folderService.selectAll();
+        String str="";
+
+        return str;
     }
 
 }

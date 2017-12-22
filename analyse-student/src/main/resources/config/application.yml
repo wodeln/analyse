@@ -32,8 +32,7 @@ mapper:
   mappers: mybatis.basemapper.BaseMapper
   not-empty: false
   identity: MYSQL
-#自定义配置
-items-per-page: 20 #每页显示记录数量
+page-size: 20 #每页显示记录数量
 site-title: "这是一个测试" #网站title
 ---
 spring:

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+@include("/common/_content_head.html") {}
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                <form id="search-form">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <input type="text" name="nut" id="nut" placeholder="姓名/用户名/联系电话" class="input-sm form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <select name="role" id="role" class="form-control inline">
+                                    <option value="">角色</option>
+                                    @for(role in roles){
+                                        <option value="${role.roleId}">${role.roleName}</option>
+                                    @}
+                                </select>
+                            </div>
+
+                            <a onclick="ajax_get_table('search-form',1)" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> 搜索</a>
+                        </div>
+                        <div class="table-responsive" id="ajax_return">
+
+                        </div>
+
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+@include("/common/_content_foot.html") {}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        // ajax_get_table('search-form',1);
+    });
+
+    function ajax_get_table(tab,page){
+        cur_page = page; //当前页面 保存为全局变量
+        $.ajax({
+            type : "POST",
+            url:"${ctxPath}/user/ajax_index?pageNum="+page+"&pageSize="+${page_size},//+tab,
+            data : $('#'+tab).serialize(),// 你的formid
+            success: function(data){
+                $("#ajax_return").html('');
+                $("#ajax_return").append(data);
+            }
+        });
+    }
+</script>
+</html>

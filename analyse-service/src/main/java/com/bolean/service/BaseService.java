@@ -59,6 +59,8 @@ public interface BaseService<T> {
      */
     int selectCount(T t);
 
+
+
     /**
      * 根据example 获取对象列表
      * @param example

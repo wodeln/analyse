@@ -1,3 +1,27 @@
-@layout("/layout/_layout.html"){
-<link href="/css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
-@}
+<!DOCTYPE html>
+<html>
+@include("/common/_content_head.html") {}
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <table id="table" class="table table-hover">
+            <thead>
+            <tr>
+                <th data-field="id">
+                    ID
+                </th>
+                <th data-field="pid">
+                    PID
+                </th>
+                <th data-field="name">
+                    Item Name
+                </th>
+                <th data-field="price">
+                    Item Price
+                </th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+@include("/common/_content_foot.html") {}
+</html>

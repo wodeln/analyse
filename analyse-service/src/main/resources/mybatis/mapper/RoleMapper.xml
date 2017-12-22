@@ -35,17 +35,17 @@
       </if>
     </where>
   </sql>
-  <select id="selectByMap" resultMap="BaseResultMap" parameterType="java.util.Map">
-    select
-    <include refid="Base_Column_List"/>
-    from tb_role
-    <include refid="where"/>
-  </select>
-
+  
   <select id="selectByInfo" resultMap="BaseResultMap" parameterType="java.lang.Object">
     select
       <include refid="Base_Column_List"/>
     from tb_role
       <include refid="where"/>
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_role;
   </select>
 </mapper>

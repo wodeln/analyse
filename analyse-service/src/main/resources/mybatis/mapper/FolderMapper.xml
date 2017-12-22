@@ -246,5 +246,6 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM tb_folder
+        ORDER BY sort ASC
     </select>
 </mapper>
