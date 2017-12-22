@@ -1,6 +1,5 @@
 package com.bolean.entity;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.List;
 /**
  * @author 
  */
-@Table(name = "tb_user")
 public class User implements Serializable {
     private Integer userId;
 
@@ -82,6 +80,7 @@ public class User implements Serializable {
      */
     private String memo;
 
+    private List<Role> roles;
 
     private static final long serialVersionUID = 1L;
 

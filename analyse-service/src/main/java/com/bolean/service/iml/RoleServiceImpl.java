@@ -4,7 +4,7 @@ import com.bolean.dao.RoleMapper;
 import com.bolean.entity.Role;
 import com.bolean.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 import java.util.Map;
@@ -51,11 +51,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int selectCount(Role role) {
         return roleMapper.selectCount(role);
-    }
-
-    @Override
-    public List<Role> selectByExample(Example example) {
-        return roleMapper.selectByExample(example);
     }
 
     @Override

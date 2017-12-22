@@ -4,7 +4,6 @@ import com.bolean.dao.ClassesMapper;
 import com.bolean.entity.Classes;
 import com.bolean.service.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
@@ -51,11 +50,6 @@ public class ClassesServiceImpl implements ClassesService {
     @Override
     public int selectCount(Classes classes) {
         return classesMapper.selectCount(classes);
-    }
-
-    @Override
-    public List<Classes> selectByExample(Example example) {
-        return classesMapper.selectByExample(example);
     }
 
     @Override

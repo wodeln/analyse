@@ -4,10 +4,12 @@ import com.bolean.dao.FolderMapper;
 import com.bolean.entity.Folder;
 import com.bolean.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
+import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
+@Service("FolderService")
 public class FolderServiceImpl implements FolderService {
     @Autowired
     private FolderMapper folderMapper;
@@ -52,8 +54,9 @@ public class FolderServiceImpl implements FolderService {
         return folderMapper.selectCount(folder);
     }
 
+
     @Override
-    public List<Folder> selectByExample(Example example) {
-        return folderMapper.selectByExample(example);
+    public List<Folder> selectByParentId(Integer parentId) {
+        return folderMapper.selectByParentId(parentId);
     }
 }

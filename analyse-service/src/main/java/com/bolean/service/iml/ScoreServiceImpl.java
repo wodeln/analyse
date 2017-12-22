@@ -4,7 +4,7 @@ import com.bolean.dao.ScoreMapper;
 import com.bolean.entity.Score;
 import com.bolean.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 
@@ -52,8 +52,4 @@ public class ScoreServiceImpl implements ScoreService {
         return selectCount(score);
     }
 
-    @Override
-    public List<Score> selectByExample(Example example) {
-        return scoreMapper.selectByExample(example);
-    }
 }

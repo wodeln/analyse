@@ -1,14 +1,18 @@
 package com.bolean.controller;
 
+import com.bolean.entity.Folder;
 import com.bolean.entity.Student;
 import com.bolean.entity.User;
 import com.bolean.entity.UserExample;
+import com.bolean.service.FolderService;
 import com.bolean.service.StudentService;
 import com.bolean.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * Created by dell on 2017/11/21.
@@ -22,9 +26,22 @@ public class IndexController{
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private FolderService folderService;
+
     @RequestMapping("/")
     public  String index(Model model){
-        model.addAttribute("name","奉贤区塘外小学");
+        //获取所有顶级菜单
+        List<Folder> folders=folderService.selectByParentId(0);
+        /*for (Folder folder : folders) {
+            
+        }*/
+        for (int i = 0; i < folders.size(); i++) {
+            List<Folder> childFolders = folderService.selectByParentId(folders.get(i).getFolderId());
+            if(childFolders.size()>0) folders.get(i).setChildFolders(childFolders);
+        }
+        model.addAttribute("menus",folders);
+        //        folderService.select();
         return "/index.html";
     }
 

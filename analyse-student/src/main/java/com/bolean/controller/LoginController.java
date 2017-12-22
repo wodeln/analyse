@@ -7,19 +7,14 @@ import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-import org.beetl.core.GroupTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
-@Controller
+@RestController
 public class LoginController extends BaseController {
     private static final Logger logger = LogManager.getLogger(ShiroRealm.class);
 
-    @RequestMapping("/loginCheck.html")
+    @RequestMapping("/login_check.html")
     public String loginCheck(User user){
         logger.info("+++++++++user_name:"+user.getUserName()+"++++++++++++++password:"+user.getPassword());
         Subject subject = SecurityUtils.getSubject();
@@ -53,10 +48,10 @@ public class LoginController extends BaseController {
         //验证是否登录成功
         if(subject.isAuthenticated()){
             logger.info("用户[" + username + "]登录认证通过(这里可以进行一些认证通过后的一些系统参数初始化操作)");
-            return "redirect:/";
+            return "成功";
         }else{
             token.clear();
-            return "redirect:/login.html";
+            return "失败";
         }
     }
 

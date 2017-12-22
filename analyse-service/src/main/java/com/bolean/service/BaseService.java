@@ -1,6 +1,5 @@
 package com.bolean.service;
 
-import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 public interface BaseService<T> {
@@ -65,7 +64,6 @@ public interface BaseService<T> {
      * @param example
      * @return List<T>对象列表
      */
-    List<T> selectByExample(Example example);
 /*
 
     List<T> selectByInfo(T t);

@@ -5,7 +5,7 @@ import com.bolean.entity.User;
 import com.bolean.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 import java.util.Map;
@@ -53,11 +53,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public int selectCount(User user) {
         return userMapper.selectCount(user);
-    }
-
-    @Override
-    public List<User> selectByExample(Example example){
-        return userMapper.selectByExample(example);
     }
 
     @Override

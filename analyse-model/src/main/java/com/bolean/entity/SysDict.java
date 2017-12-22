@@ -1,12 +1,10 @@
 package com.bolean.entity;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * @author 
  */
-@Table(name = "tb_sys_dict")
 public class SysDict implements Serializable {
     private Integer id;
 

@@ -4,7 +4,7 @@ import com.bolean.dao.CourseMapper;
 import com.bolean.entity.Course;
 import com.bolean.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 import java.util.Map;
@@ -51,11 +51,6 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public int selectCount(Course course) {
         return courseMapper.selectCount(course);
-    }
-
-    @Override
-    public List<Course> selectByExample(Example example) {
-        return courseMapper.selectByExample(example);
     }
 
     @Override

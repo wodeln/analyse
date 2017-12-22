@@ -1,13 +1,12 @@
 package com.bolean.entity;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 
  */
-@Table(name="tb_folder")
 public class Folder implements Serializable {
     private Integer folderId;
 
@@ -15,6 +14,8 @@ public class Folder implements Serializable {
      * 权限(菜单)名称
      */
     private String folderName;
+
+    private String icoStr;
 
     private String keyName;
 
@@ -73,7 +74,25 @@ public class Folder implements Serializable {
      */
     private String memo;
 
+    private List<Folder> childFolders;
+
     private static final long serialVersionUID = 1L;
+
+    public List<Folder> getChildFolders() {
+        return childFolders;
+    }
+
+    public void setChildFolders(List<Folder> childFolders) {
+        this.childFolders = childFolders;
+    }
+
+    public String getIcoStr() {
+        return icoStr;
+    }
+
+    public void setIcoStr(String icoStr) {
+        this.icoStr = icoStr;
+    }
 
     public Integer getFolderId() {
         return folderId;

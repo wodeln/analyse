@@ -4,7 +4,7 @@ import com.bolean.dao.ClassUserMapper;
 import com.bolean.entity.ClassUser;
 import com.bolean.service.ClassUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 
@@ -52,8 +52,4 @@ public class ClassUserServiceImpl implements ClassUserService {
         return selectCount(classUser);
     }
 
-    @Override
-    public List<ClassUser> selectByExample(Example example) {
-        return classUserMapper.selectByExample(example);
-    }
 }

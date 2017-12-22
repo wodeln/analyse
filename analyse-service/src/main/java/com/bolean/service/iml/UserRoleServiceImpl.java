@@ -5,7 +5,7 @@ import com.bolean.entity.UserRole;
 import com.bolean.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 import java.util.Map;
@@ -53,11 +53,6 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public int selectCount(UserRole userRole) {
         return userRoleMapper.selectCount(userRole);
-    }
-
-    @Override
-    public List<UserRole> selectByExample(Example example) {
-        return userRoleMapper.selectByExample(example);
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.bolean.entity.Student;
 import com.bolean.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 import java.util.Map;
@@ -53,11 +53,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int selectCount(Student student) {
         return studentMapper.selectCount(student);
-    }
-
-    @Override
-    public List<Student> selectByExample(Example example) {
-        return studentMapper.selectByExample(example);
     }
 
     @Override

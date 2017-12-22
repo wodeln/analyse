@@ -5,7 +5,7 @@ import com.bolean.entity.SysDict;
 import com.bolean.service.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 @Service("SysDictService")
@@ -51,11 +51,6 @@ public class SysDictServiceImpl implements SysDictService {
     @Override
     public int selectCount(SysDict sysDict) {
         return sysDictMapper.selectCount(sysDict);
-    }
-
-    @Override
-    public List<SysDict> selectByExample(Example example) {
-        return sysDictMapper.selectByExample(example);
     }
 
     @Override

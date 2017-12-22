@@ -4,7 +4,7 @@ import com.bolean.dao.GuardianMapper;
 import com.bolean.entity.Guardian;
 import com.bolean.service.GuardianService;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
+
 
 import java.util.List;
 import java.util.Map;
@@ -51,11 +51,6 @@ public class GuardianServiceImpl implements GuardianService {
     @Override
     public int selectCount(Guardian guardian) {
         return guardianMapper.selectCount(guardian);
-    }
-
-    @Override
-    public List<Guardian> selectByExample(Example example) {
-        return guardianMapper.selectByExample(example);
     }
 
     @Override

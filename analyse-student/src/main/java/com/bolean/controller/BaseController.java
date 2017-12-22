@@ -8,7 +8,7 @@ import org.apache.shiro.SecurityUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class BaseController {
+public class BaseController<T> {
     protected static final Logger logger = LogManager.getLogger(AnalyseStudentApplication.class);
 
     protected User getSessionUser(){
