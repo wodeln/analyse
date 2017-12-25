@@ -53,7 +53,9 @@ public class UserController extends BaseController{
         PageHelper.startPage(pageNum, pageSize);
         List<User> users = userService.selectByInfo(map);
         PageInfo<User> pageInfo= new PageInfo<>(users);
+        String pageStr = makePageHtml(pageInfo);
         model.addAttribute("page_info",pageInfo);
+        model.addAttribute("pages",pageStr);
         return "/user/ajax_index.html";
     }
     @RequestMapping("/add_user.html")

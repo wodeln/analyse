@@ -16,7 +16,7 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <select name="role" id="role" class="form-control inline">
+                                <select name="role" id="role" class="input-sm form-control" style="font-size: 12px;">
                                     <option value="">角色</option>
                                     @for(role in roles){
                                         <option value="${role.roleId}">${role.roleName}</option>
@@ -41,7 +41,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        // ajax_get_table('search-form',1);
+        ajax_get_table('search-form',1);
     });
 
     function ajax_get_table(tab,page){
