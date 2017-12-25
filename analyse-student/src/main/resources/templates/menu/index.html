@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html>
 @include("/common/_content_head.html") {}
-<body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <table id="table" class="table table-hover">
-            <thead>
-            <tr>
-                <th data-field="id">
-                    ID
-                </th>
-                <th data-field="pid">
-                    PID
-                </th>
-                <th data-field="name">
-                    Item Name
-                </th>
-                <th data-field="price">
-                    Item Price
-                </th>
-            </tr>
-            </thead>
-        </table>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="dd" id="nestable2" style="width: 60%;margin-left: 40px;">
+        <ol class="dd-list">
+            @for(menu in menus){
+            <li class="dd-item" data-id="${menu.folderId}">
+                <div class="dd-handle">
+                    <span class="pull-right">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        &nbsp;&nbsp;
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </span>
+                    <span class="label label-info"><i class="fa ${menu.icoStr}"></i></span>${menu.folderName}
+                </div>
+                @if(!isEmpty(menu.childFolders)){
+                <ol class="dd-list">
+                    @for(child in menu.childFolders){
+                    <li class="dd-item" data-id="${child.folderId}">
+                        <div class="dd-handle">
+                            <span class="pull-right"><i class="glyphicon glyphicon-pencil"></i> &nbsp;&nbsp;<i class="glyphicon glyphicon-trash"></i></span>
+                            <span class="label label-info"><i class="fa ${child.icoStr}"></i></span> ${child.folderName}
+                        </div>
+                    </li>
+                    @}
+                </ol>
+                @}
+            </li>
+            @}
+        </ol>
+
+        <a href="/menu/add_menu.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> 添加</a>
+
     </div>
+
+
+</div>
 </body>
 @include("/common/_content_foot.html") {}
+<script>
+    $('#nestable2').nestable({
+        group: 1,
+        maxDepth : 2,
+    }).on('change', function(){
+        var r = $('.dd').nestable('serialize');
+        // $("#nestable2-output").html(JSON.stringify(r));    //改变排序之后的数据
+    });
+</script>
 </html>

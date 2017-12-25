@@ -1,8 +1,7 @@
-
 <table class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
-        <th></th>
+        <th><input type="checkbox" id="check_all"></th>
         <th>用户名</th>
         <th>姓名</th>
         <th>联系电话</th>
@@ -45,7 +44,7 @@
     @}
     </tbody>
 </table>
-    <div class="col-sm-7 pull-right text-right">${pages}</div>
+<div class="col-sm-7 pull-right text-right">${pages}</div>
 
 
 
@@ -53,5 +52,14 @@
     $(".pagination  a").click(function(){
         var page = $(this).data('p');
         ajax_get_table('search-form2',page);
+    });
+
+    $("#check_all").click(function () {
+        if($('#check_all').is(':checked')) {
+            $(".i-checks").prop("checked", "checked");
+            // $(".i-checks").
+        }else {
+            $(".i-checks").removeAttr("checked");
+        }
     });
 </script>

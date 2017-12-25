@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 @include("/common/_content_head.html") {}
-<body class="gray-bg">
+<body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
+                <div class="">
                 <form id="search-form">
                     <div class="ibox-content">
                         <div class="row">
@@ -25,6 +25,10 @@
                             </div>
 
                             <a onclick="ajax_get_table('search-form',1)" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> 搜索</a>
+                            <div class="col-lg-2 pull-right text-right">
+                                <a href="" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+                                <a href="" class="btn btn-sm btn-primary"><i class="fa fa-trash-o"></i></a>
+                            </div>
                         </div>
                         <div class="table-responsive" id="ajax_return">
 
