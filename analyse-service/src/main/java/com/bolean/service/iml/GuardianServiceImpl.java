@@ -39,6 +39,11 @@ public class GuardianServiceImpl implements GuardianService {
     }
 
     @Override
+    public int insertSelective(Guardian guardian) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<Guardian> guardians) {
         return guardianMapper.insertList(guardians);
     }

@@ -51,6 +51,11 @@ public class RoleFolderServiceImpl implements RoleFolderService {
     }
 
     @Override
+    public int insertSelective(RoleFolder roleFolder) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<RoleFolder> roleFolders) {
         return roleFolderMapper.insertList(roleFolders);
     }

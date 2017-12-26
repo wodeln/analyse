@@ -41,6 +41,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public int insertSelective(Role role) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<Role> roles) {
         return roleMapper.insertList(roles);
     }

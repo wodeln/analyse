@@ -41,6 +41,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public int insertSelective(Student student) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<Student> students) {
         return studentMapper.insertList(students);
     }

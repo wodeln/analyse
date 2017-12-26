@@ -39,6 +39,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public int insertSelective(Course course) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<Course> courses) {
         return courseMapper.insertList(courses);
     }

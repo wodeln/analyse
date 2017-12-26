@@ -38,6 +38,11 @@ public class ClassUserServiceImpl implements ClassUserService {
     }
 
     @Override
+    public int insertSelective(ClassUser classUser) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<ClassUser> classUsers) {
         return classUserMapper.insertList(classUsers);
     }

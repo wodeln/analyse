@@ -38,6 +38,11 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
+    public int insertSelective(Score score) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<Score> scores) {
         return scoreMapper.insertList(scores);
     }

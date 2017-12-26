@@ -38,6 +38,11 @@ public class ClassesServiceImpl implements ClassesService {
     }
 
     @Override
+    public int insertSelective(Classes classes) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<Classes> classes) {
         return classesMapper.insertList(classes);
     }

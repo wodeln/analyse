@@ -39,6 +39,11 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
+    public int insertSelective(SysDict sysDict) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<SysDict> sysDicts) {
         return sysDictMapper.insertList(sysDicts);
     }

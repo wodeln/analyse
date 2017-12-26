@@ -38,6 +38,11 @@ public class CourseTeacherServiceImpl implements CourseTeacherService {
     }
 
     @Override
+    public int insertSelective(CourseTeacher courseTeacher) {
+        return 0;
+    }
+
+    @Override
     public int insertList(List<CourseTeacher> courseTeachers) {
         return courseTeacherMapper.insertList(courseTeachers);
     }

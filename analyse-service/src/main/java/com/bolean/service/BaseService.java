@@ -39,6 +39,13 @@ public interface BaseService<T> {
     int insert(T t);
 
     /**
+     * 新增对象信息(非空字段)
+     * @param t 对象信息
+     * @return
+     */
+    int insertSelective(T t);
+
+    /**
      * 批量新增对象信息
      * @param ts 对象List
      * @return int
