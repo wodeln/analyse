@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class BaseController<T> {
-    protected static final Logger logger = LogManager.getLogger(AnalyseStudentApplication.class);
-
+public class BaseController {
     @Value("${page-size}")
     protected static int pageSize;
     protected User getSessionUser(){

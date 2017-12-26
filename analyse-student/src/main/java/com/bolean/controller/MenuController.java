@@ -1,6 +1,8 @@
 package com.bolean.controller;
 
+import bolean.RSTFul.RSTFulBody;
 import com.bolean.entity.Folder;
+import com.bolean.entity.User;
 import com.bolean.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/menu")
-public class MenuController {
+public class MenuController extends BaseController{
     @Autowired
     private FolderService folderService;
 
@@ -32,7 +34,21 @@ public class MenuController {
     @RequestMapping("add_menu.html")
     public String addUI(Model model){
         List<Folder> folders=folderService.selectByParentId(0);
-        model.addAttribute("top_menu",folders);
+        model.addAttribute("top_menus",folders);
         return "/menu/add_menu.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("add_menu")
+    public RSTFulBody addMenu(Folder folder){
+        /*User sessionUser = getSessionUser();
+        folder.setCreateId(sessionUser.getUserId());
+        folder.setCreateName(sessionUser.getRealName());
+        int res=folderService.insertSelective(folder);*/
+        RSTFulBody rstFulBody=new RSTFulBody();
+        /*if(res>0) rstFulBody.success();
+        else  rstFulBody.fail();*/
+        rstFulBody.success("添加成功！");
+        return rstFulBody;
     }
 }

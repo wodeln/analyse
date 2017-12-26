@@ -20,7 +20,8 @@
                     @for(child in menu.childFolders){
                     <li class="dd-item" data-id="${child.folderId}">
                         <div class="dd-handle">
-                            <span class="pull-right"><i class="glyphicon glyphicon-pencil"></i> &nbsp;&nbsp;<i class="glyphicon glyphicon-trash"></i></span>
+                            <span class="pull-right" style="position:relative;z-index: 99999;">
+                                <a href="http://www.baidu.com" target="_blank"> <i class="glyphicon glyphicon-pencil"></i></a> &nbsp;&nbsp;<i class="glyphicon glyphicon-trash"></i></span>
                             <span class="label label-info"><i class="fa ${child.icoStr}"></i></span> ${child.folderName}
                         </div>
                     </li>
