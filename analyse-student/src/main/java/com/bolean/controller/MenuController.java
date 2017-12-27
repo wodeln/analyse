@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -64,8 +65,14 @@ public class MenuController extends BaseController{
     @ResponseBody
     @RequestMapping("eidt_menu")
     public RSTFulBody editMenu(Folder folder){
-
-
-        return null;
+        User sessionUser = getSessionUser();
+        folder.setUpdateName(sessionUser.getRealName());
+        folder.setUpdateId(sessionUser.getUserId());
+        folder.setUpdateTime(new Date());
+        int res = folderService.updateByPrimaryKeySelective(folder);
+        RSTFulBody rstFulBody=new RSTFulBody();
+        if(res>0) rstFulBody.success("修改成功！");
+        else  rstFulBody.fail("修改失败！");
+        return rstFulBody;
     }
 }

@@ -55,6 +55,11 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(Folder folder) {
+        return folderMapper.updateByPrimaryKeySelective(folder);
+    }
+
+    @Override
     public int selectCount(Folder folder) {
         return folderMapper.selectCount(folder);
     }
