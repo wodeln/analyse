@@ -6736,6 +6736,9 @@ body.rtls.top-navigation .footer.fixed
 {
     color: #fff;
     background-color: #1ab394;
+}.menu-opt-bar{
+    z-index: 1;
+    padding: 10px 10px 0 0;
 }@media (min-width:768px)
 {
     .bs-glyphicons

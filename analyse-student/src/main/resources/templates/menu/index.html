@@ -7,21 +7,24 @@
         <ol class="dd-list">
             @for(menu in menus){
             <li class="dd-item" data-id="${menu.folderId}">
+                <span class="menu-opt-bar pull-right">
+                    <a href="${ctxPath}/menu/edit_menu.html?folderId=${menu.folderId}"><i class="glyphicon glyphicon-pencil"></i></a>
+                    &nbsp;&nbsp;
+                    <a href="${ctxPath}/menu/del_menu.html?folderId=${menu.folderId}"><i class="glyphicon glyphicon-trash"></i></a>
+                </span>
                 <div class="dd-handle">
-                    <span class="pull-right">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                        &nbsp;&nbsp;
-                        <i class="glyphicon glyphicon-trash"></i>
-                    </span>
                     <span class="label label-info"><i class="fa ${menu.icoStr}"></i></span>${menu.folderName}
                 </div>
                 @if(!isEmpty(menu.childFolders)){
                 <ol class="dd-list">
                     @for(child in menu.childFolders){
                     <li class="dd-item" data-id="${child.folderId}">
+                        <span class="menu-opt-bar pull-right">
+                            <a href="${ctxPath}/menu/edit_menu.html?folderId=${child.folderId}"><i class="glyphicon glyphicon-pencil"></i></a>
+                        &nbsp;&nbsp;
+                            <a href="${ctxPath}/menu/del_menu.html?folderId=${child.folderId}"><i class="glyphicon glyphicon-trash"></i></a>
+                        </span>
                         <div class="dd-handle">
-                            <span class="pull-right" style="position:relative;z-index: 99999;">
-                                <a href="http://www.baidu.com" target="_blank"> <i class="glyphicon glyphicon-pencil"></i></a> &nbsp;&nbsp;<i class="glyphicon glyphicon-trash"></i></span>
                             <span class="label label-info"><i class="fa ${child.icoStr}"></i></span> ${child.folderName}
                         </div>
                     </li>
