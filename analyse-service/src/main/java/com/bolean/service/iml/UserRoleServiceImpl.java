@@ -56,6 +56,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(UserRole userRole) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(UserRole userRole) {
         return userRoleMapper.selectCount(userRole);
     }

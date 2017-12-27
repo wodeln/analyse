@@ -54,6 +54,11 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(SysDict sysDict) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(SysDict sysDict) {
         return sysDictMapper.selectCount(sysDict);
     }

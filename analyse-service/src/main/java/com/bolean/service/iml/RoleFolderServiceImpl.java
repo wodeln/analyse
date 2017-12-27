@@ -66,6 +66,11 @@ public class RoleFolderServiceImpl implements RoleFolderService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(RoleFolder roleFolder) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(RoleFolder roleFolder) {
         return roleFolderMapper.selectCount(roleFolder);
     }

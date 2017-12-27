@@ -51,6 +51,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(User user) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(User user) {
         return userMapper.selectCount(user);
     }

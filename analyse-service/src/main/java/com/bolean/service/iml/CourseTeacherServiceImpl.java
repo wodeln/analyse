@@ -53,6 +53,11 @@ public class CourseTeacherServiceImpl implements CourseTeacherService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(CourseTeacher courseTeacher) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(CourseTeacher courseTeacher) {
         return courseTeacherMapper.selectCount(courseTeacher);
     }

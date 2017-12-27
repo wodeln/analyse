@@ -53,6 +53,11 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(Score score) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(Score score) {
         return selectCount(score);
     }

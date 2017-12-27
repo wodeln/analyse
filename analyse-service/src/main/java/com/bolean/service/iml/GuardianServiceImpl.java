@@ -54,6 +54,11 @@ public class GuardianServiceImpl implements GuardianService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(Guardian guardian) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(Guardian guardian) {
         return guardianMapper.selectCount(guardian);
     }

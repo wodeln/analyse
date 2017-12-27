@@ -50,4 +50,22 @@ public class MenuController extends BaseController{
         else  rstFulBody.fail("添加失败！");
         return rstFulBody;
     }
+
+    @RequestMapping("edit_menu.html")
+    public String editUI(Model model,String folderId){
+
+        Folder folder=folderService.selectByPrimaryKey(Integer.parseInt(folderId));
+        List<Folder> folders=folderService.selectByParentId(0);
+        model.addAttribute("top_menus",folders);
+        model.addAttribute("menu",folder);
+        return "/menu/edit_menu.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("eidt_menu")
+    public RSTFulBody editMenu(Folder folder){
+
+
+        return null;
+    }
 }

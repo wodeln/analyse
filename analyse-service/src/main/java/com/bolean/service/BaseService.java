@@ -60,6 +60,13 @@ public interface BaseService<T> {
     int updateByPrimaryKey(T t);
 
     /**
+     * 根据主键更新对象非空字段信息
+     * @param t 对象
+     * @return int
+     */
+    int updateByPrimaryKeySelective(T t);
+
+    /**
      * 根据传入对象属性获取相应数量
      * @param t 对象
      * @return int

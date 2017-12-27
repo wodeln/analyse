@@ -56,6 +56,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(Student student) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(Student student) {
         return studentMapper.selectCount(student);
     }

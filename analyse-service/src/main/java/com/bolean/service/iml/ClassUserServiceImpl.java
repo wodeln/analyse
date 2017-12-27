@@ -53,6 +53,11 @@ public class ClassUserServiceImpl implements ClassUserService {
     }
 
     @Override
+    public int updateByPrimaryKeySelective(ClassUser classUser) {
+        return 0;
+    }
+
+    @Override
     public int selectCount(ClassUser classUser) {
         return selectCount(classUser);
     }
