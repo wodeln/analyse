@@ -60,6 +60,7 @@
 @include("/common/_content_foot.html") {}
 <script src="/js/plugins/toastr/toastr.min.js"></script>
 <script type="text/javascript">
+
     toastr.options = {
         "closeButton": true,
         "debug": true,
@@ -74,7 +75,6 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
-
 
     $.validator.setDefaults({
         highlight: function (e) {
@@ -106,9 +106,11 @@
                         url:"${ctxPath}/menu/add_menu",//+tab,
                         data : $('#menu_form').serialize(),// 你的formid
                         success: function(data){
-                            toastr.success(data['body']);
-
                             if(data['status']==1){
+                                toastr.success(data['body']);
+                                setTimeout('window.location.href="/menu/index.html"',900);
+                            }else{
+                                toastr.success(data['body']);
                                 setTimeout('window.location.href="/menu/index.html"',900);
                             }
                         }

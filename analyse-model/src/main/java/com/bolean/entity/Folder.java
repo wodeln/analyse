@@ -32,7 +32,7 @@ public class Folder implements Serializable {
     /**
      * 状态 0:删除 1:锁定 2:正常
      */
-    private int status;
+    private Integer status;
 
     /**
      * 地址
@@ -134,11 +134,11 @@ public class Folder implements Serializable {
         this.sort = sort;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

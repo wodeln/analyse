@@ -41,7 +41,7 @@ public class FolderServiceImpl implements FolderService {
 
     @Override
     public int insertSelective(Folder folder) {
-        return 0;
+        return folderMapper.insertSelective(folder);
     }
 
     @Override

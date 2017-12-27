@@ -41,28 +41,28 @@
     <sql id="where">
         <where>
             <if test="userId !=null and userId != ''">
-                AND u.user_id = #{userId,jdbcType=BIGINT}
+                AND user_id = #{userId,jdbcType=BIGINT}
             </if>
             <if test="userName != null and userName != ''">
-                AND u.user_name = #{userName,jdbcType=VARCHAR}
+                AND user_name = #{userName,jdbcType=VARCHAR}
             </if>
             <if test="realName != null and realName !=''">
-                AND u.real_name = #{realName,jdbcType=VARCHAR} OR u.real_name LIKE
+                AND real_name = #{realName,jdbcType=VARCHAR} OR real_name LIKE
                 CONCAT('%',#{realName,jdbcType=VARCHAR},'%' )
             </if>
             <if test="sex != null and sex !=null">
-                AND u.sex = #{sex,jdbcType=BIT}
+                AND sex = #{sex,jdbcType=BIT}
             </if>
             <if test="status != null and status != ''">
-                AND u.status = #{status,jdbcType=BIT}
+                AND status = #{status,jdbcType=BIT}
             </if>
             <if test="userTel != null and userTel != ''">
-                AND u.user_tel = #{userTel,jdbcType=VARCHAR}
+                AND user_tel = #{userTel,jdbcType=VARCHAR}
             </if>
             <if test="nut != null and nut != ''">
-                AND (u.user_tel LIKE CONCAT('%',#{nut},'%')
-                OR u.user_name LIKE CONCAT('%',#{nut},'%')
-                OR u.real_name LIKE CONCAT('%',#{nut},'%'))
+                AND (user_tel LIKE CONCAT('%',#{nut},'%')
+                OR user_name LIKE CONCAT('%',#{nut},'%')
+                OR real_name LIKE CONCAT('%',#{nut},'%'))
             </if>
         </where>
     </sql>
@@ -70,7 +70,7 @@
     <select id="selectByInfo" resultMap="BaseResultMap" parameterType="java.lang.Object">
         select
         <include refid="Base_Column_List"/>
-        from tb_user u
+        from tb_user
         <include refid="where"/>
     </select>
 
@@ -94,6 +94,13 @@
         <include refid="Role_Column_List"/>
         FROM tb_role
         WHERE role_id = #{roleId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectOne" parameterType="com.bolean.entity.User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_user
+        <include refid="where"/>
     </select>
 
     <insert id="insertSelective" parameterType="com.bolean.entity.User">

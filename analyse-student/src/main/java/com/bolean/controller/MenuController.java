@@ -41,14 +41,13 @@ public class MenuController extends BaseController{
     @ResponseBody
     @RequestMapping("add_menu")
     public RSTFulBody addMenu(Folder folder){
-        /*User sessionUser = getSessionUser();
+        User sessionUser = getSessionUser();
         folder.setCreateId(sessionUser.getUserId());
         folder.setCreateName(sessionUser.getRealName());
-        int res=folderService.insertSelective(folder);*/
+        int res=folderService.insertSelective(folder);
         RSTFulBody rstFulBody=new RSTFulBody();
-        /*if(res>0) rstFulBody.success();
-        else  rstFulBody.fail();*/
-        rstFulBody.success("添加成功！");
+        if(res>0) rstFulBody.success("添加成功！");
+        else  rstFulBody.fail("添加失败！");
         return rstFulBody;
     }
 }

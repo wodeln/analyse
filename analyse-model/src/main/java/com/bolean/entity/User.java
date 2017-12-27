@@ -82,7 +82,17 @@ public class User implements Serializable {
 
     private List<Role> roles;
 
+    private String nut;
+
     private static final long serialVersionUID = 1L;
+
+    public String getNut() {
+        return nut;
+    }
+
+    public void setNut(String nut) {
+        this.nut = nut;
+    }
 
     public List<Role> getRoles() {
         return roles;
