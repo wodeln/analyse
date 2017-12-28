@@ -76,7 +76,17 @@ public class Folder implements Serializable {
 
     private List<Folder> childFolders;
 
+    private int folderType;
+
     private static final long serialVersionUID = 1L;
+
+    public int getFolderType() {
+        return folderType;
+    }
+
+    public void setFolderType(int folderType) {
+        this.folderType = folderType;
+    }
 
     public List<Folder> getChildFolders() {
         return childFolders;

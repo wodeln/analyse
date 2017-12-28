@@ -9,6 +9,7 @@
         <result column="sort" jdbcType="INTEGER" property="sort"/>
         <result column="ico_str" jdbcType="INTEGER" property="icoStr"/>
         <result column="status" jdbcType="BIT" property="status"/>
+        <result column="folder_type" jdbcType="BIT" property="folderType"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -20,7 +21,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    folder_id, folder_name, key_name, parent_id, sort, status, url, ico_str, create_time, update_time,
+    folder_id, folder_name, key_name, parent_id, sort, status, url, ico_str, folder_type, create_time, update_time,
     create_id, create_name, update_id, update_name, memo
   </sql>
 
@@ -42,19 +43,24 @@
             <if test="sort != null and sort !=null">
                 AND sort = #{sort,jdbcType=INTEGER}
             </if>
-            <if test="status != null and status != ''">
+            <!--<if test="status != null and status != ''">
                 AND status = #{status,jdbcType=BIT}
+            </if>-->
+            <if test="folderType != null and folderType != ''">
+                AND folder_type = #{folderType,jdbcType=BIT}
             </if>
             <if test="url != null and url != ''">
                 AND url = #{url,jdbcType=VARCHAR}
             </if>
+
+            AND status != 0
         </where>
     </sql>
 
     <select id="selectByInfo" resultMap="BaseResultMap" parameterType="java.lang.Object">
         select
         <include refid="Base_Column_List"/>
-        from tb_user
+        from tb_folder
         <include refid="where"/>
     </select>
 
@@ -73,12 +79,12 @@
     parent_id, sort, status,
     url, create_time, update_time,
     create_id, create_name, update_id,
-    update_name, memo, ico_str)
+    update_name, memo, ico_str,folder_type)
     values (#{folderId,jdbcType=INTEGER}, #{folderName,jdbcType=VARCHAR}, #{keyName,jdbcType=VARCHAR},
     #{parentId,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{status,jdbcType=BIT},
     #{url,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
     #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, #{updateId,jdbcType=INTEGER},
-    #{updateName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{icoStr,jdbcType=VARCHAR})
+    #{updateName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{icoStr,jdbcType=VARCHAR},#{folderType,jdbcType=BIT})
     </insert>
     <insert id="insertSelective" parameterType="com.bolean.entity.Folder">
         insert into tb_folder
@@ -103,6 +109,9 @@
             </if>
             <if test="status != null">
                 status,
+            </if>
+            <if test="folderType != null">
+                folder_type,
             </if>
             <if test="url != null">
                 url,
@@ -150,6 +159,9 @@
             </if>
             <if test="status != null">
                 #{status,jdbcType=BIT},
+            </if>
+            <if test="folderType != null">
+                #{folderType,jdbcType=BIT},
             </if>
             <if test="url != null">
                 #{url,jdbcType=VARCHAR},
@@ -199,6 +211,9 @@
             <if test="status != null">
                 status = #{status,jdbcType=BIT},
             </if>
+            <if test="folderType != null">
+                folder_type = #{folderType,jdbcType=BIT},
+            </if>
             <if test="url != null">
                 url = #{url,jdbcType=VARCHAR},
             </if>
@@ -233,6 +248,7 @@
         parent_id = #{parentId,jdbcType=INTEGER},
         sort = #{sort,jdbcType=INTEGER},
         status = #{status,jdbcType=BIT},
+        folder_type = #{folderType,jdbcType=BIT},
         url = #{url,jdbcType=VARCHAR},
         ico_str = #{icoStr,jdbcType=VARCHAR},
         create_time = #{createTime,jdbcType=TIMESTAMP},

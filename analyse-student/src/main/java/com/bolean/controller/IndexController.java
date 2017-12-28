@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dell on 2017/11/21.
@@ -32,12 +34,21 @@ public class IndexController{
     @RequestMapping("/")
     public  String index(Model model){
         //获取所有顶级菜单
-        List<Folder> folders=folderService.selectByParentId(0);
+        Map<String,Object> map = new HashMap<>();
+        map.put("parentId","0");
+        map.put("folderType",1);
+//        map.put('status',);
+//        List<Folder> folders=folderService.selectByParentId(0);
+        List<Folder> folders = folderService.selectByInfo(map);
         /*for (Folder folder : folders) {
             
         }*/
         for (int i = 0; i < folders.size(); i++) {
-            List<Folder> childFolders = folderService.selectByParentId(folders.get(i).getFolderId());
+            Folder folder = new Folder();
+            folder.setParentId(folders.get(i).getFolderId());
+            folder.setFolderType(1);
+//            List<Folder> childFolders = folderService.selectByParentId(folders.get(i).getFolderId());
+            List<Folder> childFolders = folderService.selectByInfo(folder);
             if(childFolders.size()>0) folders.get(i).setChildFolders(childFolders);
         }
         model.addAttribute("menus",folders);

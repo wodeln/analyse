@@ -13,7 +13,10 @@
                     <a href="${ctxPath}/menu/del_menu.html?folderId=${menu.folderId}"><i class="glyphicon glyphicon-trash"></i></a>
                 </span>
                 <div class="dd-handle">
-                    <span class="label label-info"><i class="fa ${menu.icoStr}"></i></span>${menu.folderName}
+                    <span class="@if(menu.icoStr!=''){
+                                label
+                               @}
+                               label-info"><i class="fa ${menu.icoStr}"></i></span>${menu.folderName}
                 </div>
                 @if(!isEmpty(menu.childFolders)){
                 <ol class="dd-list">
@@ -25,7 +28,10 @@
                             <a href="${ctxPath}/menu/del_menu.html?folderId=${child.folderId}"><i class="glyphicon glyphicon-trash"></i></a>
                         </span>
                         <div class="dd-handle">
-                            <span class="label label-info"><i class="fa ${child.icoStr}"></i></span> ${child.folderName}
+                            <span class="@if(child.icoStr!=''){
+                               label
+                               @}
+                             label-info"><i class="fa ${child.icoStr}"></i></span> ${child.folderName}
                         </div>
                     </li>
                     @}

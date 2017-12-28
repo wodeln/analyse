@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Map;
 
 @Service("FolderService")
 public class FolderServiceImpl implements FolderService {
@@ -68,5 +69,15 @@ public class FolderServiceImpl implements FolderService {
     @Override
     public List<Folder> selectByParentId(Integer parentId) {
         return folderMapper.selectByParentId(parentId);
+    }
+
+    @Override
+    public List<Folder> selectByInfo(Map<String, Object> map) {
+        return folderMapper.selectByInfo(map);
+    }
+
+    @Override
+    public List<Folder> selectByInfo(Folder folder) {
+        return folderMapper.selectByInfo(folder);
     }
 }
