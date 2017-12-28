@@ -250,6 +250,7 @@
         <include refid="Base_Column_List" />
         FROM tb_folder
         WHERE parent_id = #{parentId,jdbcType=INTEGER}
+        AND status != 0
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">

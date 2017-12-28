@@ -75,4 +75,16 @@ public class MenuController extends BaseController{
         else  rstFulBody.fail("修改失败！");
         return rstFulBody;
     }
+
+    @RequestMapping("del_menu.html")
+    public String delMenu(Folder folder){
+        User sessionUser = getSessionUser();
+        folder.setUpdateName(sessionUser.getRealName());
+        folder.setUpdateId(sessionUser.getUserId());
+        folder.setUpdateTime(new Date());
+        folder.setStatus(0);
+
+        int res = folderService.updateByPrimaryKeySelective(folder);
+        return "redirect:/menu/index.html";
+    }
 }
