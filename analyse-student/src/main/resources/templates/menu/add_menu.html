@@ -1,11 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    @include("/common/_content_head.html") {}
-    <link href="/css/plugins/toastr/toastr.min.css" rel="stylesheet">
-    <link href="/css/plugins/iCheck/custom.css" rel="stylesheet">
-</head>
-<body>
+<html>
+@layout("/layout/_form_layout.html"){
 <div class="row">
     <div class="col-sm-6">
         <div class="ibox float-e-margins">
@@ -69,12 +64,9 @@
         </div>
     </div>
 </div>
+@}
 </body>
-@include("/common/_content_foot.html") {}
-<script src="/js/plugins/toastr/toastr.min.js"></script>
-<script src="/js/plugins/iCheck/icheck.min.js"></script>
 <script type="text/javascript">
-
     toastr.options = {
         "closeButton": true,
         "debug": true,
@@ -114,25 +106,25 @@
         }),$('input[required]').parent().prev().append(
             '<span style="color:red">*</span>'
         ), $("form").submit(function () {
-                if($(".has-error").length==0){
+            if($(".has-error").length==0){
 
-                    $.ajax({
-                        type : "POST",
-                        url:"${ctxPath}/menu/add_menu",//+tab,
-                        data : $('#menu_form').serialize(),// 你的formid
-                        success: function(data){
-                            if(data['status']==1){
-                                toastr.success(data['body']);
-                                setTimeout('window.location.href="/menu/index.html"',900);
-                            }else{
-                                toastr.success(data['body']);
-                                setTimeout('window.location.href="/menu/index.html"',900);
-                            }
+                $.ajax({
+                    type : "POST",
+                    url:"${ctxPath}/menu/add_menu",//+tab,
+                    data : $('#menu_form').serialize(),// 你的formid
+                    success: function(data){
+                        if(data['status']==1){
+                            toastr.success(data['body']);
+                            setTimeout('window.location.href="/menu/index.html"',900);
+                        }else{
+                            toastr.success(data['body']);
+                            setTimeout('window.location.href="/menu/index.html"',900);
                         }
-                    });
-                    return false;
-                }
-            });
+                    }
+                });
+                return false;
+            }
+        });
         // console.log($('input[required]').parent().prev().before('<span style="color:red">*</span>'))
     });
 
