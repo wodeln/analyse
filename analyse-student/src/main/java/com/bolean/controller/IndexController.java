@@ -4,6 +4,7 @@ import com.bolean.entity.Folder;
 import com.bolean.entity.Student;
 import com.bolean.entity.User;
 import com.bolean.entity.UserExample;
+import com.bolean.service.CommonService;
 import com.bolean.service.FolderService;
 import com.bolean.service.StudentService;
 import com.bolean.service.UserService;
@@ -11,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * Created by dell on 2017/11/21.
@@ -30,6 +31,9 @@ public class IndexController{
 
     @Autowired
     private FolderService folderService;
+
+    @Autowired
+    private CommonService commonService;
 
     @RequestMapping("/")
     public  String index(Model model){
@@ -54,6 +58,31 @@ public class IndexController{
         model.addAttribute("menus",folders);
         //        folderService.select();
         return "/index.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("/checkUnique")
+    public Boolean checkUnique(HttpServletRequest request){
+        List<String> fieldList = new ArrayList();
+        Enumeration e = request.getParameterNames();
+        String table = "";
+        while(e.hasMoreElements()) {
+            String parametName = (String)e.nextElement();
+            if (parametName.equals("table")) {
+                table = request.getParameter("table");
+            } else if (parametName.equals("id")) {
+                fieldList.add(request.getParameter("id"));
+            } else {
+                fieldList.add(parametName + "=" + "'" + request.getParameter(parametName) + "'");
+            }
+        }
+        fieldList.remove(0);
+        Map<String, Object> map = new HashMap();
+        map.put("table", table);
+        map.put("fieldArray", fieldList);
+
+        boolean result = commonService.checkUnique(map);
+        return result;
     }
 
     /**

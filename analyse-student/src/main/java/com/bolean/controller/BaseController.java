@@ -1,16 +1,14 @@
 package com.bolean.controller;
 
-import com.bolean.AnalyseStudentApplication;
 import com.bolean.entity.User;
 import com.github.pagehelper.PageInfo;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+@Controller
 public class BaseController {
+
     @Value("${page-size}")
     protected static int pageSize;
     protected User getSessionUser(){
