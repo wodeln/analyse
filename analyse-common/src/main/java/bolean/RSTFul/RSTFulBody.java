@@ -40,7 +40,7 @@ public class RSTFulBody implements Serializable {
      * 失败放入对象
      */
     public RSTFulBody fail(Object body) {
-        this.status = 1;
+        this.status = 0;
         this.body = body;
         return this;
     }
