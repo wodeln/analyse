@@ -99,13 +99,15 @@ public class UserController extends BaseController{
         return rstFulBody;
     }
 
-    @RequestMapping("pagetest")
-    public void pagetest(){
-        User user = new User();
-        for (int i=0;i<10000;i++){
-            user.setUserName(i+"");
-            user.setPassword("1");
-            userService.insertSelective(user);
-        }
+    @RequestMapping("del_user.html")
+    public String delUser(User user){
+        User sessionUser = getSessionUser();
+        user.setUpdateName(sessionUser.getRealName());
+        user.setUpdateId(sessionUser.getUserId());
+        user.setUpdateTime(new Date());
+        user.setStatus(0);
+
+        int res = userService.updateByPrimaryKeySelective(user);
+        return "redirect:/user/index.html";
     }
 }
