@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
-@include("/common/_content_head.html") {}
-<body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
+@layout("/layout/_list_layout.html"){
+    <body class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="ibox float-e-margins">
                 <div class="">
@@ -26,7 +25,7 @@
 
                             <a onclick="ajax_get_table('search-form',1)" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> 搜索</a>
                             <div class="col-lg-2 pull-right text-right">
-                                <a href="" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+                                <a href="${ctxPath}/user/add_user.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
                                 <a href="" class="btn btn-sm btn-primary"><i class="fa fa-trash-o"></i></a>
                             </div>
                         </div>
@@ -39,10 +38,8 @@
                 </div>
             </div>
         </div>
-    </div>
+@}
 </body>
-@include("/common/_content_foot.html") {}
-
 <script type="text/javascript">
     $(document).ready(function(){
         ajax_get_table('search-form',1);

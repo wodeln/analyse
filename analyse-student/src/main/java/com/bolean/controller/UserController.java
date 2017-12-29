@@ -1,5 +1,6 @@
 package com.bolean.controller;
 
+import bolean.RSTFul.RSTFulBody;
 import com.bolean.entity.Role;
 import com.bolean.entity.User;
 import com.bolean.service.RoleService;
@@ -58,15 +59,23 @@ public class UserController extends BaseController{
         model.addAttribute("pages",pageStr);
         return "/user/ajax_index.html";
     }
-    @RequestMapping("/add_user.html")
-    public String insert(User user){
+
+    @RequestMapping("add_user.html")
+    public String addUI(){
+        return "/user/add_user.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("add_user")
+    public RSTFulBody addUser(User user){
         User sessionUser = getSessionUser();
-        user.setCreateId(sessionUser.getUserId());
         user.setCreateName(sessionUser.getRealName());
-        user.setCreateTime(new Date());
-        int userId = userService.insert(user);
-        if(userId>0) return "成功";
-        else return "失败";
+        user.setCreateId(sessionUser.getUserId());
+        int res=userService.insertSelective(user);
+        RSTFulBody rstFulBody=new RSTFulBody();
+        if(res>0) rstFulBody.success("添加成功！");
+        else  rstFulBody.fail("添加失败！");
+        return rstFulBody;
     }
 
     @RequestMapping("updateUser")
