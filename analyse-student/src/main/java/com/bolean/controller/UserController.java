@@ -78,9 +78,25 @@ public class UserController extends BaseController{
         return rstFulBody;
     }
 
-    @RequestMapping("updateUser")
-    public void update(User user){
-        int userId = userService.updateByPrimaryKey(user);
+    @RequestMapping("edit_user.html")
+    public String editUI(Model model,String userId){
+        User user = userService.selectByPrimaryKey(Integer.parseInt(userId));
+        model.addAttribute("iuser",user);
+        return "/user/edit_user.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("edit_user")
+    public RSTFulBody editUser(User user){
+        User sessionUser = getSessionUser();
+        user.setUpdateId(sessionUser.getUserId());
+        user.setUpdateName(sessionUser.getRealName());
+        user.setUpdateTime(new Date());
+        int res = userService.updateByPrimaryKeySelective(user);
+        RSTFulBody rstFulBody=new RSTFulBody();
+        if(res>0) rstFulBody.success("修改成功！");
+        else  rstFulBody.fail("修改失败！");
+        return rstFulBody;
     }
 
     @RequestMapping("pagetest")

@@ -39,7 +39,11 @@
         <td>${user.createTime,"yyyy-MM-dd HH:mm"}</td>
         <td>${user.updateName}</td>
         <td>${user.updateTime,"yyyy-MM-dd HH:mm"}</td>
-        <td></td>
+        <td >
+            <a href="${ctxPath}/user/edit_user.html?userId=${user.userId}"><i class="glyphicon glyphicon-pencil"></i></a>
+            &nbsp;&nbsp;
+            <a href="${ctxPath}/user/del_user.html?userId=${user.userId}"><i class="glyphicon glyphicon-trash"></i></a>
+        </td>
     </tr>
     @}
     </tbody>
