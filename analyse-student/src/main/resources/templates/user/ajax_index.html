@@ -64,4 +64,12 @@
             $(".i-checks").removeAttr("checked");
         }
     });
+
+    $(".i-checks").click(function () {
+        if($("input[class='i-checks']:checked").length<10){
+            $("#check_all").prop("checked", false);
+        }else {
+            $("#check_all").prop("checked", true);
+        }
+    });
 </script>
