@@ -53,9 +53,10 @@
             <if test="sex != null and sex !=null">
                 AND sex = #{sex,jdbcType=BIT}
             </if>
-            <if test="status != null and status != ''">
+            <!--<if test="status != null and status != ''">
                 AND status = #{status,jdbcType=BIT}
-            </if>
+            </if>-->
+            AND status != 0
             <if test="userTel != null and userTel != ''">
                 AND user_tel = #{userTel,jdbcType=VARCHAR}
             </if>
@@ -91,9 +92,9 @@
     
     <select id="selectRoles" parameterType="int" resultType="com.bolean.entity.Role">
         select
-        <include refid="Role_Column_List"/>
-        FROM tb_role
-        WHERE role_id = #{roleId,jdbcType=INTEGER}
+        <include refid="User_Role_Column_List"/>
+        FROM tb_user_role
+        WHERE ur.user_id = #{userId,jdbcType=INTEGER}
     </select>
 
     <select id="selectOne" parameterType="com.bolean.entity.User" resultMap="BaseResultMap">
@@ -255,5 +256,14 @@
             </if>
         </set>
         where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <update id="batchDel" parameterType="Map">
+        UPDATE tb_user SET
+        status=0,
+        update_id = #{updateId,jdbcType=INTEGER},
+        update_name = #{updateName,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        WHERE user_id IN (${ids});
     </update>
 </mapper>

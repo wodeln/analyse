@@ -30,7 +30,7 @@ public class UserController extends BaseController{
     private RoleService roleService;
 
     @RequestMapping("/index.html")
-    public String getAllUser(Model model, HttpServletRequest request){
+    public String getAllUser(Model model){
 
         //查询所有角色
         List<Role> roles = roleService.selectAll();
@@ -40,7 +40,7 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/ajax_index")
-    public String ajaxIndex(Model model, HttpServletRequest request, int pageNum, int pageSize,
+    public String ajaxIndex(Model model, int pageNum, int pageSize,
                             @RequestParam(required = false) String nut,
                             @RequestParam(required = false) String role
                             ){
@@ -109,5 +109,21 @@ public class UserController extends BaseController{
 
         int res = userService.updateByPrimaryKeySelective(user);
         return "redirect:/user/index.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("batch_del")
+    public RSTFulBody batchDel(@RequestParam(required = true) String ids){
+        User sessionUser = getSessionUser();
+        Map<String, Object> map = new HashMap<>();
+        map.put("ids",ids);
+        map.put("updateName",sessionUser.getRealName());
+        map.put("updateId",sessionUser.getUserId());
+        map.put("updateTime",new Date());
+        int res = userService.batchDel(map);
+        RSTFulBody rstFulBody=new RSTFulBody();
+        if(res>0) rstFulBody.success(res);
+        else  rstFulBody.fail("删除失败！");
+        return rstFulBody;
     }
 }

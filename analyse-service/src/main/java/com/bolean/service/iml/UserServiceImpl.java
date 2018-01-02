@@ -79,4 +79,9 @@ public class UserServiceImpl implements UserService {
     public int insertSelective(User user) {
         return userMapper.insertSelective(user);
     }
+
+    @Override
+    public int batchDel(Map<String,Object> map) {
+        return userMapper.batchDel(map);
+    }
 }

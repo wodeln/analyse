@@ -16,4 +16,6 @@ public interface UserService extends BaseService<User>{
     User selectByUserName(String userName);
 
     int insertSelective(User user);
+
+    int batchDel(Map<String,Object> map);
 }

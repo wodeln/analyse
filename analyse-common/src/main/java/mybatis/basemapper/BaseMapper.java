@@ -1,6 +1,7 @@
 package mybatis.basemapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BaseMapper<T> {
     /**
@@ -78,4 +79,11 @@ public interface BaseMapper<T> {
      * @return
      */
     List<T> selectByInfo(Object o);
+
+    /**
+     * 批量删除
+     * @param map
+     * @return
+     */
+    int batchDel(Map<String,Object> map);
 }

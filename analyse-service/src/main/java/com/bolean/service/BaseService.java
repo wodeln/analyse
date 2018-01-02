@@ -72,7 +72,7 @@ public interface BaseService<T> {
      * @return int
      */
     int selectCount(T t);
-    
+
 
     /**
      * 根据example 获取对象列表
