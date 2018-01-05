@@ -22,9 +22,11 @@
         <td>${role.updateName}</td>
         <td>${role.updateTime,"yyyy-MM-dd HH:mm"}</td>
         <td >
-            <a href="${ctxPath}/role/edit_role.html?roleId=${role.roleId}"><i class="glyphicon glyphicon-pencil"></i></a>
-            &nbsp;&nbsp;
-            <a href="${ctxPath}/role/del_role.html?roleId=${role.roleId}"><i class="glyphicon glyphicon-trash"></i></a>
+            @if(role.keyName != 'admin'){
+                <a href="${ctxPath}/role/edit_role.html?roleId=${role.roleId}"><i class="glyphicon glyphicon-pencil"></i></a>
+                &nbsp;&nbsp;
+                <a href="${ctxPath}/role/del_role.html?roleId=${role.roleId}"><i class="glyphicon glyphicon-trash"></i></a>
+            @}
         </td>
     </tr>
     @}
