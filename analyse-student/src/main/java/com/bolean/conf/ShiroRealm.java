@@ -1,9 +1,10 @@
 package com.bolean.conf;
 
+import com.bolean.entity.Role;
 import com.bolean.entity.RoleFolder;
 import com.bolean.entity.User;
-import com.bolean.entity.UserRole;
 import com.bolean.service.RoleFolderService;
+import com.bolean.service.RoleService;
 import com.bolean.service.UserRoleService;
 import com.bolean.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +28,7 @@ public class ShiroRealm extends AuthorizingRealm {
     private RoleFolderService roleFolderService;
 
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -43,16 +44,19 @@ public class ShiroRealm extends AuthorizingRealm {
         for(Role userRole:user.getRoles()){
             info.addRole(userRole.getRoleName());
         }*/
-        UserRole userRole = new UserRole();
+
+        Role role = roleService.selectByPrimaryKey(user.getRoleId());
+
+        /*UserRole userRole = new UserRole();
         userRole.setUserId(user.getUserId());
-        UserRole role = userRoleService.selectOne(userRole);
-        info.addRole(role.getRoleName());
+        UserRole role = userRoleService.selectOne(userRole);*/
+        info.addRole(role.getKeyName());
 
         //赋予权限
         RoleFolder roleFolder = new RoleFolder();
         roleFolder.setRoleId(role.getRoleId());
         for (RoleFolder folder:roleFolderService.selectByInfo(roleFolder)){
-            info.addStringPermission(folder.getFolderName());
+            info.addStringPermission(folder.getKeyName());
         }
         return info;
     }

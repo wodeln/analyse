@@ -76,8 +76,38 @@
 
     <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List"><property name="alias" value="u"/></include>,
-        <include refid="User_Role_Column_List"><property name="alias" value="ur"/></include>
+        u.user_id,
+	u.head_img,
+	u.PASSWORD,
+	u.real_name,
+	u.sex,
+	u.STATUS,
+	u.user_name,
+	u.user_tel,
+	u.create_time,
+	u.update_time,
+	u.create_id,
+	u.create_name,
+	u.update_id,
+	u.update_name,
+	u.memo,
+	u.role_id,
+	ur.id,
+	ur.role_id,
+	ur.user_id,
+	ur.create_time,
+	ur.update_time,
+	ur.create_id,
+	ur.create_name,
+	ur.update_id,
+	ur.update_name,
+	ur.memo,
+	u.head_img,
+	u.real_name,
+	u.sex,
+	u. STATUS,
+	u.user_name,
+	u.user_tel
         from tb_user u
         LEFT JOIN tb_user_role ur ON u.user_id=ur.user_id
         WHERE u.user_name = #{_parameter,jdbcType=VARCHAR}

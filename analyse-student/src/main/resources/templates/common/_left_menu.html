@@ -4,6 +4,10 @@
         <span class="nav-label">首页</span>
     </a>
 </li>
+@if(so.hasRole('admin')){
+    有 admin role
+@}
+
 @for(menu in menus){
     <li>
         @if(isEmpty(menu.childFolders)){
