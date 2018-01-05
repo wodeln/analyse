@@ -57,12 +57,12 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int updateByPrimaryKey(Role role) {
-        return updateByPrimaryKey(role);
+        return roleMapper.updateByPrimaryKey(role);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Role role) {
-        return 0;
+        return roleMapper.updateByPrimaryKeySelective(role);
     }
 
     @Override

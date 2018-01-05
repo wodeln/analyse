@@ -138,6 +138,18 @@ public class RoleContoller extends BaseController{
         return rstFulBody;
     }
 
+    @RequestMapping("del_role.html")
+    public String delUser(Role role){
+        User sessionUser = getSessionUser();
+        role.setUpdateName(sessionUser.getRealName());
+        role.setUpdateId(sessionUser.getUserId());
+        role.setUpdateTime(new Date());
+        role.setStatus(0);
+
+        int res = roleService.updateByPrimaryKeySelective(role);
+        return "redirect:/role/index.html";
+    }
+
     private List<Folder> getFolders(){
         List<Folder> folders=folderService.selectByParentId(0);
 
