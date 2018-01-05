@@ -135,7 +135,7 @@
                 userName: {
                     required: e + "请输入您的用户名",
                     minlength: e + "用户名必须5个字符以上",
-                    remote: e+ "该用户名已存在"
+                    remote: e + "该用户名已存在"
                 },
                 password: {
                     required: e + "请输入密码",
@@ -172,8 +172,6 @@
             var checkName = /^\w{2,10}$/g;
             return this.optional(element)||(checkName.test(value));
         },"只允许英文字母、数字或者下画线！");
-
-
     });
 
 </script>
