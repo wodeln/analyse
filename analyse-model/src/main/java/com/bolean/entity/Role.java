@@ -2,6 +2,7 @@ package com.bolean.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 
@@ -51,8 +52,27 @@ public class Role implements Serializable {
      */
     private String memo;
 
+    private List<RoleFolder> folders;
+
+    private Integer status;
+
     private static final long serialVersionUID = 1L;
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public List<RoleFolder> getFolders() {
+        return folders;
+    }
+
+    public void setFolders(List<RoleFolder> folders) {
+        this.folders = folders;
+    }
 
     public Integer getRoleId() {
         return roleId;

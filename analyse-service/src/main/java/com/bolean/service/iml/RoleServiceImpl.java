@@ -1,7 +1,9 @@
 package com.bolean.service.iml;
 
+import com.bolean.dao.RoleFolderMapper;
 import com.bolean.dao.RoleMapper;
 import com.bolean.entity.Role;
+import com.bolean.entity.RoleFolder;
 import com.bolean.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ import java.util.Map;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private RoleFolderMapper roleFolderMapper;
 
     @Override
     public List<Role> selectAll() {
@@ -42,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int insertSelective(Role role) {
-        return 0;
+        return roleMapper.insertSelective(role);
     }
 
     @Override
@@ -73,5 +78,26 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> selectByInfo(Role role) {
         return roleMapper.selectByInfo(role);
+    }
+
+    @Override
+    public int insertRoleAndRights(Role role, List<RoleFolder> roleFolders) {
+        int res=0;
+        int resRole=roleMapper.insertSelective(role);
+        if(resRole != 0){
+            for (RoleFolder roleFolder: roleFolders) {
+                roleFolder.setRoleId(role.getRoleId());
+            }
+            res=roleFolderMapper.insertList(roleFolders);
+        }
+
+        return res;
+    }
+
+    @Override
+    public int updateRoleAndRights(Role role, List<RoleFolder> roleFolders) {
+        roleMapper.updateByPrimaryKeySelective(role);
+        roleFolderMapper.deleteByRoleId(role.getRoleId());
+        return roleFolderMapper.insertList(roleFolders);
     }
 }

@@ -10,6 +10,7 @@
         <result column="ico_str" jdbcType="INTEGER" property="icoStr"/>
         <result column="status" jdbcType="BIT" property="status"/>
         <result column="folder_type" jdbcType="BIT" property="folderType"/>
+        <result column="if_checked" jdbcType="BIT" property="ifChecked"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -274,5 +275,51 @@
         <include refid="Base_Column_List" />
         FROM tb_folder
         ORDER BY sort ASC
+    </select>
+
+    <select id="selectByRoleFolders" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+        SELECT
+	f1.folder_id,
+	f1.folder_name,
+	f1.key_name,
+	f1.parent_id,
+	f1.sort,
+	f1. STATUS,
+	f1.url,
+	f1.ico_str,
+	f1.folder_type,
+	f1.create_time,
+	f1.update_time,
+	f1.create_id,
+	f1.create_name,
+	f1.update_id,
+	f1.update_name,
+	f1.memo,
+	(
+		CASE
+		WHEN (
+			f2.folder_id = 0
+			OR f2.folder_id IS NULL
+		) THEN
+			'0'
+		ELSE
+			'1'
+		END
+	) "if_checked"
+FROM
+	tb_folder f1
+LEFT JOIN (
+	SELECT
+		ff.folder_id
+	FROM
+		tb_folder ff
+	WHERE
+		folder_id IN
+    <foreach collection="roleFolders" item="item" index="index" open="(" separator="," close=")">
+        #{item.folderId}
+    </foreach>
+) f2 ON f1.folder_id = f2.folder_id
+WHERE f1.parent_id = #{parentId,jdbcType=BIGINT}
+AND f1.status != 0;
     </select>
 </mapper>

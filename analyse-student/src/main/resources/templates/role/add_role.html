@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+@layout("/layout/_form_layout.html"){
+<div class="row">
+    <div class="col-sm-12">
+
+            <form class="form-horizontal m-t" id="viladate_form">
+                <div class="col-sm-6 m-t-md">
+                    <div class="ibox float-e-margins">
+                        <div class="form-group">
+                            <label for="role_name" class="col-sm-2 control-label">角色名称：</label>
+                            <div class="col-sm-9">
+                                <input id="role_name" placeholder="请输入角色名称 例：教师" name="roleName" class="form-control" type="text" required>
+                                <span class="m-t3 help-block m-b-none"><i class="fa fa-info-circle"></i> 角色名称由中文、字母、数字与"_" 组成,总长度2位以上</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="key_name" class="col-sm-2 control-label">KEY：</label>
+                            <div class="col-sm-9">
+                                <input id="key_name" name="keyName" placeholder="请输入KEY_NAME" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="memo" class="col-sm-2 control-label">备注：</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="memo" rows="5" name="memo"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h3>权限分配 <small>点击大分类可以全选或全不选该分类下的子权限</small></h3>
+
+                    @for(menu in menus){
+                    <div class="ibox float-e-margins">
+                        <div>
+                            <div class="role-folder-top" s="ml-${menuLP.index}-${menu.folderId}"><h4>${menu.folderName}</h4></div>
+                            <div class="checkbox checkbox-info checkbox-inline">
+                                <input type="checkbox" class="ml-${menuLP.index}-${menu.folderId}" name="rights[]" id="menu${menu.folderId}" value="${menu.folderId}">
+                                <label for="menu${menu.folderId}"></label>
+                            </div>
+                        </div>
+                        @if(!isEmpty(menu.childFolders)){
+                        <div class="ibox-content no-padding">
+                            <ul class="list-group">
+                            @for(child in menu.childFolders){
+                                @if(child.folderType==1){
+                                <li class="list-group-item">
+                                    <div class="role-folder-top" s="mll-${menuLP.index}-${child.folderId}"><h4>${child.folderName}</h4></div>
+                                    <div class="checkbox checkbox-info checkbox-inline">
+                                        <input type="checkbox" class="ml-${menuLP.index}-${menu.folderId} mll-${menuLP.index}-${child.folderId}" name="rights[]" id="menu${child.folderId}" value="${child.folderId}">
+                                        <label for="menu${child.folderId}"></label>
+                                    </div>
+                                    @if(!isEmpty(child.childFolders)){
+                                        @for(child1 in child.childFolders){
+                                        <div class="checkbox checkbox-info checkbox-inline">
+                                            <input type="checkbox" class="ml-${menuLP.index}-${menu.folderId} mll-${menuLP.index}-${child.folderId}" name="rights[]" id="menu${child1.folderId}" value="${child1.folderId}">
+                                            <label for="menu${child1.folderId}">${child1.folderName}</label>
+                                        </div>
+                                        @}
+                                    @}
+                                </li>
+                                @}else{
+                                <div class="checkbox checkbox-info checkbox-inline">
+                                    <input type="checkbox" class="ml-${menuLP.index}-${menu.folderId} mll-${menuLP.index}-${child.folderId}" name="rights[]" id="menu${child.folderId}" value="${child.folderId}">
+                                    <label for="menu${child.folderId}">${child.folderName}</label>
+                                </div>
+                                @}
+                            @}
+                            </ul>
+                        </div>
+                        @}
+                    </div>
+                    @}
+                </div>
+            </form>
+
+    </div>
+</div>
+@}
+<div id="test"></div>
+</body>
+<script type="text/javascript">
+    toastr.options = {
+        "closeButton": true,
+        "debug": true,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "showDuration": "400",
+        "hideDuration": "1000",
+        "timeOut": "500",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    var flag=true;
+    $(".role-folder-top").click(function () {
+
+        var optClassName = $(this).attr("s");
+        if(flag){
+            $("."+optClassName).prop("checked", true);
+            flag=false;
+        }else {
+            $("."+optClassName).prop("checked", false);
+            flag=true;
+        }
+    });
+
+
+    $.validator.setDefaults({
+        highlight: function (e) {
+            $(e).closest(".form-group").removeClass("has-success").addClass("has-error")
+        }, success: function (e) {
+            e.closest(".form-group").removeClass("has-error").addClass("has-success")
+        }, errorElement: "span", errorPlacement: function (e, r) {
+            e.appendTo(r.is(":radio") || r.is(":checkbox") ? r.parent().parent().parent() : r.parent())
+        }, errorClass: "help-block m-b-none", validClass: "help-block m-b-none"
+    }), $().ready(function () {
+        var e = "<i class='fa fa-times-circle'></i> ";
+        $("#viladate_form").validate({
+            rules: {
+                roleName: {
+                    required: true,
+                    minlength: 2,
+                    remote: {
+                        url: "${ctxPath}/checkUnique",
+                        data:{
+                            role_name:function(){
+                                return $("#role_name").val();
+                            },
+                            table:function(){
+                                return "tb_role";
+                            }
+                        }
+                    }
+                }
+            },
+            messages: {
+                roleName: {
+                    required: e + "请输入角色名称",
+                    minlength: e + "用户名必须2个字符以上",
+                    remote: e + "该角色名已存在"
+                }
+            },
+            submitHandler: function() {
+                $.ajax({
+                    type : "POST",
+                    url:"${ctxPath}/role/add_role",//+tab,
+                    data : $('#viladate_form').serialize(),// 你的formid
+                    success: function(data){
+                        if(data['status']==1){
+                            toastr.success(data['body']);
+                            setTimeout('window.location.href="/role/index.html"',900);
+                        }else{
+                            toastr.success(data['body']);
+                        }
+                    }
+                });
+            }
+        }),$('input[required]').parent().prev().append(
+            '<span style="color:red">*</span>'
+        );
+    });
+
+</script>
+</html>

@@ -2,11 +2,13 @@ package com.bolean.service.iml;
 
 import com.bolean.dao.FolderMapper;
 import com.bolean.entity.Folder;
+import com.bolean.entity.RoleFolder;
 import com.bolean.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,5 +81,13 @@ public class FolderServiceImpl implements FolderService {
     @Override
     public List<Folder> selectByInfo(Folder folder) {
         return folderMapper.selectByInfo(folder);
+    }
+
+    @Override
+    public List<Folder> selectByRoleFolders(Integer parentId,List<RoleFolder> roleFolders) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("parentId",parentId);
+        map.put("roleFolders",roleFolders);
+        return folderMapper.selectByRoleFolders(map);
     }
 }

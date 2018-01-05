@@ -26,6 +26,11 @@ public class RoleFolderServiceImpl implements RoleFolderService {
     }
 
     @Override
+    public int deleteByRoleId(Integer roleId) {
+        return roleFolderMapper.deleteByRoleId(roleId);
+    }
+
+    @Override
     public List<RoleFolder> selectAll() {
         return roleFolderMapper.selectAll();
     }

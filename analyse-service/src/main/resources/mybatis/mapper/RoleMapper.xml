@@ -5,6 +5,7 @@
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="key_name" jdbcType="VARCHAR" property="keyName" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="status" jdbcType="BIT" property="status"/>
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_id" jdbcType="INTEGER" property="createId" />
@@ -12,11 +13,16 @@
     <result column="update_id" jdbcType="INTEGER" property="updateId" />
     <result column="update_name" jdbcType="VARCHAR" property="updateName" />
     <result column="memo" jdbcType="VARCHAR" property="memo" />
+
   </resultMap>
 
   <sql id="Base_Column_List">
     role_id, key_name, role_name, create_time, update_time, create_id, create_name, update_id, 
-    update_name, memo
+    update_name, memo, status
+  </sql>
+
+  <sql id="Role_Folder_Column_List">
+    rf.role_id, rf.folder_id, r.key_name role_key_name, r.role_name, f.folder_name, f.key_name, f.parent_id, f.sort, f.url
   </sql>
 
   <sql id="where">
@@ -33,6 +39,7 @@
       <if test="roleName != null and roleName != ''">
         AND role_name = #{roleName,jdbcType=VARCHAR}  OR role_name LIKE CONCAT('%',#{roleName,jdbcType=VARCHAR},'%' )
       </if>
+        AND status != 0
     </where>
   </sql>
   
@@ -46,6 +53,125 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from tb_role;
+    from tb_role
+      WHERE status != 0
   </select>
+
+  <select id="selectFolders" resultType="com.bolean.entity.RoleFolder">
+    SELECT
+    <include refid="Role_Folder_Column_List"/>
+    FROM tb_role_folder rf
+      LEFT JOIN tb_role r ON rf.role_id=r.role_id
+      LEFT JOIN tb_folder f ON rf.folder_id = f.folder_id
+    WHERE rf.role_id = #{roleId,jdbcType=BIGINT}
+  </select>
+
+  <insert id="insertSelective" keyProperty="roleId" parameterType="com.bolean.entity.Role">
+    insert into tb_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="keyName != null">
+        key_name,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="updateName != null">
+        update_name,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="keyName != null">
+        #{keyName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateName != null">
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_role
+        where role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.bolean.entity.Role">
+    update tb_role
+    <set>
+      <if test="keyName != null">
+        key_name = #{keyName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateName != null">
+        update_name = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
 </mapper>

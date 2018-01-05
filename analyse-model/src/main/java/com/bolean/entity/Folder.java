@@ -78,7 +78,17 @@ public class Folder implements Serializable {
 
     private int folderType;
 
+    private int ifChecked;
+
     private static final long serialVersionUID = 1L;
+
+    public int getIfChecked() {
+        return ifChecked;
+    }
+
+    public void setIfChecked(int ifChecked) {
+        this.ifChecked = ifChecked;
+    }
 
     public int getFolderType() {
         return folderType;

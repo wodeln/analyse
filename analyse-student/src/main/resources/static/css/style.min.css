@@ -6755,3 +6755,10 @@ body.rtls.top-navigation .footer.fixed
 .m-t3{
     margin-top: 3px;
 }
+.role-folder-top{
+    display: inline-block!important;
+    min-height: 27px;
+    padding-top: 7px;
+    vertical-align: middle;
+    cursor: pointer;
+}
