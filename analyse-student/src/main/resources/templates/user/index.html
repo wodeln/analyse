@@ -72,12 +72,12 @@
                 confirmButtonText: "删除",
                 closeOnConfirm: false
             }, function () {
-                var adIds = "";
+                var delIds = "";
                 $("input[class='i-checks']:checked").each(function(i){
                     if(0==i){
-                        adIds = $(this).val();
+                        delIds = $(this).val();
                     }else{
-                        adIds += (","+$(this).val());
+                        delIds += (","+$(this).val());
                     }
                 });
 
@@ -85,7 +85,7 @@
                     type : "POST",
                     url:"${ctxPath}/user/batch_del",//+tab,
                     data : {
-                        ids: adIds
+                        ids: delIds
                     },
                     success: function(data){
                         if(data['status']==1){
@@ -97,7 +97,6 @@
                         }
                     }
                 });
-                // swal("删除成功！", "您已经永久删除了这条信息。", "success")
             })
         }
     });
