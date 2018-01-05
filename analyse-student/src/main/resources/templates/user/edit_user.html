@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label for="sex" class="col-sm-3 control-label">性别：</label>
                         <div class="col-sm-8">
-                            <div class="radio i-checks" id="sex">
+                            <div class="i-checks" id="sex">
                                 <label><input type="radio" @if(iuser.sex==2){
                                               checked @}
                                               value="2" name="sex"> <i></i> 女</label>
@@ -52,7 +52,11 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="role_id" name="roleId">
                                 <option value="">请选择</option>
-
+                                @for(role in roles){
+                                <option @if(role.roleId == iuser.roleId){
+                                       selected @}
+                                    value="${role.roleId}">${role.roleName}</option>
+                                @}
                             </select>
                         </div>
                     </div>

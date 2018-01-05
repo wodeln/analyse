@@ -8,6 +8,7 @@
         <result column="real_name" jdbcType="VARCHAR" property="realName"/>
         <result column="sex" jdbcType="BIT" property="sex"/>
         <result column="status" jdbcType="BIT" property="status"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="user_tel" jdbcType="VARCHAR" property="userTel"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -17,16 +18,11 @@
         <result column="update_id" jdbcType="INTEGER" property="updateId"/>
         <result column="update_name" jdbcType="VARCHAR" property="updateName"/>
         <result column="memo" jdbcType="VARCHAR" property="memo"/>
-        <collection property="roles" javaType="list" column="role_id" select="selectRoles" >
-            <id column="role_id" jdbcType="INTEGER" property="roleId" />
-            <result column="key_name" jdbcType="VARCHAR" property="keyName" />
-            <result column="role_name" jdbcType="VARCHAR" property="roleName" />
-        </collection>
     </resultMap>
 
     <sql id="Base_Column_List">
     user_id, head_img, password, real_name, sex, status, user_name, user_tel, create_time,
-    update_time, create_id, create_name, update_id, update_name, memo
+    update_time, create_id, create_name, update_id, update_name, memo, role_id
     </sql>
 
     <sql id="User_Role_Column_List" >
@@ -50,8 +46,11 @@
                 AND real_name = #{realName,jdbcType=VARCHAR} OR real_name LIKE
                 CONCAT('%',#{realName,jdbcType=VARCHAR},'%' )
             </if>
-            <if test="sex != null and sex !=null">
+            <if test="sex != null and sex !=''">
                 AND sex = #{sex,jdbcType=BIT}
+            </if>
+            <if test="roleId != null and roleId !=''">
+                AND role_id = #{roleId,jdbcType=INTEGER}
             </if>
             <!--<if test="status != null and status != ''">
                 AND status = #{status,jdbcType=BIT}
@@ -128,6 +127,9 @@
             <if test="userName != null">
                 user_name,
             </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
             <if test="userTel != null">
                 user_tel,
             </if>
@@ -174,6 +176,9 @@
             </if>
             <if test="userName != null">
                 #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
             </if>
             <if test="userTel != null">
                 #{userTel,jdbcType=VARCHAR},
@@ -223,6 +228,9 @@
             </if>
             <if test="sex != null">
                 sex = #{sex,jdbcType=BIT},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 status = #{status,jdbcType=BIT},

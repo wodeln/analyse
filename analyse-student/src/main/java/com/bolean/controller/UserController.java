@@ -3,7 +3,9 @@ package com.bolean.controller;
 import bolean.RSTFul.RSTFulBody;
 import com.bolean.entity.Role;
 import com.bolean.entity.User;
+import com.bolean.entity.UserRole;
 import com.bolean.service.RoleService;
+import com.bolean.service.UserRoleService;
 import com.bolean.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,9 @@ public class UserController extends BaseController{
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private UserRoleService userRoleService;
 
     @RequestMapping("/index.html")
     public String getAllUser(Model model){
@@ -48,8 +52,8 @@ public class UserController extends BaseController{
 //        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
         //组装搜索条件
         Map<String,Object> map=new HashMap<>();
-        if(nut!=null) map.put("nut",nut);
-        if(nut!="") map.put("role",role);
+        if(nut!=null && nut!="") map.put("nut",nut);
+        if(role!=null && role!="") map.put("roleId",role);
         //分页查询用户
         PageHelper.startPage(pageNum, pageSize);
         List<User> users = userService.selectByInfo(map);
@@ -61,7 +65,10 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("add_user.html")
-    public String addUI(){
+    public String addUI(Model model){
+        List<Role> roles = roleService.selectAll();
+
+        model.addAttribute("roles",roles);
         return "/user/add_user.html";
     }
 
@@ -81,6 +88,12 @@ public class UserController extends BaseController{
     @RequestMapping("edit_user.html")
     public String editUI(Model model,String userId){
         User user = userService.selectByPrimaryKey(Integer.parseInt(userId));
+        List<Role> roles = roleService.selectAll();
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",user.getUserId());
+
+        model.addAttribute("roles",roles);
         model.addAttribute("iuser",user);
         return "/user/edit_user.html";
     }

@@ -80,7 +80,7 @@ public class User implements Serializable {
      */
     private String memo;
 
-    private List<Role> roles;
+    private Integer roleId;
 
     private String nut;
 
@@ -94,12 +94,12 @@ public class User implements Serializable {
         this.nut = nut;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public Integer getUserId() {
