@@ -1,7 +1,7 @@
 <table class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
-        <th><input type="checkbox" id="check_all"></th>
+        <!--<th><input type="checkbox" id="check_all"></th>-->
         <th>角色名称</th>
         <th>KEY</th>
         <th>添加人</th>
@@ -14,7 +14,7 @@
     <tbody>
     @for(role in page_info.list){
     <tr>
-        <td><input type="checkbox" class="i-checks" name="input[]" value="${role.roleId}"></td>
+        <!--<td><input type="checkbox" class="i-checks" name="input[]" value="${role.roleId}"></td>-->
         <td>${role.roleName}</td>
         <td>${role.keyName}</td>
         <td>${role.createName}</td>
