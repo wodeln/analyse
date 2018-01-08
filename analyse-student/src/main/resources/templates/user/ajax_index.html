@@ -43,9 +43,13 @@
         <td>${user.updateTime,"yyyy-MM-dd HH:mm"}</td>
         <td >
             @if(user.userName != 'admin'){
+            @if(so.hasPermission("USER_EDIT")){
             <a href="${ctxPath}/user/edit_user.html?userId=${user.userId}"><i class="glyphicon glyphicon-pencil"></i></a>
+            @}
             &nbsp;&nbsp;
+            @if(so.hasPermission("USER_DEL")){
             <a href="${ctxPath}/user/del_user.html?userId=${user.userId}"><i class="glyphicon glyphicon-trash"></i></a>
+            @}
             @}
         </td>
     </tr>

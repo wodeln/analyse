@@ -4,11 +4,9 @@
         <span class="nav-label">首页</span>
     </a>
 </li>
-@if(so.hasRole('admin')){
-    有 admin role
-@}
 
 @for(menu in menus){
+    @if(so.hasPermission(menu.keyName)){
     <li>
         @if(isEmpty(menu.childFolders)){
         <a class="J_menuItem" href="${menu.url}">
@@ -23,14 +21,17 @@
         </a>
         <ul class="nav nav-second-level">
             @for(child in menu.childFolders){
-            <li>
-                <a class="J_menuItem" href="${child.url}">
-                    <i class="fa ${child.icoStr}"></i>
-                    ${child.folderName}
-                </a>
-            </li>
+                @if(so.hasPermission(child.keyName)){
+                <li>
+                    <a class="J_menuItem" href="${child.url}">
+                        <i class="fa ${child.icoStr}"></i>
+                        ${child.folderName}
+                    </a>
+                </li>
+                @}
             @}
         </ul>
         @}
     </li>
+    @}
 @}
