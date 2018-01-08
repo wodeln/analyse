@@ -2,8 +2,10 @@ package com.bolean.controller;
 
 import bolean.RSTFul.RSTFulBody;
 import com.bolean.entity.Folder;
+import com.bolean.entity.RoleFolder;
 import com.bolean.entity.User;
 import com.bolean.service.FolderService;
+import com.bolean.service.RoleFolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ import java.util.List;
 public class MenuController extends BaseController{
     @Autowired
     private FolderService folderService;
+
+    @Autowired
+    private RoleFolderService roleFolderService;
 
     @RequestMapping("/index.html")
     public String index(Model model){
@@ -47,7 +52,14 @@ public class MenuController extends BaseController{
         folder.setCreateName(sessionUser.getRealName());
         int res=folderService.insertSelective(folder);
         RSTFulBody rstFulBody=new RSTFulBody();
-        if(res>0) rstFulBody.success("添加成功！");
+        if(res>0) {
+            //分配新加菜单权限给ADMIN ROLE
+            RoleFolder roleFolder = new RoleFolder();
+            roleFolder.setRoleId(1);
+            roleFolder.setFolderId(folder.getFolderId());
+            roleFolderService.insert(roleFolder);
+            rstFulBody.success("添加成功！");
+        }
         else  rstFulBody.fail("添加失败！");
         return rstFulBody;
     }
