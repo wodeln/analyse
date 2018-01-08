@@ -6,11 +6,11 @@
                 @for(menu in menus){
                 <li class="dd-item" data-id="${menu.folderId}">
                         <span class="menu-opt-bar pull-right">
-                            @if(so.hasPermission("MENU_EDIT")){
+                            @if(so.hasPermission('MENU_EDIT')){
                             <a href="${ctxPath}/menu/edit_menu.html?folderId=${menu.folderId}"><i class="glyphicon glyphicon-pencil"></i></a>
                             @}
                             &nbsp;&nbsp;
-                            @if(so.hasPermission("MENU_DEL")){
+                            @if(so.hasPermission('MENU_DEL')){
                             <a href="${ctxPath}/menu/del_menu.html?folderId=${menu.folderId}"><i class="glyphicon glyphicon-trash"></i></a>
                             @}
                         </span>
@@ -25,11 +25,11 @@
                         @for(child in menu.childFolders){
                         <li class="dd-item" data-id="${child.folderId}">
                                 <span class="menu-opt-bar pull-right">
-                                    @if(so.hasPermission("MENU_EDIT")){
+                                    @if(so.hasPermission('MENU_EDIT')){
                                     <a href="${ctxPath}/menu/edit_menu.html?folderId=${child.folderId}"><i class="glyphicon glyphicon-pencil"></i></a>
                                     @}
                                 &nbsp;&nbsp;
-                                    @if(so.hasPermission("MENU_DEL")){
+                                    @if(so.hasPermission('MENU_DEL')){
                                     <a href="${ctxPath}/menu/del_menu.html?folderId=${child.folderId}"><i class="glyphicon glyphicon-trash"></i></a>
                                     @}
                                 </span>

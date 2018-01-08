@@ -16,7 +16,7 @@
 
                             <a onclick="ajax_get_table('search-form',1)" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> 搜索</a>
                             <div class="col-lg-2 pull-right text-right">
-                                @if(so.hasPermission("ROLE_ADD")){
+                                @if(so.hasPermission('ROLE_ADD')){
                                 <a href="${ctxPath}/role/add_role.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
                                 @}
                                 <!--<span id="batch_del" class="btn btn-sm btn-primary"><i class="fa fa-trash-o"></i></span>-->
