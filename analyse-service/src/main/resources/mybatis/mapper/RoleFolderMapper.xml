@@ -51,19 +51,6 @@
         <include refid="where"/>
     </select>
 
-    <insert id="insertList" parameterType="java.util.List">
-        INSERT INTO tb_role_folder (folder_id,role_id)
-        VALUES
-        <foreach collection="list" item="item" index="index" separator="," >
-            (#{item.folderId},#{item.roleId})
-        </foreach>
-    </insert>
-
-    <insert id="insert" parameterType="com.bolean.entity.RoleFolder">
-        INSERT INTO tb_role_folder (folder_id,role_id)
-        VALUE (#{folderId,jdbcType=INTEGER},#{roleId,jdbcType=INTEGER})
-    </insert>
-
     <delete id="deleteByRoleId" parameterType="java.lang.Integer">
         DELETE FROM tb_role_folder
         WHERE role_id = #{roleId,jdbcType=INTEGER}

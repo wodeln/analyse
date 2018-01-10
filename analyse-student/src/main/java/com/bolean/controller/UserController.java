@@ -53,8 +53,10 @@ public class UserController extends BaseController{
 //        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
         //组装搜索条件
         Map<String,Object> map=new HashMap<>();
+        map.put("status",2);
         if(nut!=null && nut!="") map.put("nut",nut);
         if(role!=null && role!="") map.put("roleId",role);
+
         //分页查询用户
         PageHelper.startPage(pageNum, pageSize);
         List<User> users = userService.selectByInfo(map);

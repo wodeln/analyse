@@ -47,6 +47,7 @@ public class RoleContoller extends BaseController{
     ){
         //组装搜索条件
         Map<String,Object> map=new HashMap<>();
+        map.put("status",2);
         if(roleName!=null) map.put("roleName",roleName);
         //分页查询角色
         PageHelper.startPage(pageNum, pageSize);
