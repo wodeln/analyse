@@ -87,7 +87,7 @@
     #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, #{updateId,jdbcType=INTEGER},
     #{updateName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{icoStr,jdbcType=VARCHAR},#{folderType,jdbcType=BIT})
     </insert>
-    <insert id="insertSelective" parameterType="com.bolean.entity.Folder">
+    <insert id="insertSelective" parameterType="com.bolean.entity.Folder" keyProperty="folderId">
         insert into tb_folder
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="folderId != null">

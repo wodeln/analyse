@@ -55,7 +55,7 @@ public class MenuController extends BaseController{
         if(res>0) {
             //分配新加菜单权限给ADMIN ROLE
             RoleFolder roleFolder = new RoleFolder();
-            roleFolder.setRoleId(1);
+            roleFolder.setRoleId(2);
             roleFolder.setFolderId(folder.getFolderId());
             roleFolderService.insert(roleFolder);
             rstFulBody.success("添加成功！");

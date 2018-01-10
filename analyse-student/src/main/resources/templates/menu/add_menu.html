@@ -96,12 +96,48 @@
         var e = "<i class='fa fa-times-circle'></i> ";
         $("#menu_form").validate({
             rules: {
-                folderName: "required",
-                keyName: "required"
+                folderName: {
+                    required: true,
+                    minlength: 2,
+                    remote: {
+                        url: "${ctxPath}/checkUnique",
+                        data:{
+                            folder_name:function(){
+                                return $("#folder_name").val();
+                            },
+                            table:function(){
+                                return "tb_folder";
+                            }
+                        }
+                    }
+                },
+                keyName: {
+                    required: true,
+                    minlength: 5,
+                    remote: {
+                        url: "${ctxPath}/checkUnique",
+                        data:{
+                            key_name:function(){
+                                return $("#key_name").val();
+                            },
+                            table:function(){
+                                return "tb_folder";
+                            }
+                        }
+                    }
+                }
             },
             messages: {
-                folderName: e + "请输入菜单名称",
-                keyName: e + "请输key_name"
+                folderName: {
+                    required: e + "请输入菜单名称",
+                    minlength:  e + "菜单至少2位",
+                    remote: e + "该菜单名已存在"
+                },
+                keyName: {
+                    required: e + "请输入菜单名称",
+                    minlength:  e + "KEY_NAME至少5位",
+                    remote: e + "该KEY_NAME已存在"
+                }
             }
         }),$('input[required]').parent().prev().append(
             '<span style="color:red">*</span>'
@@ -118,7 +154,6 @@
                             setTimeout('window.location.href="/menu/index.html"',900);
                         }else{
                             toastr.success(data['body']);
-                            setTimeout('window.location.href="/menu/index.html"',900);
                         }
                     }
                 });
