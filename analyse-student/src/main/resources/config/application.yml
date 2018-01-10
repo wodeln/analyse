@@ -29,7 +29,8 @@ logging:
   config: classpath:log4j2.xml
   level: info
 mapper:
-  mappers: mybatis.basemapper.BaseMapper
+  mappers:
+    - mybatis.basemapper.BaseMapper
   not-empty: false
   identity: MYSQL
 page-size: 10 #每页显示记录数量
