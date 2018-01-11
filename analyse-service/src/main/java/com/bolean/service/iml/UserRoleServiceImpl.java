@@ -26,7 +26,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public UserRole selectByPrimaryKey(long id) {
+    public UserRole selectByPrimaryKey(Long id) {
         return userRoleMapper.selectByPrimaryKey(id);
     }
 

@@ -23,7 +23,7 @@ public class CourseTeacherServiceImpl implements CourseTeacherService {
     }
 
     @Override
-    public CourseTeacher selectByPrimaryKey(long id) {
+    public CourseTeacher selectByPrimaryKey(Long id) {
         return courseTeacherMapper.selectByPrimaryKey(id);
     }
 

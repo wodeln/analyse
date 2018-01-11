@@ -1,5 +1,6 @@
 package com.bolean.entity;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,17 +8,18 @@ import java.util.Date;
  * @author 
  */
 public class UserRole implements Serializable {
-    private Integer id;
+    @Id
+    private Long id;
 
     /**
      * 角色id
      */
-    private Integer roleId;
+    private Long roleId;
 
     /**
      * 用户id
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 添加时间
@@ -32,7 +34,7 @@ public class UserRole implements Serializable {
     /**
      * 添加人id
      */
-    private Integer createId;
+    private Long createId;
 
     /**
      * 添加人姓名
@@ -42,7 +44,7 @@ public class UserRole implements Serializable {
     /**
      * 更新人id
      */
-    private Integer updateId;
+    private Long updateId;
 
     /**
      * 更新人姓名
@@ -97,27 +99,27 @@ public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -137,11 +139,11 @@ public class UserRole implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getCreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Integer createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
@@ -153,11 +155,11 @@ public class UserRole implements Serializable {
         this.createName = createName;
     }
 
-    public Integer getUpdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
-    public void setUpdateId(Integer updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 

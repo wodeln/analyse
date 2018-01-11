@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course selectByPrimaryKey(long id) {
+    public Course selectByPrimaryKey(Long id) {
         return courseMapper.selectByPrimaryKey(id);
     }
 

@@ -78,7 +78,7 @@ public class RoleContoller extends BaseController{
 
         for(int i=0;i<rights.length;i++){
             RoleFolder roleFolder = new RoleFolder();
-            roleFolder.setFolderId(Integer.parseInt(rights[i]));
+            roleFolder.setFolderId((long)Integer.parseInt(rights[i]));
             roleFolders.add(roleFolder);
         }
 
@@ -91,7 +91,7 @@ public class RoleContoller extends BaseController{
 
     @RequestMapping("edit_role.html")
     public String editUI(Model model,String roleId){
-        Role role = roleService.selectByPrimaryKey(Integer.parseInt(roleId));
+        Role role = roleService.selectByPrimaryKey((long)Integer.parseInt(roleId));
 
         Map<String,Object> map = new HashMap<>();
         map.put("roleId",role.getRoleId());
@@ -100,7 +100,7 @@ public class RoleContoller extends BaseController{
         Map<String,Object> folderMap = new HashMap<>();
         folderMap.put("parentId",0);
         folderMap.put("roleFolders",roleFolders);
-        List<Folder> folders=folderService.selectByRoleFolders(0,roleFolders);
+        List<Folder> folders=folderService.selectByRoleFolders((long)0,roleFolders);
 
         for (int i = 0; i < folders.size(); i++) {
             List<Folder> childFolders = folderService.selectByRoleFolders(folders.get(i).getFolderId(),roleFolders);
@@ -130,7 +130,7 @@ public class RoleContoller extends BaseController{
         for(int i=0;i<rights.length;i++){
             RoleFolder roleFolder = new RoleFolder();
             roleFolder.setRoleId(role.getRoleId());
-            roleFolder.setFolderId(Integer.parseInt(rights[i]));
+            roleFolder.setFolderId((long)Integer.parseInt(rights[i]));
             roleFolders.add(roleFolder);
         }
         int res = roleService.updateRoleAndRights(role,roleFolders);
@@ -152,7 +152,7 @@ public class RoleContoller extends BaseController{
     }
 
     private List<Folder> getFolders(){
-        List<Folder> folders=folderService.selectByParentId(0);
+        List<Folder> folders=folderService.selectByParentId((long)0);
 
         for (int i = 0; i < folders.size(); i++) {
             List<Folder> childFolders = folderService.selectByParentId(folders.get(i).getFolderId());

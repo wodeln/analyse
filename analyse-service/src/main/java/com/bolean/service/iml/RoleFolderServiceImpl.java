@@ -26,7 +26,7 @@ public class RoleFolderServiceImpl implements RoleFolderService {
     }
 
     @Override
-    public int deleteByRoleId(Integer roleId) {
+    public int deleteByRoleId(Long roleId) {
         return roleFolderMapper.deleteByRoleId(roleId);
     }
 
@@ -41,7 +41,7 @@ public class RoleFolderServiceImpl implements RoleFolderService {
     }
 
     @Override
-    public RoleFolder selectByPrimaryKey(long id) {
+    public RoleFolder selectByPrimaryKey(Long id) {
         return roleFolderMapper.selectByPrimaryKey(id);
     }
 

@@ -1,5 +1,6 @@
 package com.bolean.entity;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,17 +8,18 @@ import java.util.List;
  * @author 
  */
 public class RoleFolder implements Serializable {
-    private Integer id;
+    @Id
+    private Long id;
 
     /**
      * 权限ID
      */
-    private Integer folderId;
+    private Long folderId;
 
     /**
      * 角色ID
      */
-    private Integer roleId;
+    private Long roleId;
 
     /**
      * 权限(菜单)名称
@@ -50,19 +52,19 @@ public class RoleFolder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getFolderId() {
+    public Long getFolderId() {
         return folderId;
     }
 
-    public void setFolderId(Integer folderId) {
+    public void setFolderId(Long folderId) {
         this.folderId = folderId;
     }
 
@@ -106,11 +108,11 @@ public class RoleFolder implements Serializable {
         this.url = url;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

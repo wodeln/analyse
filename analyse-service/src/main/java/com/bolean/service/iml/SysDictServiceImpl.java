@@ -24,7 +24,7 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    public SysDict selectByPrimaryKey(long id) {
+    public SysDict selectByPrimaryKey(Long id) {
         return sysDictMapper.selectByPrimaryKey(id);
     }
 

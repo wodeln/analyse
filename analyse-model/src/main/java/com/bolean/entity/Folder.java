@@ -1,5 +1,7 @@
 package com.bolean.entity;
 
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -7,8 +9,9 @@ import java.util.List;
 /**
  * @author 
  */
+@Table(name = "tb_folder")
 public class Folder implements Serializable {
-    private Integer folderId;
+    private Long folderId;
 
     /**
      * 权限(菜单)名称
@@ -22,7 +25,7 @@ public class Folder implements Serializable {
     /**
      * 父ID
      */
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 排序
@@ -52,7 +55,7 @@ public class Folder implements Serializable {
     /**
      * 添加人id
      */
-    private Integer createId;
+    private Long createId;
 
     /**
      * 添加人姓名
@@ -62,7 +65,7 @@ public class Folder implements Serializable {
     /**
      * 更新人id
      */
-    private Integer updateId;
+    private Long updateId;
 
     /**
      * 更新人姓名
@@ -74,6 +77,7 @@ public class Folder implements Serializable {
      */
     private String memo;
 
+    @Transient
     private List<Folder> childFolders;
 
     private int folderType;
@@ -114,11 +118,11 @@ public class Folder implements Serializable {
         this.icoStr = icoStr;
     }
 
-    public Integer getFolderId() {
+    public Long getFolderId() {
         return folderId;
     }
 
-    public void setFolderId(Integer folderId) {
+    public void setFolderId(Long folderId) {
         this.folderId = folderId;
     }
 
@@ -138,11 +142,11 @@ public class Folder implements Serializable {
         this.keyName = keyName;
     }
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -186,11 +190,11 @@ public class Folder implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getCreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Integer createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
@@ -202,11 +206,11 @@ public class Folder implements Serializable {
         this.createName = createName;
     }
 
-    public Integer getUpdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
-    public void setUpdateId(Integer updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 

@@ -28,7 +28,7 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public Folder selectByPrimaryKey(long id) {
+    public Folder selectByPrimaryKey(Long id) {
         return folderMapper.selectByPrimaryKey(id);
     }
 
@@ -69,7 +69,7 @@ public class FolderServiceImpl implements FolderService {
 
 
     @Override
-    public List<Folder> selectByParentId(Integer parentId) {
+    public List<Folder> selectByParentId(Long parentId) {
         return folderMapper.selectByParentId(parentId);
     }
 
@@ -84,7 +84,7 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public List<Folder> selectByRoleFolders(Integer parentId,List<RoleFolder> roleFolders) {
+    public List<Folder> selectByRoleFolders(Long parentId,List<RoleFolder> roleFolders) {
         Map<String,Object> map = new HashMap<>();
         map.put("parentId",parentId);
         map.put("roleFolders",roleFolders);

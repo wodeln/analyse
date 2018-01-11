@@ -27,7 +27,7 @@ public class MenuController extends BaseController{
     @RequestMapping("/index.html")
     public String index(Model model){
         //获取所有顶级菜单
-        List<Folder> folders=folderService.selectByParentId(0);
+        List<Folder> folders=folderService.selectByParentId((long) 0);
 
         for (int i = 0; i < folders.size(); i++) {
             List<Folder> childFolders = folderService.selectByParentId(folders.get(i).getFolderId());
@@ -39,7 +39,7 @@ public class MenuController extends BaseController{
 
     @RequestMapping("add_menu.html")
     public String addUI(Model model){
-        List<Folder> folders=folderService.selectByParentId(0);
+        List<Folder> folders=folderService.selectByParentId((long)0);
         model.addAttribute("top_menus",folders);
         return "/menu/add_menu.html";
     }
@@ -55,7 +55,7 @@ public class MenuController extends BaseController{
         if(res>0) {
             //分配新加菜单权限给ADMIN ROLE
             RoleFolder roleFolder = new RoleFolder();
-            roleFolder.setRoleId(2);
+            roleFolder.setRoleId((long)2);
             roleFolder.setFolderId(folder.getFolderId());
             roleFolderService.insert(roleFolder);
             rstFulBody.success("添加成功！");
@@ -67,8 +67,8 @@ public class MenuController extends BaseController{
     @RequestMapping("edit_menu.html")
     public String editUI(Model model,String folderId){
 
-        Folder folder=folderService.selectByPrimaryKey(Integer.parseInt(folderId));
-        List<Folder> folders=folderService.selectByParentId(0);
+        Folder folder=folderService.selectByPrimaryKey((long)Integer.parseInt(folderId));
+        List<Folder> folders=folderService.selectByParentId((long)0);
         model.addAttribute("top_menus",folders);
         model.addAttribute("menu",folder);
         return "/menu/edit_menu.html";

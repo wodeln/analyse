@@ -12,5 +12,5 @@ public interface RoleFolderService extends BaseService<RoleFolder> {
 
     List<RoleFolder> selectByInfo(RoleFolder roleFolder);
 
-    int deleteByRoleId(Integer roleId);
+    int deleteByRoleId(Long roleId);
 }

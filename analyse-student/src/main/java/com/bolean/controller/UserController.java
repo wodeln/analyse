@@ -91,7 +91,7 @@ public class UserController extends BaseController{
 
     @RequestMapping("edit_user.html")
     public String editUI(Model model,String userId){
-        User user = userService.selectByPrimaryKey(Integer.parseInt(userId));
+        User user = userService.selectByPrimaryKey((long)Integer.parseInt(userId));
         List<Role> roles = roleService.selectAll();
 
         Map<String,Object> map = new HashMap<>();

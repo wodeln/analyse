@@ -23,7 +23,7 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Score selectByPrimaryKey(long id) {
+    public Score selectByPrimaryKey(Long id) {
         return scoreMapper.selectByPrimaryKey(id);
     }
 

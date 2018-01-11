@@ -23,7 +23,7 @@ public class ClassUserServiceImpl implements ClassUserService {
     }
 
     @Override
-    public ClassUser selectByPrimaryKey(long id) {
+    public ClassUser selectByPrimaryKey(Long id) {
         return classUserMapper.selectByPrimaryKey(id);
     }
 

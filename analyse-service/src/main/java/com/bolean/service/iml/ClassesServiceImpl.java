@@ -23,7 +23,7 @@ public class ClassesServiceImpl implements ClassesService {
     }
 
     @Override
-    public Classes selectByPrimaryKey(long id) {
+    public Classes selectByPrimaryKey(Long id) {
         return classesMapper.selectByPrimaryKey(id);
     }
 

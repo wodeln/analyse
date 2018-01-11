@@ -1,14 +1,18 @@
 package com.bolean.entity;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author 
  */
+@Table(name = "tb_user")
 public class User implements Serializable {
-    private Integer userId;
+    @Id
+    private Long userId;
 
     /**
      * 头像
@@ -58,7 +62,7 @@ public class User implements Serializable {
     /**
      * 添加人id
      */
-    private Integer createId;
+    private Long createId;
 
     /**
      * 添加人姓名
@@ -68,7 +72,7 @@ public class User implements Serializable {
     /**
      * 更新人id
      */
-    private Integer updateId;
+    private Long updateId;
 
     /**
      * 更新人姓名
@@ -80,8 +84,9 @@ public class User implements Serializable {
      */
     private String memo;
 
-    private Integer roleId;
+    private Long roleId;
 
+    @Transient
     private String nut;
 
     private static final long serialVersionUID = 1L;
@@ -94,19 +99,19 @@ public class User implements Serializable {
         this.nut = nut;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -182,11 +187,11 @@ public class User implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getCreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Integer createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
@@ -198,11 +203,11 @@ public class User implements Serializable {
         this.createName = createName;
     }
 
-    public Integer getUpdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
-    public void setUpdateId(Integer updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 

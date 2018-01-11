@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role selectByPrimaryKey(long id) {
+    public Role selectByPrimaryKey(Long id) {
         return roleMapper.selectByPrimaryKey(id);
     }
 

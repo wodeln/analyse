@@ -24,7 +24,7 @@ public class GuardianServiceImpl implements GuardianService {
     }
 
     @Override
-    public Guardian selectByPrimaryKey(long id) {
+    public Guardian selectByPrimaryKey(Long id) {
         return guardianMapper.selectByPrimaryKey(id);
     }
 

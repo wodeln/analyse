@@ -22,7 +22,7 @@ public interface BaseService<T> {
      * @param id 主键ID
      * @return T 对象信息
      */
-    T selectByPrimaryKey(long id);
+    T selectByPrimaryKey(Long id);
 
     /**
      * 根据传入对象属性获取对象信息

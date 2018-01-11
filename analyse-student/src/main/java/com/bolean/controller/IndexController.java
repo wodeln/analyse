@@ -37,6 +37,10 @@ public class IndexController{
 
     @RequestMapping("/")
     public  String index(Model model){
+
+        User u = new User();
+        u.setUserName("admin");
+        User user = userService.selectOne(u);
         //获取所有顶级菜单
         Map<String,Object> map = new HashMap<>();
         map.put("parentId","0");

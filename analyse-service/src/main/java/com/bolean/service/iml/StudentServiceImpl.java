@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student selectByPrimaryKey(long id) {
+    public Student selectByPrimaryKey(Long id) {
         return studentMapper.selectByPrimaryKey(id);
     }
 

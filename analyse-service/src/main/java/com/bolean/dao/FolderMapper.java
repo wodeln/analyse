@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface FolderMapper extends BaseMapper<Folder> {
-    List<Folder> selectByParentId(Integer parentId);
+    List<Folder> selectByParentId(Long parentId);
 
     List<Folder> selectByRoleFolders(Map<String,Object> map);
 }

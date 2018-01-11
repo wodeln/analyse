@@ -1,15 +1,19 @@
 package com.bolean.entity;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 
  */
+@Table(name = "tb_student")
 public class Student implements Serializable {
-    private Integer studentId;
+    @Id
+    private Long studentId;
 
-    private Integer classId;
+    private Long classId;
 
     private String headImg;
 
@@ -41,7 +45,7 @@ public class Student implements Serializable {
     /**
      * 性别 1:男 2:女
      */
-    private int studentSex;
+    private Integer studentSex;
 
     /**
      * 添加时间
@@ -56,7 +60,7 @@ public class Student implements Serializable {
     /**
      * 添加人id
      */
-    private Integer createId;
+    private Long createId;
 
     /**
      * 添加人姓名
@@ -66,7 +70,7 @@ public class Student implements Serializable {
     /**
      * 更新人id
      */
-    private Integer updateId;
+    private Long updateId;
 
     /**
      * 更新人姓名
@@ -86,25 +90,25 @@ public class Student implements Serializable {
     /**
      * 1：在校  0：离校
      */
-    private Boolean isin;
+    private Integer isin;
 
     private Integer isIn;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Integer studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
-    public Integer getClassId() {
+    public Long getClassId() {
         return classId;
     }
 
-    public void setClassId(Integer classId) {
+    public void setClassId(Long classId) {
         this.classId = classId;
     }
 
@@ -180,11 +184,11 @@ public class Student implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getCreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Integer createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
@@ -196,11 +200,11 @@ public class Student implements Serializable {
         this.createName = createName;
     }
 
-    public Integer getUpdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
-    public void setUpdateId(Integer updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 
@@ -220,11 +224,11 @@ public class Student implements Serializable {
         this.memo = memo;
     }
 
-    public Boolean getIsin() {
+    public Integer getIsin() {
         return isin;
     }
 
-    public void setIsin(Boolean isin) {
+    public void setIsin(Integer isin) {
         this.isin = isin;
     }
 

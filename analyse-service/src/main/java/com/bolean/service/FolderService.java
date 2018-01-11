@@ -9,11 +9,11 @@ import java.util.Map;
 
 @Service
 public interface FolderService extends BaseService<Folder> {
-    List<Folder> selectByParentId(Integer parentId);
+    List<Folder> selectByParentId(Long parentId);
 
     List<Folder> selectByInfo(Map<String,Object> map);
 
     List<Folder> selectByInfo(Folder folder);
 
-    List<Folder> selectByRoleFolders(Integer parentId,List<RoleFolder> roleFolders);
+    List<Folder> selectByRoleFolders(Long parentId,List<RoleFolder> roleFolders);
 }
