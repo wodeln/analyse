@@ -1,12 +1,15 @@
 package com.bolean.entity;
 
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author 
  */
+@Table(name = "tb_role_folder")
 public class RoleFolder implements Serializable {
     @Id
     private Long id;
@@ -24,30 +27,36 @@ public class RoleFolder implements Serializable {
     /**
      * 权限(菜单)名称
      */
+    @Transient
     private String folderName;
-
+    @Transient
     private String keyName;
 
     /**
      * 父ID
      */
+    @Transient
     private Integer parentId;
 
     /**
      * 排序
      */
+    @Transient
     private Integer sort;
 
     /**
      * 地址
      */
+    @Transient
     private String url;
 
+    @Transient
     private String roleKeyName;
 
     /**
      * 角色名称
      */
+    @Transient
     private String roleName;
 
     private static final long serialVersionUID = 1L;

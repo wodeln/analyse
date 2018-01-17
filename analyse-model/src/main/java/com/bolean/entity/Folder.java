@@ -1,7 +1,6 @@
 package com.bolean.entity;
 
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +10,8 @@ import java.util.List;
  */
 @Table(name = "tb_folder")
 public class Folder implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long folderId;
 
     /**
@@ -82,6 +83,7 @@ public class Folder implements Serializable {
 
     private int folderType;
 
+    @Transient
     private int ifChecked;
 
     private static final long serialVersionUID = 1L;

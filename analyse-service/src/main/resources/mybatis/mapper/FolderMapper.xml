@@ -65,11 +65,11 @@
         <include refid="where"/>
     </select>
 
-    <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Long">
         SELECT
         <include refid="Base_Column_List" />
         FROM tb_folder
-        WHERE parent_id = #{parentId,jdbcType=INTEGER}
+        WHERE parent_id = #{parentId,jdbcType=BIGINT}
         AND status != 0
     </select>
 
