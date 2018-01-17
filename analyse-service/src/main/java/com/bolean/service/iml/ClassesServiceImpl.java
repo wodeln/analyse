@@ -2,12 +2,15 @@ package com.bolean.service.iml;
 
 import com.bolean.dao.ClassesMapper;
 import com.bolean.entity.Classes;
+import com.bolean.entity.Grade;
 import com.bolean.service.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service("ClassesService")
 public class ClassesServiceImpl implements ClassesService {
     @Autowired
     private ClassesMapper classesMapper;
@@ -39,7 +42,7 @@ public class ClassesServiceImpl implements ClassesService {
 
     @Override
     public int insertSelective(Classes classes) {
-        return 0;
+        return classesMapper.insertSelective(classes);
     }
 
     @Override
@@ -70,5 +73,20 @@ public class ClassesServiceImpl implements ClassesService {
     @Override
     public List<Classes> selectByInfo(Classes classes) {
         return classesMapper.selectByInfo(classes);
+    }
+
+    @Override
+    public int selectCountByGradeIds(String gradeIds) {
+        return classesMapper.selectCountByGradeIds(gradeIds);
+    }
+
+    @Override
+    public List<Grade> selectGradeByIds(String gradeIds) {
+        return classesMapper.selectGradeByIds(gradeIds);
+    }
+
+    @Override
+    public List<Grade> selectAllGrade() {
+        return classesMapper.selectAllGrade();
     }
 }

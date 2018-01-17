@@ -12,11 +12,21 @@
     <result column="update_id" jdbcType="INTEGER" property="updateId" />
     <result column="update_name" jdbcType="VARCHAR" property="updateName" />
     <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
+    <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="class_year" jdbcType="INTEGER" property="classYear" />
+  </resultMap>
+
+  <resultMap id="GradeMap" type="com.bolean.entity.Grade">
+    <id column="grade_id" jdbcType="INTEGER" property="gradeId" />
+    <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
+    <result column="config_id" jdbcType="INTEGER" property="configId" />
   </resultMap>
 
   <sql id="Base_Column_List">
     class_id, class_name, class_pid, create_time, update_time, create_id, create_name, 
-    update_id, update_name, memo
+    update_id, update_name, memo, grade_id, status, class_year, grade_name
   </sql>
 
   <sql id="where">
@@ -26,6 +36,15 @@
       </if>
       <if test="classPid != null and classPid != ''">
         AND class_pid = #{classPid,jdbcType=BIGINT}
+      </if>
+      <if test="gradeId != null and gradeId != ''">
+        AND grade_id = #{gradeId,jdbcType=BIGINT}
+      </if>
+      <if test="status != null and status != ''">
+        AND status = #{status,jdbcType=BIT}
+      </if>
+      <if test="classYear != null and classYear != ''">
+        AND DATE_FORMAT(class_year,'%Y') = #{classYear,jdbcType=BIT}
       </if>
       <if test="className != null and className !=''">
         AND class_name = #{className,jdbcType=VARCHAR}  OR class_name LIKE CONCAT('%',#{className,jdbcType=VARCHAR},'%' )
@@ -44,5 +63,20 @@
     <include refid="Base_Column_List"/>
     from tb_class
     <include refid="where"/>
+  </select>
+
+  <select id="selectCountByGradeIds" parameterType="java.lang.String" resultMap="GradeMap">
+    SELECT count(1) FROM tb_class WHERE
+    grade_id IN (${_parameter})
+  </select>
+
+  <select id="selectGradeByIds" parameterType="java.lang.String" resultMap="GradeMap">
+    SELECT * FROM tb_grade
+    WHERE
+    grade_id IN (${_parameter})
+  </select>
+
+  <select id="selectAllGrade" parameterType="java.lang.String" resultMap="GradeMap">
+    SELECT * FROM tb_grade
   </select>
 </mapper>

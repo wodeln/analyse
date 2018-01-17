@@ -1,0 +1,71 @@
+
+
+<table class="table tree table-striped table-bordered table-hover">
+
+    @for(grade in grades){
+        <tr class="treegrid-${grade.gradeId}">
+            <td>${grade.gradeName}</td>
+            <td>名称</td>
+            <td>添加人</td>
+            <td>添加时间</td>
+            <td>编辑人</td>
+            <td>编辑时间</td>
+            <td>操作</td>
+        </tr>
+        @if(!isEmpty(grade.classes)){
+        @for(clazz in grade.classes){
+            <tr class="treegrid-${grade.gradeId}${clazz.classId} treegrid-parent-${grade.gradeId}">
+                <td>${clazz.classYear,"yyyy"}学年</td>
+                <td>${clazz.className}</td>
+                <td>${clazz.createName}</td>
+                <td>${clazz.createTime,"yyyy-MM-dd HH:mm"}</td>
+                <td>${clazz.updateName}</td>
+                <td>${clazz.updateTime,"yyyy-MM-dd HH:mm"}</td>
+                <td>
+                    @if(so.hasPermission('CLASS_EDIT')){
+                    <a href="${ctxPath}/class/edit_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-pencil"></i></a>
+                    @}
+                    &nbsp;&nbsp;
+                    @if(so.hasPermission('CLASS_DEL')){
+                    <a href="${ctxPath}/class/del_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-trash"></i></a>
+                    @}
+                </td>
+            </tr>
+        @}
+        @}
+    @}
+
+</table>
+
+<script>
+
+    $(document).ready(function() {
+        $('.tree').treegrid({
+            expanderExpandedClass: 'glyphicon glyphicon-minus',
+            expanderCollapsedClass: 'glyphicon glyphicon-plus'
+        });
+
+    });
+
+    $(".pagination  a").click(function(){
+        var page = $(this).data('p');
+        ajax_get_table('search-form',page);
+    });
+
+    $("#check_all").click(function () {
+        if($('#check_all').is(':checked')) {
+            $(".i-checks").prop("checked", "checked");
+            // $(".i-checks").
+        }else {
+            $(".i-checks").removeAttr("checked");
+        }
+    });
+
+    $(".i-checks").click(function () {
+        if($("input[class='i-checks']:checked").length<10){
+            $("#check_all").prop("checked", false);
+        }else {
+            $("#check_all").prop("checked", true);
+        }
+    });
+</script>
