@@ -76,6 +76,8 @@ public class IndexController{
                 table = request.getParameter("table");
             } else if (parametName.equals("id")) {
                 fieldList.add(request.getParameter("id"));
+            }else if (parametName.equals("date_column")) {
+                fieldList.add(request.getParameter("date_column"));
             } else {
                 fieldList.add(parametName + "=" + "'" + request.getParameter(parametName) + "'");
             }
@@ -118,7 +120,7 @@ public class IndexController{
         User user = new User();
         userService.select(user);
         Student student = new Student();
-        student.setClassId(1);
+        student.setClassId((long)1);
 //        studentService
         return "";
     }
