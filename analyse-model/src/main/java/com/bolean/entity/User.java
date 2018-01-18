@@ -1,8 +1,6 @@
 package com.bolean.entity;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +10,7 @@ import java.util.Date;
 @Table(name = "tb_user")
 public class User implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     /**

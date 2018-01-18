@@ -1,5 +1,6 @@
 package com.bolean.entity;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.text.ParseException;
@@ -11,6 +12,8 @@ import java.util.Date;
  */
 @Table(name = "tb_class")
 public class Classes implements Serializable {
+    @Id
+
     private Long classId;
 
     /**
@@ -88,9 +91,8 @@ public class Classes implements Serializable {
         return classYear;
     }
 
-    public void setClassYear(String classYear) throws ParseException {
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy");//小写的mm表示的是分钟
-        this.classYear = sdf.parse(classYear);
+    public void setClassYear(Date classYear){
+        this.classYear = classYear;
     }
 
     public Long getGradeId() {

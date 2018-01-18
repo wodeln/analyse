@@ -23,11 +23,11 @@
                 <td>${clazz.updateTime,"yyyy-MM-dd HH:mm"}</td>
                 <td>
                     @if(so.hasPermission('CLASS_EDIT')){
-                    <a href="${ctxPath}/class/edit_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a href="${ctxPath}/clazz/edit_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-pencil"></i></a>
                     @}
                     &nbsp;&nbsp;
                     @if(so.hasPermission('CLASS_DEL')){
-                    <a href="${ctxPath}/class/del_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a href="${ctxPath}/clazz/del_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-trash"></i></a>
                     @}
                 </td>
             </tr>

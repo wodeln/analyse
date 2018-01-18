@@ -13,13 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import utils.DateHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static utils.DateHelper.getCurrentYear;
 
 @Controller
-@RequestMapping("/class")
+@RequestMapping("/clazz")
 public class ClassController extends BaseController{
     @Autowired
     private ClassesService classesService;
@@ -82,14 +85,42 @@ public class ClassController extends BaseController{
 
     @ResponseBody
     @RequestMapping("add_class")
-    public RSTFulBody addUser(Classes classes){
+    public RSTFulBody add(Classes classes,
+                          @RequestParam(required = true) String classYearStr) throws ParseException {
+        Date classYear = DateHelper.getDate4StrDate(classYearStr,"yyyy");
         User sessionUser = getSessionUser();
         classes.setCreateName(sessionUser.getRealName());
         classes.setCreateId(sessionUser.getUserId());
+        classes.setClassYear(classYear);
         int res=classesService.insertSelective(classes);
         RSTFulBody rstFulBody=new RSTFulBody();
         if(res>0) rstFulBody.success("添加成功！");
         else  rstFulBody.fail("添加失败！");
+        return rstFulBody;
+    }
+
+    @RequestMapping("edit_class.html")
+    public String editUI(Model model,String classId){
+        Classes classes = classesService.selectByPrimaryKey((long)Integer.parseInt(classId));
+        model.addAttribute("clazz",classes);
+        return "/class/edit_class.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("edit_class")
+    public RSTFulBody edit(Classes classes,
+                           @RequestParam(required = true) String classYearStr){
+        Date classYear = DateHelper.getDate4StrDate(classYearStr,"yyyy");
+        User sessionUser = getSessionUser();
+        classes.setUpdateId(sessionUser.getUserId());
+        classes.setUpdateName(sessionUser.getRealName());
+        classes.setUpdateTime(new Date());
+        classes.setClassYear(classYear);
+
+        int res = classesService.updateByPrimaryKeySelective(classes);
+        RSTFulBody rstFulBody=new RSTFulBody();
+        if(res>0) rstFulBody.success("修改成功！");
+        else  rstFulBody.fail("修改失败！");
         return rstFulBody;
     }
 }

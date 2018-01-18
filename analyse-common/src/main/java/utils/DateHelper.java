@@ -690,11 +690,16 @@ public class DateHelper {
      * @return
      * @throws ParseException
      */
-    public static Date parseDateFromStr(String date)
+    public static Date parseDateFromStr(String date,String format)
             throws ParseException{
         Date date_time = null;
         if(!StringUtil.isEmpty(date)){
-            date_time = g_SimpleDateFormat_I.parse(date);
+            if(format != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat(format);
+                date_time = sdf.parse(date);
+            }else{
+                date_time = g_SimpleDateFormat_I.parse(date);
+            }
         }
         return date_time;
     }

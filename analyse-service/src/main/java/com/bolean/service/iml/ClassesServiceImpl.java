@@ -57,7 +57,7 @@ public class ClassesServiceImpl implements ClassesService {
 
     @Override
     public int updateByPrimaryKeySelective(Classes classes) {
-        return 0;
+        return classesMapper.updateByPrimaryKeySelective(classes);
     }
 
     @Override

@@ -57,7 +57,7 @@
                             <a onclick="ajax_get_table('search-form',1)" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> 搜索</a>
                             <div class="col-lg-2 pull-right text-right">
                                 @if(so.hasPermission('USER_ADD')){
-                                    <a href="${ctxPath}/class/add_class.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+                                    <a href="${ctxPath}/clazz/add_class.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
                                 @}
                                 @if(so.hasPermission('USER_BATCH_DEL')){
                                     <span id="batch_del" class="btn btn-sm btn-primary"><i class="fa fa-trash-o"></i></span>
@@ -99,7 +99,7 @@
         cur_page = page; //当前页面 保存为全局变量
         $.ajax({
             type : "POST",
-            url:"${ctxPath}/class/ajax_index?pageNum="+page+"&pageSize="+${page_size},//+tab,
+            url:"${ctxPath}/clazz/ajax_index?pageNum="+page+"&pageSize="+${page_size},//+tab,
             data : {
                 gradeId:    $("#grade_id").val(),
                 classYear:  ($("#class_year").val()).replace("学年","")

@@ -1,8 +1,6 @@
 package com.bolean.entity;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.List;
 @Table(name = "tb_role")
 public class Role implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roleId;
 
     private String keyName;

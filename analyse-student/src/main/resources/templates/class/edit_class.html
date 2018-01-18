@@ -12,11 +12,21 @@
                         <div class="col-sm-8">
                             <select id="grade_id" name="gradeId" class="form-control">
                                 <option value="">请选择所属年级</option>
-                                <option value="1">一年级</option>
-                                <option value="2">二年级</option>
-                                <option value="3">三年级</option>
-                                <option value="4">四年级</option>
-                                <option value="5">五年级</option>
+                                <option @if(clazz.gradeId==1){
+                                        selected @}
+                                        value="1">一年级</option>
+                                <option @if(clazz.gradeId==2){
+                                        selected @}
+                                        value="2">二年级</option>
+                                <option @if(clazz.gradeId==3){
+                                        selected @}
+                                        value="3">三年级</option>
+                                <option @if(clazz.gradeId==4){
+                                        selected @}
+                                        value="4">四年级</option>
+                                <option @if(clazz.gradeId==5){
+                                        selected @}
+                                        value="5">五年级</option>
                             </select>
                         </div>
                     </div>
@@ -24,27 +34,28 @@
                     <div class="form-group">
                         <label for="class_year" class="col-sm-3 control-label">学年：</label>
                         <div class="col-sm-8">
-                            <input id="class_year" name="classYear" class="form-control" type="text" required>
+                            <input id="class_year" name="classYear" class="form-control" value="${clazz.classYear,'yyyy'}学年" type="text" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="class_name" class="col-sm-3 control-label">班级名称：</label>
                         <div class="col-sm-8">
-                            <input id="class_name" placeholder="请输入班级名称 例：1班" name="className" class="form-control" type="text" required>
+                            <input id="class_name" placeholder="请输入班级名称 例：1班" name="className" value="${clazz.className}" class="form-control" type="text" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="memo" class="col-sm-3 control-label">备注：</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" id="memo" rows="5" name="memo"></textarea>
+                            <textarea class="form-control" id="memo" rows="5" name="memo">${clazz.memo}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-8 col-sm-offset-3">
                             <button class="btn btn-primary" type="submit">提交</button>
+                            <input type="hidden" value="${clazz.classId}" id="class_id" name="classId">
                         </div>
                     </div>
                 </form>
@@ -109,6 +120,9 @@
                                 // var year = ;
                                 return "date_format(class_year,'%Y') = '"+($("#class_year").val()).replace("学年","")+"'";
                             },
+                            id:function () {
+                                return "class_id !="+$("#class_id").val();
+                            },
                             table:function(){
                                 return "tb_class";
                             }
@@ -132,12 +146,13 @@
             submitHandler: function() {
                 $.ajax({
                     type : "POST",
-                    url:"${ctxPath}/clazz/add_class",//+tab,
+                    url:"${ctxPath}/clazz/edit_class",//+tab,
                     data : {
                         gradeId:    $("#grade_id").val(),
                         classYearStr:  ($("#class_year").val()).replace("学年",""),
                         className:  $("#class_name").val(),
                         gradeName:  $("#grade_id").find("option:selected").text(),
+                        classId:    $("#class_id").val(),
                         memo:       $("#memo").val()
                     },
                     success: function(data){
