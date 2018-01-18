@@ -97,11 +97,16 @@
 
     function ajax_get_table(tab,page){
         cur_page = page; //当前页面 保存为全局变量
+        var options = '';
+        $('#grade_id option:selected').each(function() {
+            options += $(this).val() + ', ';
+        });
+        console.log($("#grade_id").val());
         $.ajax({
             type : "POST",
             url:"${ctxPath}/clazz/ajax_index?pageNum="+page+"&pageSize="+${page_size},//+tab,
             data : {
-                gradeId:    $("#grade_id").val(),
+                gradeId:    options.substr(0, options.length - 2),
                 classYear:  ($("#class_year").val()).replace("学年","")
             },
             success: function(data){
