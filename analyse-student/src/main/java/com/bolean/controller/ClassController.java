@@ -58,6 +58,7 @@ public class ClassController extends BaseController{
             Map<String,Object> tempMap = new HashMap<>();
             tempMap.put("classYear",classYear);
             tempMap.put("gradeId",grades.get(i).getGradeId());
+            tempMap.put("status",2);
             List<Classes> classes = classesService.selectByInfo(tempMap);
             if(classes.size()>0) grades.get(i).setClasses(classes);
 
@@ -122,5 +123,17 @@ public class ClassController extends BaseController{
         if(res>0) rstFulBody.success("修改成功！");
         else  rstFulBody.fail("修改失败！");
         return rstFulBody;
+    }
+
+    @RequestMapping("del_class.html")
+    public String delUser(Classes classes){
+        User sessionUser = getSessionUser();
+        classes.setUpdateName(sessionUser.getRealName());
+        classes.setUpdateId(sessionUser.getUserId());
+        classes.setUpdateTime(new Date());
+        classes.setStatus(0);
+
+        int res = classesService.updateByPrimaryKeySelective(classes);
+        return "redirect:/clazz/index.html";
     }
 }
