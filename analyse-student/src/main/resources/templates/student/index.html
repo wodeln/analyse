@@ -40,7 +40,7 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <input type="text" id="year" placeholder="请选择学年" class="input-sm form-control">
+                                <input type="text" id="class_year" name="classYear" placeholder="请选择学年"  value="${curYear}" class="input-sm form-control">
                             </div>
 <!--fa fa-folder fa-get-pocket fa-map-signs fa-book fa-credit-card fa-money-->
                             <div class="col-lg-3">
@@ -60,10 +60,10 @@
 
                             <a onclick="ajax_get_table('search-form',1)" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> 搜索</a>
                             <div class="col-lg-2 pull-right text-right">
-                                @if(so.hasPermission('USER_ADD')){
-                                    <a href="${ctxPath}/user/add_user.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+                                @if(so.hasPermission('STUDENT_ADD')){
+                                    <a href="${ctxPath}/student/add_student.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
                                 @}
-                                @if(so.hasPermission('USER_BATCH_DEL')){
+                                @if(so.hasPermission('STUDENT_BATCH_DEL')){
                                     <span id="batch_del" class="btn btn-sm btn-primary"><i class="fa fa-trash-o"></i></span>
                                 @}
                             </div>
@@ -82,7 +82,7 @@
 <script type="text/javascript">
 
     laydate.render({
-        elem: '#year',//指定元素
+        elem: '#class_year',//指定元素
         type: 'year',
         format: 'yyyy学年',
         yearStr: "学年"
