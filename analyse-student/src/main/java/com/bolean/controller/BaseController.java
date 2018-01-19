@@ -1,13 +1,24 @@
 package com.bolean.controller;
 
+import com.bolean.entity.Classes;
+import com.bolean.entity.Grade;
 import com.bolean.entity.User;
+import com.bolean.service.ClassesService;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 public class BaseController {
+
+    @Autowired
+    private ClassesService classesService;
 
     @Value("${page-size}")
     protected static int pageSize;
@@ -43,5 +54,19 @@ public class BaseController {
         htmlStr+="<li class='paginate_button next'><a>共"+pageInfo.getTotal()+"条数据</a></li>";
         htmlStr+="</ul>";
         return htmlStr;
+    }
+
+    protected List<Grade> makeGradeTree(List<Grade> grades,String classYear){
+        for(int i=0;i<grades.size();i++){
+            Map<String,Object> tempMap = new HashMap<>();
+            tempMap.put("classYear",classYear);
+            tempMap.put("gradeId",grades.get(i).getGradeId());
+            tempMap.put("status",2);
+            List<Classes> classes = classesService.selectByInfo(tempMap);
+            if(classes.size()>0) grades.get(i).setClasses(classes);
+
+        }
+
+        return grades;
     }
 }

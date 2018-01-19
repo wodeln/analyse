@@ -52,17 +52,8 @@ public class ClassController extends BaseController{
 
 //        classesService.sel
         List<Grade> grades = new ArrayList<>();
-        if(gradeId!=null && gradeId!="") grades = classesService.selectGradeByIds(gradeId);
-        else grades = classesService.selectAllGrade();
-        for(int i=0;i<grades.size();i++){
-            Map<String,Object> tempMap = new HashMap<>();
-            tempMap.put("classYear",classYear);
-            tempMap.put("gradeId",grades.get(i).getGradeId());
-            tempMap.put("status",2);
-            List<Classes> classes = classesService.selectByInfo(tempMap);
-            if(classes.size()>0) grades.get(i).setClasses(classes);
-
-        }
+        if(gradeId!=null && gradeId!="") grades = makeGradeTree(classesService.selectGradeByIds(gradeId),classYear);
+        else grades = makeGradeTree(classesService.selectAllGrade(),classYear);
 
         model.addAttribute("grades",grades);
         //分页查询
@@ -135,5 +126,12 @@ public class ClassController extends BaseController{
 
         int res = classesService.updateByPrimaryKeySelective(classes);
         return "redirect:/clazz/index.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("get_tree")
+    public List<Grade> getTree(String classYear){
+        List<Grade> grades = makeGradeTree(classesService.selectAllGrade(),classYear);
+        return grades;
     }
 }
