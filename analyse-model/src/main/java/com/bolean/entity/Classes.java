@@ -2,10 +2,12 @@ package com.bolean.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 
@@ -61,6 +63,9 @@ public class Classes implements Serializable {
      */
     private String memo;
 
+    @Transient
+    private List<Student> students;
+
     private Long gradeId;
 
     private Integer status;
@@ -70,6 +75,14 @@ public class Classes implements Serializable {
     private String gradeName;
 
     private static final long serialVersionUID = 1L;
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
     public String getGradeName() {
         return gradeName;

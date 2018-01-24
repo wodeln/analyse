@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int insertSelective(Student student) {
-        return 0;
+        return studentMapper.insertSelective(student);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int updateByPrimaryKeySelective(Student student) {
-        return 0;
+        return studentMapper.updateByPrimaryKeySelective(student);
     }
 
     @Override

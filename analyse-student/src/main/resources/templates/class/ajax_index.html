@@ -1,7 +1,4 @@
-
-
 <table class="table tree table-striped table-bordered table-hover">
-
     @for(grade in grades){
         <tr class="treegrid-${grade.gradeId}">
             <td>${grade.gradeName}</td>
@@ -13,28 +10,27 @@
             <td>操作</td>
         </tr>
         @if(!isEmpty(grade.classes)){
-        @for(clazz in grade.classes){
-            <tr class="treegrid-${grade.gradeId}${clazz.classId} treegrid-parent-${grade.gradeId}">
-                <td>${clazz.classYear,"yyyy"}学年</td>
-                <td>${clazz.className}</td>
-                <td>${clazz.createName}</td>
-                <td>${clazz.createTime,"yyyy-MM-dd HH:mm"}</td>
-                <td>${clazz.updateName}</td>
-                <td>${clazz.updateTime,"yyyy-MM-dd HH:mm"}</td>
-                <td>
-                    @if(so.hasPermission('CLASS_EDIT')){
-                    <a href="${ctxPath}/clazz/edit_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-pencil"></i></a>
-                    @}
-                    &nbsp;&nbsp;
-                    @if(so.hasPermission('CLASS_DEL')){
-                    <a href="${ctxPath}/clazz/del_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-trash"></i></a>
-                    @}
-                </td>
-            </tr>
-        @}
+            @for(clazz in grade.classes){
+                <tr class="treegrid-${grade.gradeId}${clazz.classId} treegrid-parent-${grade.gradeId}">
+                    <td>${clazz.classYear,"yyyy"}学年</td>
+                    <td>${clazz.className}</td>
+                    <td>${clazz.createName}</td>
+                    <td>${clazz.createTime,"yyyy-MM-dd HH:mm"}</td>
+                    <td>${clazz.updateName}</td>
+                    <td>${clazz.updateTime,"yyyy-MM-dd HH:mm"}</td>
+                    <td>
+                        @if(so.hasPermission('CLASS_EDIT')){
+                        <a href="${ctxPath}/clazz/edit_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-pencil"></i></a>
+                        @}
+                        &nbsp;&nbsp;
+                        @if(so.hasPermission('CLASS_DEL')){
+                        <a href="${ctxPath}/clazz/del_class.html?classId=${clazz.classId}"><i class="glyphicon glyphicon-trash"></i></a>
+                        @}
+                    </td>
+                </tr>
+            @}
         @}
     @}
-
 </table>
 
 <script>
@@ -44,7 +40,6 @@
             expanderExpandedClass: 'glyphicon glyphicon-minus',
             expanderCollapsedClass: 'glyphicon glyphicon-plus'
         });
-
     });
 
     $(".pagination  a").click(function(){

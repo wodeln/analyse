@@ -1,5 +1,7 @@
 package com.bolean.entity;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -11,6 +13,7 @@ import java.util.Date;
 @Table(name = "tb_student")
 public class Student implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentId;
 
     private Long classId;
@@ -20,7 +23,7 @@ public class Student implements Serializable {
     /**
      * 状态 0:删除 1:锁定 2:正常
      */
-    private int status;
+    private Integer status;
 
     /**
      * 学生年龄
@@ -120,11 +123,11 @@ public class Student implements Serializable {
         this.headImg = headImg;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

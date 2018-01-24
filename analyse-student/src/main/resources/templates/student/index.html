@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <link href="/css/plugins/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet">
+<link href="/css/plugins/tree-grid/jquery.treegrid.css" rel="stylesheet">
 @layout("/layout/_list_layout.html"){
 <style type="text/css">
     .btn-default
@@ -79,6 +80,8 @@
 @}
 </body>
 <script src="/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script src="/js/plugins/tree-grid/jquery.treegrid.bootstrap3.js"></script>
+<script src="/js/plugins/tree-grid/jquery.treegrid.js"></script>
 <script type="text/javascript">
 
     laydate.render({
@@ -101,8 +104,10 @@
         cur_page = page; //当前页面 保存为全局变量
         $.ajax({
             type : "POST",
-            url:"${ctxPath}/user/ajax_index?pageNum="+page+"&pageSize="+${page_size},//+tab,
-            data : $('#'+tab).serialize(),// 你的formid
+            url:"${ctxPath}/student/ajax_index?pageNum="+page+"&pageSize="+${page_size},//+tab,
+            data : {
+                classYear:  ($("#class_year").val()).replace("学年","")
+            },
             success: function(data){
                 $("#ajax_return").html('');
                 $("#ajax_return").append(data);
