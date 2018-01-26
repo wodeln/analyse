@@ -62,7 +62,9 @@
                             <a onclick="ajax_get_table('search-form',1)" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> 搜索</a>
                             <div class="col-lg-2 pull-right text-right">
                                 @if(so.hasPermission('STUDENT_ADD')){
-                                    <a href="${ctxPath}/student/add_student.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+                                    <a href="${ctxPath}/student/add_student.html" class="btn btn-sm btn-primary" title="添加"><i class="fa fa-plus"></i></a>
+
+                                    <a href="${ctxPath}/student/batch_add_student.html" class="btn btn-sm btn-primary" title="批量添加"><i class="fa fa-file-excel-o"></i></a>
                                 @}
                                 @if(so.hasPermission('STUDENT_BATCH_DEL')){
                                     <span id="batch_del" class="btn btn-sm btn-primary"><i class="fa fa-trash-o"></i></span>

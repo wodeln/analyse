@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+@layout("/layout/_form_layout.html"){
+<link href="/css/plugins/layer/laydate.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+    .m3{
+        margin-left: 3px;
+    }
+    .pr5{
+        padding-right: 80px;
+    }
+    .w15{
+        width: 15.6666666%;
+    }
+    .w4 {
+        width: 4.33333333%;
+        height: 34px;
+        line-height: 34px;
+        padding:0;
+        cursor: pointer;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <span class="m-t3 help-block m-b-none pr5">
+                    <i class="fa fa-info-circle"></i> 请尽量填写身份证信息，正确填写身份证信息后，性别、年龄、户口所在地等信息系统会自动判断并完善
+                </span>
+                <form class="form-horizontal m-t" id="viladate_form">
+                    <div class="form-group col-sm-7">
+                        <span class="col-sm-3">
+                            <input name="classYear[]" class="form-control class_year" value="${cur_year}" type="text" required>
+
+                        </span>
+                        <span class="col-sm-3">
+                            <select id="class_id" name="classId" class="form-control" required>
+                                <option>选择班级</option>
+                                @for(grade in grades){
+                                    <optgroup label="${grade.gradeName}">
+                                        @if(!isEmpty(grade.classes)){
+                                            @for(clazz in grade.classes){
+                                            <option value="${clazz.classId}">${clazz.className}</option>
+                                            @}
+                                        @}
+                                    </optgroup>
+                                @}
+                            </select>
+                        </span>
+                        <span class="pull-right btn btn-sm btn-primary m3"><i class="fa fa-save"></i></span>
+                        <span class="pull-right btn btn-sm btn-primary m3" id="add_item"><i class="fa fa-plus"></i></span>
+                    </div>
+                    <div class="form-group col-sm-12" id="itme1">
+                        <input name="classYear[]" class="form-control" id="class_year1" value="${cur_year}" type="text" required>
+                        <span class="col-sm-2 w15"><input placeholder="学生姓名 例：小明" name="studentName" class="form-control student_name" type="text" required></span>
+                        <span class="col-sm-2 w15"><input name="studentCardNum[]" placeholder="身份证号码" class="form-control student_card_num" type="text"></span>
+                        <span class="col-sm-2 w15"><input name="studentAge[]" placeholder="年龄" class="form-control student_age" type="text"></span>
+                        <span class="col-sm-2 w15">
+                            <select name="studentSex[]" class="form-control sex">
+                                <option>选择性别</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@}
+</body>
+<script src="/js/plugins/layer/laydate/laydate.js"></script>
+<script src="/js/card.js"></script>
+<script type="text/javascript">
+    $("#add_item").click(function(){
+        var del = '<span class="col-sm-1 w4" onclick="del_item(this)"><i class="fa fa-close text-danger"></i></span>';
+        var item = '<div class="form-group col-sm-12">'+$("#itme1").html()+del+'</div>';
+        $("#viladate_form").append(item);
+    });
+
+    function del_item(obj){
+        $(obj).parent().remove();
+    }
+    toastr.options = {
+        "closeButton": true,
+        "debug": true,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "showDuration": "400",
+        "hideDuration": "1000",
+        "timeOut": "500",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    laydate.render({
+        elem: '.class_year',//指定元素
+        type: 'year',
+        format: 'yyyy学年',
+        yearStr: "学年",
+        done: function(value, date, endDate){
+            $.ajax({
+                type : "POST",
+                url:"${ctxPath}/clazz/get_tree",
+                data : {
+                    classYear: date.year
+                },
+                success:function (data) {
+                    var optStr = "<option>选择班级</option>";
+                    $.each(data, function(i, v) {
+                        var optTemp = "";
+                        if(v['classes']!=null){
+                            $.each(v['classes'], function (i1,v1) {
+                                optTemp+="<option value='"+v1["classId"]+"'>"+v1["className"]+"</option>"
+                            })
+                        }
+
+                        optStr+="<optgroup label='"+v["gradeName"]+"'>"+optTemp+"</optgroup>"
+                    });
+                    $("#class_id").html(optStr);
+                }
+            });
+    }
+    });
+
+    laydate.render({
+        elem: '#class_year1',//指定元素
+        type: 'year',
+        format: 'yyyy学年',
+        yearStr: "学年",
+        done: function(value, date, endDate){
+            $.ajax({
+                type : "POST",
+                url:"${ctxPath}/clazz/get_tree",
+                data : {
+                    classYear: date.year
+                },
+                success:function (data) {
+                    var optStr = "<option>选择班级</option>";
+                    $.each(data, function(i, v) {
+                        var optTemp = "";
+                        if(v['classes']!=null){
+                            $.each(v['classes'], function (i1,v1) {
+                                optTemp+="<option value='"+v1["classId"]+"'>"+v1["className"]+"</option>"
+                            })
+                        }
+
+                        optStr+="<optgroup label='"+v["gradeName"]+"'>"+optTemp+"</optgroup>"
+                    });
+                    $("#class_id").html(optStr);
+                }
+            });
+        }
+    });
+
+    //身份证号码验证 验证成功改变性别
+    jQuery.validator.addMethod("isIdCardNo", function(value, element) {
+
+        if(value==""){
+            return true;
+        }else{
+            if(idCardNoUtil.checkIdCardNo(value)){
+                var info = idCardNoUtil.getIdCardInfo(value);
+                if(info.gender == "男"){
+                    $("input[name='studentSex']:eq(1)").parent().removeClass("checked");
+                    $("input[name='studentSex']:eq(1)").attr("disabled",true);
+                    $("input[name='studentSex']:eq(0)").attr("checked",true);
+                    $("input[name='studentSex']:eq(0)").parent().addClass("checked");
+                }else {
+                    $("input[name='studentSex']:eq(0)").parent().removeClass("checked");
+                    $("input[name='studentSex']:eq(0)").attr("disabled",true);
+                    $("input[name='studentSex']:eq(1)").attr("checked",true);
+                    $("input[name='studentSex']:eq(1)").parent().addClass("checked");
+                }
+                return this.optional(element) || idCardNoUtil.checkIdCardNo(value);
+            }
+        }
+
+    },"请输入正确的身份证号");
+
+
+</script>
+</html>

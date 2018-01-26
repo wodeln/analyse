@@ -83,6 +83,17 @@ public class StudentController extends BaseController {
         return rstFulBody;
     }
 
+    @RequestMapping("batch_add_student")
+    public String batchAddStudent(Model model){
+
+        String curYear = getCurrentYear()+"";
+        List<Grade> grades = makeGradeTree(classesService.selectAllGrade(),curYear);
+
+        model.addAttribute("grades",grades);
+        model.addAttribute("cur_year",curYear+"学年");
+        return "/student/batch_add_student.html";
+    }
+
     @RequestMapping("edit_student.html")
     public String editUI(){
         return "student/edit_student.html";
