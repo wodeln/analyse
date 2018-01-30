@@ -1802,7 +1802,7 @@ table.dataTable thead .sorting_desc_disabled
 }.form-control:focus,
 .single-line:focus
 {
-    border-color: #1ab394!important;
+    border-color: #1ab394;
 }.has-success .form-control
 {
     border-color: #1ab394;
