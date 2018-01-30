@@ -16,8 +16,15 @@
         width: 4.33333333%;
         height: 34px;
         line-height: 34px;
-        padding:0;
+        padding: 0;
         cursor: pointer;
+    }
+    .has-error:focus{
+        border-color: #ed5565;
+    }
+
+    .has-error {
+        border-color: #ed5565;
     }
 </style>
 <div class="row">
@@ -25,34 +32,20 @@
         <div class="ibox float-e-margins">
             <div class="ibox-content">
                 <span class="m-t3 help-block m-b-none pr5">
-                    <i class="fa fa-info-circle"></i> 请尽量填写身份证信息，正确填写身份证信息后，性别、年龄、户口所在地等信息系统会自动判断并完善
+                    <i class="fa fa-info-circle"></i> 点击左侧“<i class="fa fa-plus"></i>”添加条目，“<i class="fa fa-save"></i>”保存信息。请尽量填写身份证信息，正确填写身份证信息后，性别、年龄、户口所在地等信息系统会自动判断并完善。
+                    <span class="pull-right btn btn-sm btn-primary m3" id="save"><i class="fa fa-save"></i></span>
+                    <span class="pull-right btn btn-sm btn-primary m3" id="add_item"><i class="fa fa-plus"></i></span>
                 </span>
                 <form class="form-horizontal m-t" id="viladate_form">
-                    <div class="form-group col-sm-7">
-                        <span class="col-sm-3">
-                            <input name="classYear[]" class="form-control class_year" value="${cur_year}" type="text" required>
-
-                        </span>
-                        <span class="col-sm-3">
-                            <select id="class_id" name="classId" class="form-control" required>
+                    <!--<div class="form-group col-sm-12">
+                        <span class="col-sm-2 w15"><input placeholder="学生姓名 例：小明" name="studentName" class="form-control student_name" type="text" required></span>
+                        <span class="col-sm-2 w15"><input name="classYear[]" class="form-control class_year" value="${cur_year}" type="text" required></span>
+                        <span class="col-sm-2 w15">
+                            <select id="class_id" name="classId[]" class="form-control" required>
                                 <option>选择班级</option>
-                                @for(grade in grades){
-                                    <optgroup label="${grade.gradeName}">
-                                        @if(!isEmpty(grade.classes)){
-                                            @for(clazz in grade.classes){
-                                            <option value="${clazz.classId}">${clazz.className}</option>
-                                            @}
-                                        @}
-                                    </optgroup>
-                                @}
+
                             </select>
                         </span>
-                        <span class="pull-right btn btn-sm btn-primary m3"><i class="fa fa-save"></i></span>
-                        <span class="pull-right btn btn-sm btn-primary m3" id="add_item"><i class="fa fa-plus"></i></span>
-                    </div>
-                    <div class="form-group col-sm-12" id="itme1">
-                        <input name="classYear[]" class="form-control" id="class_year1" value="${cur_year}" type="text" required>
-                        <span class="col-sm-2 w15"><input placeholder="学生姓名 例：小明" name="studentName" class="form-control student_name" type="text" required></span>
                         <span class="col-sm-2 w15"><input name="studentCardNum[]" placeholder="身份证号码" class="form-control student_card_num" type="text"></span>
                         <span class="col-sm-2 w15"><input name="studentAge[]" placeholder="年龄" class="form-control student_age" type="text"></span>
                         <span class="col-sm-2 w15">
@@ -62,21 +55,81 @@
                                 <option value="2">女</option>
                             </select>
                         </span>
-                    </div>
+                    </div>-->
                 </form>
             </div>
         </div>
     </div>
 </div>
 @}
+<div id="opt_str" class="hidden">
+    @for(grade in grades){
+    <optgroup label="${grade.gradeName}">
+        @if(!isEmpty(grade.classes)){
+        @for(clazz in grade.classes){
+        <option value="${clazz.classId}">${grade.gradeName}${clazz.className}</option>
+        @}
+        @}
+    </optgroup>
+    @}
+</div>
 </body>
 <script src="/js/plugins/layer/laydate/laydate.js"></script>
 <script src="/js/card.js"></script>
 <script type="text/javascript">
     $("#add_item").click(function(){
-        var del = '<span class="col-sm-1 w4" onclick="del_item(this)"><i class="fa fa-close text-danger"></i></span>';
-        var item = '<div class="form-group col-sm-12">'+$("#itme1").html()+del+'</div>';
-        $("#viladate_form").append(item);
+        /*var del = '<span class="col-sm-1 w4" onclick="del_item(this)"><i class="fa fa-close text-danger"></i></span>';
+        var item = '<div class="form-group col-sm-12">'+$("#itme1").html()+del+'</div>';*/
+        var idSort = 0 ;
+        if($(".form-group").length > 0) {
+
+            idSort= parseInt($(".form-group:last").attr("id"))+1;
+            if(!checkForm(idSort-1)) return;
+        }
+
+
+        var divStart='<div class="form-group col-sm-12" id="'+idSort+'">';
+        var divEnd = '</div>';
+
+        var spanStart = '<span class="col-sm-2 w15" id="fs'+idSort+'">'
+        var spanEnd = '</span>';
+
+        var inputName = spanStart+'<input placeholder="学生姓名 例：小明" name="studentName[]" id="n'+idSort+'" id_sort="'+idSort+'" class="form-control student_name" type="text">'+ spanEnd;
+        var inputCard = spanStart+'<input name="studentCardNum[]" onkeyup="checkIdCard(this)" placeholder="身份证号码" id="c'+idSort+'" id_sort="'+idSort+'" class="form-control student_card_num" type="text">'+ spanEnd;
+        var inputAge = spanStart+'<input name="studentAge[]" placeholder="年龄" id="sa'+idSort+'" id_sort="'+idSort+'" class="form-control student_age" type="text">'+ spanEnd;
+        var inputSex = spanStart+'<select name="studentSex[]" id="ss'+idSort+'" id_sort="'+idSort+'" class="form-control sex"> <option>选择性别</option> <option value="1">男</option> <option value="2">女</option> </select>'+ spanEnd;
+        var del = '<span class="col-sm-1 w4" id="d'+idSort+'" id_sort="'+idSort+'" onclick="del_item(this)"><i class="fa fa-close text-danger"></i></span>';
+
+        var inputYear="";
+        var options="";
+        var inputClass="";
+
+        if($(".form-group").length == 0) {
+            inputYear = spanStart+'<input name="classYear[]" id="y'+idSort+'" id_sort="'+idSort+'" class="form-control class_year" value="${cur_year}" type="text" required>'+ spanEnd;
+            options = $("#opt_str").html();
+            inputClass = spanStart+'<select name="classId[]" id="cc'+idSort+'" id_sort="'+idSort+'" class="form-control" required><option value="">选择班级</option>'+options+'</select>'+ spanEnd;
+        }else {
+            var preId = idSort-1;
+            var preYearId = "y"+preId;
+            var preClass = "cc"+preId;
+            var yearValue = $("#"+preYearId).val();
+            var options = $("#"+preClass).html();
+
+            var preClassValue = $("#"+preClass).val();
+            var curClassId = "cc"+idSort;
+
+           var index = $("#ddlRegType").find("option:selected").selectedIndex;
+
+            inputYear = spanStart+'<input name="classYear[]" id="y'+idSort+'" id_sort="'+idSort+'" class="form-control class_year" value="'+yearValue+'" type="text" required>'+ spanEnd;
+            inputClass = spanStart+'<select name="classId[]" id="cc'+idSort+'" id_sort="'+idSort+'" class="form-control" required>'+options+'</select>'+ spanEnd;
+        }
+
+        var htmlStr = divStart + inputName +  inputYear + inputClass + inputCard + inputAge + inputSex + del + divEnd;
+
+        $("#viladate_form").append(htmlStr);
+        $("#"+curClassId).val(preClassValue);
+
+        addYear(idSort);
     });
 
     function del_item(obj){
@@ -97,91 +150,131 @@
         "hideMethod": "fadeOut"
     }
 
-    laydate.render({
-        elem: '.class_year',//指定元素
-        type: 'year',
-        format: 'yyyy学年',
-        yearStr: "学年",
-        done: function(value, date, endDate){
-            $.ajax({
-                type : "POST",
-                url:"${ctxPath}/clazz/get_tree",
-                data : {
-                    classYear: date.year
-                },
-                success:function (data) {
-                    var optStr = "<option>选择班级</option>";
-                    $.each(data, function(i, v) {
-                        var optTemp = "";
-                        if(v['classes']!=null){
-                            $.each(v['classes'], function (i1,v1) {
-                                optTemp+="<option value='"+v1["classId"]+"'>"+v1["className"]+"</option>"
-                            })
-                        }
+    function addYear(idSort) {
+        var id = "#y"+idSort
+        var classId = "cc"+idSort;
+        laydate.render({
+            elem: id,//指定元素
+            type: 'year',
+            format: 'yyyy学年',
+            yearStr: "学年",
+            done: function(value, date, endDate){
+                $.ajax({
+                    type : "POST",
+                    url:"${ctxPath}/clazz/get_tree",
+                    data : {
+                        classYear: date.year
+                    },
+                    success:function (data) {
+                        var optStr = "<option>选择班级</option>";
+                        $.each(data, function(i, v) {
+                            var optTemp = "";
+                            if(v['classes']!=null){
+                                $.each(v['classes'], function (i1,v1) {
+                                    optTemp+="<option value='"+v1["classId"]+"'>"+v1["className"]+"</option>"
+                                })
+                            }
 
-                        optStr+="<optgroup label='"+v["gradeName"]+"'>"+optTemp+"</optgroup>"
-                    });
-                    $("#class_id").html(optStr);
-                }
-            });
-    }
-    });
-
-    laydate.render({
-        elem: '#class_year1',//指定元素
-        type: 'year',
-        format: 'yyyy学年',
-        yearStr: "学年",
-        done: function(value, date, endDate){
-            $.ajax({
-                type : "POST",
-                url:"${ctxPath}/clazz/get_tree",
-                data : {
-                    classYear: date.year
-                },
-                success:function (data) {
-                    var optStr = "<option>选择班级</option>";
-                    $.each(data, function(i, v) {
-                        var optTemp = "";
-                        if(v['classes']!=null){
-                            $.each(v['classes'], function (i1,v1) {
-                                optTemp+="<option value='"+v1["classId"]+"'>"+v1["className"]+"</option>"
-                            })
-                        }
-
-                        optStr+="<optgroup label='"+v["gradeName"]+"'>"+optTemp+"</optgroup>"
-                    });
-                    $("#class_id").html(optStr);
-                }
-            });
-        }
-    });
-
-    //身份证号码验证 验证成功改变性别
-    jQuery.validator.addMethod("isIdCardNo", function(value, element) {
-
-        if(value==""){
-            return true;
-        }else{
-            if(idCardNoUtil.checkIdCardNo(value)){
-                var info = idCardNoUtil.getIdCardInfo(value);
-                if(info.gender == "男"){
-                    $("input[name='studentSex']:eq(1)").parent().removeClass("checked");
-                    $("input[name='studentSex']:eq(1)").attr("disabled",true);
-                    $("input[name='studentSex']:eq(0)").attr("checked",true);
-                    $("input[name='studentSex']:eq(0)").parent().addClass("checked");
-                }else {
-                    $("input[name='studentSex']:eq(0)").parent().removeClass("checked");
-                    $("input[name='studentSex']:eq(0)").attr("disabled",true);
-                    $("input[name='studentSex']:eq(1)").attr("checked",true);
-                    $("input[name='studentSex']:eq(1)").parent().addClass("checked");
-                }
-                return this.optional(element) || idCardNoUtil.checkIdCardNo(value);
+                            optStr+="<optgroup label='"+v["gradeName"]+"'>"+optTemp+"</optgroup>"
+                        });
+                        $("#"+classId).html(optStr);
+                    }
+                });
             }
+        });
+    }
+
+    function checkForm(idSort) {
+        var nameId = "n"+idSort;
+        var yearId = "y"+idSort;
+        var clazzId = "cc"+idSort;
+        /*var ageId = "sa"+idSort;
+        var sexId = "ss"+idSort;
+        var cardId = "c"+idSort;*/
+        var errorMsg='';
+
+        var isError = true;
+
+        if($("#"+nameId).val().length==0){
+            if($("#"+nameId+"-error").html()==undefined){
+                errorMsg ='<span id="'+nameId+'-error" class="help-block m-b-none"><i class="fa fa-times-circle"></i> 请填写姓名</span>';
+                $("#"+nameId).parent().append(errorMsg);
+                $("#"+nameId).parent().addClass("has-error");
+
+            }
+            isError = false;
+        }else if($("#"+nameId).val().length<2){
+            if($("#"+nameId+"-error").html()==undefined) {
+                errorMsg = '<span id="' + nameId + '-error" class="help-block m-b-none"><i class="fa fa-times-circle"></i> 姓名长度至少为2</span>';
+                $("#" + nameId).parent().append(errorMsg);
+                $("#" + nameId).parent().addClass("has-error");
+            }
+            isError = false;
+        }else{
+            $("#"+nameId+"-error").remove();
+            $("#"+nameId).parent().removeClass("has-error");
         }
 
-    },"请输入正确的身份证号");
+        if($("#"+clazzId).val()==""){
+            if($("#"+clazzId+"-error").html()==undefined) {
+                errorMsg = '<span id="' + clazzId + '-error" class="help-block m-b-none"><i class="fa fa-times-circle"></i> 请选择学生所属班级</span>';
+                $("#" + clazzId).parent().append(errorMsg);
+                $("#" + clazzId).parent().addClass("has-error");
+            }
+            isError = false;
+        } else{
+            $("#"+clazzId+"-error").remove();
+            $("#"+clazzId).parent().removeClass("has-error");
+        }
 
+        return isError;
+    }
+
+    function checkIdCard(obj) {
+        var sort = $(obj).attr("id_sort");
+        var ageId = "sa"+sort;
+        var sexId = "ss"+sort;
+        if(IdCardUtils.isIdCard18($(obj).val())){
+            var info = IdCardUtils.getPersonInfo18($(obj).val());
+
+            $("#"+ageId).val(info.age);
+            if(info.sex == "M"){
+                $("#"+sexId).val(1);
+            }else {
+                $("#"+sexId).val(2);
+            }
+            $(obj).removeClass("has-error");
+        }else {
+            $("#"+sexId).val("");
+            $("#"+ageId).val("");
+            $(obj).addClass("has-error");
+        }
+    }
+
+    $("#save").click(function () {
+        var isCheck = true;
+        if($(".form-group").length==0) isCheck=false;
+        $(".form-group").each(function(){
+            if(!checkForm($(this).attr("id"))) isCheck=false;
+        });
+
+        if(isCheck){
+            $.ajax({
+                type : "POST",
+                url:"${ctxPath}/student/batch_add_student",//+tab,
+                data : $('#viladate_form').serialize(),
+                success: function(data){
+                    if(data['status']==1){
+                        toastr.success(data['body']);
+                        setTimeout('window.location.href="/student/index.html"',900);
+                    }else{
+                        toastr.success(data['body']);
+                    }
+                }
+            });
+        }
+
+    });
 
 </script>
 </html>
