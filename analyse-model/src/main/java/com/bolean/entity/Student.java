@@ -1,9 +1,6 @@
 package com.bolean.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -83,6 +80,7 @@ public class Student implements Serializable {
     /**
      * 班级名称
      */
+    @Transient
     private String className;
 
     /**

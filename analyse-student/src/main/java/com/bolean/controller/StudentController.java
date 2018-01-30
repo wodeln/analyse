@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import utils.DateHelper;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import static utils.DateHelper.getCurrentYear;
@@ -83,8 +84,8 @@ public class StudentController extends BaseController {
         return rstFulBody;
     }
 
-    @RequestMapping("batch_add_student")
-    public String batchAddStudent(Model model){
+    @RequestMapping("batch_add_student.html")
+    public String batchAddStudentUI(Model model){
 
         String curYear = getCurrentYear()+"";
         List<Grade> grades = makeGradeTree(classesService.selectAllGrade(),curYear);
@@ -92,6 +93,37 @@ public class StudentController extends BaseController {
         model.addAttribute("grades",grades);
         model.addAttribute("cur_year",curYear+"学年");
         return "/student/batch_add_student.html";
+    }
+
+    @ResponseBody
+    @RequestMapping("batch_add_student")
+    public RSTFulBody batchAddStudent(
+                                    @RequestParam(value="studentName[]") String[] studentName,
+                                    @RequestParam(value="classId[]") String[] classId,
+                                    @RequestParam(value="studentCardNum[]") String[] studentCardNum,
+                                    @RequestParam(value="studentAge[]") String[] studentAge,
+                                    @RequestParam(value="studentSex[]") String[] studentSex
+    ){
+//        String[] students = request.getParameterValues("studentName[]");
+        User sessionUser = getSessionUser();
+        List<Student> students = new ArrayList<>();
+        for(int i=0;i<studentName.length;i++){
+            Student student = new Student();
+            student.setStudentName(studentName[i]);
+            student.setClassId((long)Integer.parseInt(classId[i]));
+            student.setStudentCardNum(studentCardNum[i]);
+            student.setStudentAge(studentAge[i]==""?null:Integer.parseInt(studentAge[i]));
+            student.setStudentSex(Integer.parseInt(studentSex[i]));
+            student.setCreateName(sessionUser.getRealName());
+            student.setCreateId(sessionUser.getUserId());
+            student.setStatus(2);
+            students.add(student);
+        }
+        int res = studentService.insertList(students);
+        RSTFulBody rstFulBody=new RSTFulBody();
+        if(res>0) rstFulBody.success("添加成功！");
+        else  rstFulBody.fail("添加失败！");
+        return rstFulBody;
     }
 
     @RequestMapping("edit_student.html")
