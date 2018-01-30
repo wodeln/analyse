@@ -14,7 +14,7 @@
     </tr>
         @if(!isEmpty(grade.classes)){
             @for(clazz in grade.classes){
-            <tr class="treegrid-${grade.gradeId}${clazz.classId} treegrid-parent-${grade.gradeId}">
+            <tr class="treegrid-${grade.gradeId}-${clazz.classId} treegrid-parent-${grade.gradeId}">
                 <td>${clazz.classYear,"yyyy"}学年 ${grade.gradeName} (${clazz.className})</td>
                 <td></td>
                 <td></td>
@@ -28,7 +28,7 @@
             </tr>
                 @if(!isEmpty(clazz.students)){
                     @for(student in clazz.students){
-                    <tr class="treegrid-${grade.gradeId}${clazz.classId}${student.studentId} treegrid-parent-${grade.gradeId}${clazz.gradeId}">
+                    <tr class="treegrid-${grade.gradeId}-${clazz.classId}-${student.studentId} treegrid-parent-${grade.gradeId}-${clazz.classId}">
                         <td>${student.studentName}</td>
                         <td>${student.studentCode}</td>
                         <td></td>
