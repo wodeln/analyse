@@ -52,6 +52,14 @@ public class DateHelper {
         return (sdf.format(now.getTime()));
     }
 
+    public static String getCurDateTimeMI(){
+        Calendar now = Calendar.getInstance(TimeZone.getDefault());
+        String DATE_FORMAT = "yyyyMMddHHmmssSSS";
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        sdf.setTimeZone(TimeZone.getDefault());
+        return (sdf.format(now.getTime()));
+    }
+
     /**
      * 返回日期格式(yyyy-MM-dd HH:mm:ss)
      *
