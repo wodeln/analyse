@@ -494,11 +494,15 @@ var IdCardUtils = {
         var birthday='';
         var address='';
         var sex='';
+        var province='';
+        var district=''
         address=this.areas[idCard.substr(0,2)+'0000']+' '+this.areas[idCard.substr(0,4)+'00']+' '+this.areas[idCard.substr(0,6)];
+        province=this.areas[idCard.substr(0,2)+'0000'];
+        district=this.areas[idCard.substr(0,6)];
         sex=(idCard.substr(16,1)%2===0)?'F':'M';
         birthday=idCard.substr(6,8).replace(/(\d{4})(\d{2})(\d{2})/,'$1-$2-$3');
         age=new Date().getFullYear()-idCard.substr(6,4)+1;
-        var person={'address':address,'sex':sex,'birthday':birthday,'age':age};
+        var person={'address':address,'sex':sex,'birthday':birthday,'age':age,'province': province,'district':district};
         return person;
     }
 };
