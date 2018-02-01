@@ -17,6 +17,20 @@ public class Student implements Serializable {
 
     private String headImg;
 
+    private Integer studentAliId;
+
+    private String hProvince;
+
+    private String hDistrict;
+
+    private String hAddress;
+
+    private String nowAddress;
+
+    private String contactNum;
+
+    private String contactName;
+
     /**
      * 状态 0:删除 1:锁定 2:正常
      */
@@ -96,6 +110,66 @@ public class Student implements Serializable {
     private Integer isIn;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getStudentAliId() {
+        return studentAliId;
+    }
+
+    public void setStudentAliId(Integer studentAliId) {
+        this.studentAliId = studentAliId;
+    }
+
+    public String gethProvince() {
+        return hProvince;
+    }
+
+    public void sethProvince(String hProvince) {
+        this.hProvince = hProvince;
+    }
+
+    public String gethDistrict() {
+        return hDistrict;
+    }
+
+    public void sethDistrict(String hDistrict) {
+        this.hDistrict = hDistrict;
+    }
+
+    public String gethAddress() {
+        return hAddress;
+    }
+
+    public void sethAddress(String hAddress) {
+        this.hAddress = hAddress;
+    }
+
+    public String getNowAddress() {
+        return nowAddress;
+    }
+
+    public void setNowAddress(String nowAddress) {
+        this.nowAddress = nowAddress;
+    }
+
+    public String getContactNum() {
+        return contactNum;
+    }
+
+    public void setContactNum(String contactNum) {
+        this.contactNum = contactNum;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public void setStudentSex(Integer studentSex) {
+        this.studentSex = studentSex;
+    }
 
     public Long getStudentId() {
         return studentId;
