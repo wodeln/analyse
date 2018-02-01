@@ -3,6 +3,11 @@ spring:
     active: dev
   session:
     store-type: none
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
 #  thymeleaf:
 #    prefix: classpath:/templates/
 #    suffix: .html
