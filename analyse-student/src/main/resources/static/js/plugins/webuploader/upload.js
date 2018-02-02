@@ -17,6 +17,14 @@ jQuery(function() {
         // 文件接收服务端。
         server: '/student/import_excel.html',
 
+        duplicate: true,
+
+        fileNumLimit: 1,
+
+        accept: {
+            title: 'Office',
+            extensions: 'xls,xlsx'
+        },
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
         pick: '#picker'
