@@ -7,15 +7,25 @@ import com.bolean.entity.Student;
 import com.bolean.entity.User;
 import com.bolean.service.ClassesService;
 import com.bolean.service.StudentService;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import utils.DateHelper;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import static utils.DateHelper.getCurrentYear;
@@ -102,7 +112,15 @@ public class StudentController extends BaseController {
                                     @RequestParam(value="classId[]") String[] classId,
                                     @RequestParam(value="studentCardNum[]") String[] studentCardNum,
                                     @RequestParam(value="studentAge[]") String[] studentAge,
-                                    @RequestParam(value="studentSex[]") String[] studentSex
+                                    @RequestParam(value="studentSex[]") String[] studentSex,
+                                    @RequestParam(value="studentCode[]") String[] studentCode,
+                                    @RequestParam(value="studentAliId[]") String[] studentAliId,
+                                    @RequestParam(value="province[]") String[] province,
+                                    @RequestParam(value="district[]") String[] district,
+                                    @RequestParam(value="address[]") String[] address,
+                                    @RequestParam(value="contactName[]") String[] contactName,
+                                    @RequestParam(value="contactNum[]") String[] contactNum,
+                                    @RequestParam(value="nowAddress[]") String[] nowAddress
     ){
 //        String[] students = request.getParameterValues("studentName[]");
         User sessionUser = getSessionUser();
@@ -111,9 +129,17 @@ public class StudentController extends BaseController {
             Student student = new Student();
             student.setStudentName(studentName[i]);
             student.setClassId((long)Integer.parseInt(classId[i]));
-            student.setStudentCardNum(studentCardNum[i]);
-            student.setStudentAge(studentAge[i]==""?null:Integer.parseInt(studentAge[i]));
+            student.setStudentCardNum(studentCardNum.length==0?null:studentCardNum[i]);
+            student.setStudentAge(studentAge.length==0 || studentAge[i]=="" ?null:Integer.valueOf(studentAge[i]));
             student.setStudentSex(Integer.parseInt(studentSex[i]));
+            student.setStudentCode(studentCode.length==0?null:studentCode[i]);
+            student.setStudentAliId(studentAliId.length==0 || studentAliId[i]=="" ?null:Long.valueOf(studentAliId[i]));
+            student.sethProvince(province.length==0?null:province[i]);
+            student.sethDistrict(district.length==0?null:district[i]);
+            student.sethAddress(address.length==0?null:address[i]);
+            student.setContactName(contactName.length==0?null:contactName[i]);
+            student.setContactNum(contactNum.length==0?null:contactNum[i]);
+            student.setNowAddress(nowAddress.length==0?null:nowAddress[i]);
             student.setCreateName(sessionUser.getRealName());
             student.setCreateId(sessionUser.getUserId());
             student.setStatus(2);
@@ -142,6 +168,32 @@ public class StudentController extends BaseController {
         return null;
     }
 
+    @ResponseBody
+    @RequestMapping("/import_excel.html")
+    public Map<String,Object> importExcel(MultipartFile file) throws IOException {
+
+        Map<String,Object> stateMap = upload(file);
+        Map<String,Object> result = new HashMap<>();
+        if(stateMap.get("status") == "1") {
+            List<Student> students = new ArrayList<>();
+            Workbook book = null;
+            try {
+                book = new XSSFWorkbook(new FileInputStream(ResourceUtils.getFile(stateMap.get("fileInfo")+"")));
+            } catch (Exception ex) {
+                book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile(stateMap.get("fileInfo")+"")));
+            }
+//
+            Sheet sheet = book.getSheetAt(0);
+            for(int i=2; i<sheet.getLastRowNum()+1; i++) {
+                Row row = sheet.getRow(i);
+                Cell ii = row.getCell(0);
+                System.out.println("");
+            }
+            System.out.println("");
+        }
+        return null;
+    }
+
     private List<Grade> makeGradeStudentTree(List<Grade> grades,String classYear){
         for(int i=0;i<grades.size();i++){
             Map<String,Object> tempMap = new HashMap<>();
@@ -158,7 +210,6 @@ public class StudentController extends BaseController {
                     map.put("classId",classes.get(j).getClassId());
                     List<Student> students = studentService.selectByInfo(map);
                     if(students.size()>0) classes.get(j).setStudents(students);
-
                 }
             }
         }

@@ -17,7 +17,7 @@ public class Student implements Serializable {
 
     private String headImg;
 
-    private Integer studentAliId;
+    private Long studentAliId;
 
     private String hProvince;
 
@@ -111,11 +111,11 @@ public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getStudentAliId() {
+    public Long getStudentAliId() {
         return studentAliId;
     }
 
-    public void setStudentAliId(Integer studentAliId) {
+    public void setStudentAliId(Long studentAliId) {
         this.studentAliId = studentAliId;
     }
 

@@ -3,6 +3,7 @@
 @layout("/layout/_form_layout.html"){
 <link href="/css/plugins/layer/laydate.css" rel="stylesheet" type="text/css">
 <link href="/css/plugins/webuploader/webuploader.css" rel="stylesheet" type="text/css">
+<link href="/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet" type="text/css">
 <style type="text/css">
     .m3 {
         margin-left: 3px;
@@ -160,6 +161,7 @@
 <script src="/js/plugins/layer/laydate/laydate.js"></script>
 <script src="/js/plugins/webuploader/webuploader.js"></script>
 <script src="/js/plugins/webuploader/upload.js"></script>
+<script src="/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <script src="/js/card.js"></script>
 <script type="text/javascript">
 
@@ -194,7 +196,7 @@
         var contactName = spanStartW9 + '<input placeholder="联系人" name="contactName[]" id="contact_name'+ idSort +'" id_sort="' + idSort + '" class="form-control contact_name" type="text">' + spanEnd;
         var contactNum = spanStartW12 + '<input placeholder="联系电话" name="contactNum[]" id="contact_num'+ idSort +'" id_sort="' + idSort + '" class="form-control contact_num" type="text">' + spanEnd;
         var nowAddress = spanStartW30 + '<input placeholder="现居地址" name="nowAddress[]" id="now_address'+ idSort +'" id_sort="' + idSort + '" class="form-control now_address" type="text">' + spanEnd;
-        var inputCard = spanStartW18 + '<input name="studentCardNum[]" onkeyup="checkIdCard(this)" placeholder="身份证号码" id="card' + idSort + '" id_sort="' + idSort + '" class="form-control student_card_num" type="text">' + spanEnd;
+        var inputCard = spanStartW18 + '<input name="studentCardNum[]" onkeyup="checkIdCard(this)" placeholder="身份证号码" data-mask="999 999 9999 9999 9999" id="card' + idSort + '" id_sort="' + idSort + '" class="form-control student_card_num" type="text">' + spanEnd;
         var inputAge = spanStartW9 + '<input name="studentAge[]" placeholder="年龄" id="age' + idSort + '" id_sort="' + idSort + '" class="form-control student_age" type="text">' + spanEnd;
         var inputSex = spanStartW9 + '<select name="studentSex[]" id="sex' + idSort + '" id_sort="' + idSort + '" class="form-control sex"> <option value="">性别</option> <option value="1">男</option> <option value="2">女</option> </select>' + spanEnd;
 
@@ -353,13 +355,15 @@
     }
 
     function checkIdCard(obj) {
+        var idCard = $(obj).val().replace(/\s+/g,"");
+        console.log(idCard);
         var sort = $(obj).attr("id_sort");
         var ageId = "age" + sort;
         var sexId = "sex" + sort;
         var provinceId = "province" + sort;
         var districtId = "district" + sort;
-        if (IdCardUtils.isIdCard18($(obj).val())) {
-            var info = IdCardUtils.getPersonInfo18($(obj).val());
+        if (IdCardUtils.isIdCard18(idCard)) {
+            var info = IdCardUtils.getPersonInfo18(idCard);
             $("#" + ageId).val(info.age);
             $("#" + provinceId).val(info.province);
             $("#" + districtId).val(info.district);
