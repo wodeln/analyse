@@ -48,6 +48,17 @@
     .has-error {
         border-color: #ed5565;
     }
+    .form-group {
+        padding-top: 15px;
+        padding-bottom: 10px;
+        margin: 0;
+        border-bottom-width: 1px;
+        border-bottom-style: dashed;
+        border-bottom-color: #46ac89;
+    }
+    .i1{
+        background-color: #1cc09f;
+    }
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -175,8 +186,14 @@
         }
 
 
-        var divStart = '<div class="form-group col-sm-12 pl0" id="' + idSort + '">';
+        var spanStart = '<span class="form-group col-sm-12 pl0 i0" id="a0"';
+        var spanEnd = '</span>';
+
+        var divStart = '<div class="form-group col-sm-12">';
         var divEnd = '</div>';
+
+        var spanW6Start = '<span class="col-sm-6">';
+        var spanW6Start = '<span class="col-sm-12">';
 
         var spanStartT3 = '<span class="col-sm-12 pl0 mt3" id="fst' + idSort + '">';
         var spanStartT = '<span class="col-sm-12 pl0" id="fs' + idSort + '">';
@@ -185,7 +202,7 @@
         var spanStartW9 = '<span class="col-sm-2 w9 pr0">';
         var spanStartW30 = '<span class="col-sm-2 w30 pr0">';
         // var spanStartW3 = '<span class="col-sm-2 w3 pr0">';
-        var spanEnd = '</span>';
+
 
 
         var inputName = spanStartW12 + '<input placeholder="姓名 例：小明" name="studentName[]" id="name' + idSort + '" id_sort="' + idSort + '" class="form-control student_name" type="text">' + spanEnd;

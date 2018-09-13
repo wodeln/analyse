@@ -17,7 +17,7 @@ public class Student implements Serializable {
 
     private String headImg;
 
-    private Long studentAliId;
+    private String studentAliId;
 
     private String hProvince;
 
@@ -111,11 +111,11 @@ public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getStudentAliId() {
+    public String getStudentAliId() {
         return studentAliId;
     }
 
-    public void setStudentAliId(Long studentAliId) {
+    public void setStudentAliId(String studentAliId) {
         this.studentAliId = studentAliId;
     }
 
@@ -351,4 +351,24 @@ public class Student implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+
+    public void getSomething(){
+
+    }
+
+   /* if(json.getString("result").equals("true")){
+        //买的价格数量
+        JSONArray ja = json.getJSONArray("asks");
+        for (int i = 0; i < ja.size(); i++) {
+            JSONArray array=ja.getJSONArray(i);//[0.00000086,20789.9]
+            System.out.println("ask"+i+"数据");
+            Long price=(Long) array.get(0);
+            System.out.println("price"+price+"-->");
+            Long volme=(Long) array.get(1);
+            System.out.println("volme"+volme);
+        }
+    }
+*/
+
 }

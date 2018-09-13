@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.bolean.entity.Student">
     <id column="student_id" jdbcType="INTEGER" property="studentId" />
     <result column="class_id" jdbcType="INTEGER" property="classId" />
-    <result column="student_ali_id" jdbcType="INTEGER" property="studentAliId" />
+    <result column="student_ali_id" jdbcType="VARCHAR" property="studentAliId" />
     <result column="head_img" jdbcType="VARCHAR" property="headImg" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="student_age" jdbcType="INTEGER" property="studentAge" />

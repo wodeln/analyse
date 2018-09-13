@@ -7,6 +7,7 @@ import com.bolean.entity.Student;
 import com.bolean.entity.User;
 import com.bolean.service.ClassesService;
 import com.bolean.service.StudentService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -133,7 +134,7 @@ public class StudentController extends BaseController {
             student.setStudentAge(studentAge.length==0 || studentAge[i]=="" ?null:Integer.valueOf(studentAge[i]));
             student.setStudentSex(Integer.parseInt(studentSex[i]));
             student.setStudentCode(studentCode.length==0?null:studentCode[i]);
-            student.setStudentAliId(studentAliId.length==0 || studentAliId[i]=="" ?null:Long.valueOf(studentAliId[i]));
+            student.setStudentAliId(studentAliId.length==0?null:studentAliId[i]);
             student.sethProvince(province.length==0?null:province[i]);
             student.sethDistrict(district.length==0?null:district[i]);
             student.sethAddress(address.length==0?null:address[i]);
@@ -169,29 +170,49 @@ public class StudentController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping("/import_excel.html")
+    @RequestMapping("import_excel")
     public Map<String,Object> importExcel(MultipartFile file) throws IOException {
 
-        Map<String,Object> stateMap = upload(file);
+//        Map<String,Object> stateMap = upload(file);
         Map<String,Object> result = new HashMap<>();
-        if(stateMap.get("status") == "1") {
-            List<Student> students = new ArrayList<>();
+        result.put("status",0);
+        List<Student> students = new ArrayList<>();
+//        if(stateMap.get("status") == "1") {
+        if("1" == "1") {
             Workbook book = null;
             try {
-                book = new XSSFWorkbook(new FileInputStream(ResourceUtils.getFile(stateMap.get("fileInfo")+"")));
+//                book = new XSSFWorkbook(new FileInputStream(ResourceUtils.getFile(stateMap.get("fileInfo")+"")));
+                book = new XSSFWorkbook(new FileInputStream(ResourceUtils.getFile("D:\\workspace\\analyse-parent\\analyse-student\\target\\classes\\upload\\20180202\\20180202150140247.xlsx")));
             } catch (Exception ex) {
-                book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile(stateMap.get("fileInfo")+"")));
+//                book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile(stateMap.get("fileInfo")+"")));
+                book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile("D:\\workspace\\analyse-parent\\analyse-student\\target\\classes\\upload\\20180202\\20180202150140247.xlsx")));
             }
 //
             Sheet sheet = book.getSheetAt(0);
             for(int i=2; i<sheet.getLastRowNum()+1; i++) {
+                Student student = new Student();
                 Row row = sheet.getRow(i);
-                Cell ii = row.getCell(0);
-                System.out.println("");
+                student.setStudentAliId(row.getCell(0).getStringCellValue());
+                student.setStudentName(row.getCell(1).getStringCellValue());
+                student.setStudentCardNum(row.getCell(2).getStringCellValue());
+                student.setStudentSex(row.getCell(3).getStringCellValue().equals("男性")?1:2);
+                student.sethProvince(row.getCell(4).getStringCellValue());
+                student.sethDistrict(row.getCell(5).getStringCellValue());
+                student.sethAddress(row.getCell(6).getStringCellValue());
+                student.setNowAddress(row.getCell(7).getStringCellValue());
+                student.setContactNum(row.getCell(8).getStringCellValue());
+                student.setContactName(row.getCell(9).getStringCellValue());
+                students.add(student);
             }
-            System.out.println("");
+            result.put("status",1);
+            result.put("students",students);
         }
-        return null;
+        String curYear = getCurrentYear()+"";
+        List<Grade> grades = makeGradeTree(classesService.selectAllGrade(),curYear);
+        result.put("cur_year",curYear);
+        result.put("grades",grades);
+
+        return result;
     }
 
     private List<Grade> makeGradeStudentTree(List<Grade> grades,String classYear){
